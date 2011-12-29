@@ -1,0 +1,10 @@
+
+
+= US02 : gérer les investisseurs =
+
+A la création d'une start-up,il faut gérer les investisseur selon leur participation. 
+
+
+TS03 :Création des différents types d'investisseur, vérifier que la liste est cohérente.
+
+TS04 :Vérifier que les montants des participation sont non nulles.
