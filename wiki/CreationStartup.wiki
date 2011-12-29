@@ -1,0 +1,8 @@
+#summary One-sentence summary of this page.
+
+= US01: Création de start-up =
+
+Pour chaque start-up crée, il faut les gérer suivant les fondateurs et les participation
+
+TS01 : créer une start-up cohérente, vérifier les startup crée
+TS02 : Vérifier que les participation sont non nul,que l'id du start-up est unique et le fondateur n'a pas d'autre start-up.
