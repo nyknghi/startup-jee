@@ -1,4 +1,4 @@
-package ejb.entity;
+package ejb.entite;
 
 public class LeveeDeFonds {
 

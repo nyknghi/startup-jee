@@ -1,4 +1,4 @@
-package ejb.entity;
+package ejb.entite;
 
 public abstract class AbstraitInvestisseur {
 	protected int idInvestisseur;
