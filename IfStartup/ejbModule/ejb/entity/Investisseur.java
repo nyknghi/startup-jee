@@ -1,4 +1,4 @@
-package ejb.entite;
+package ejb.entity;
 
 public class Investisseur extends AbstraitInvestisseur {
 
