@@ -4,10 +4,12 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
-@Table(schema="ifstartup", name="fondateur")
+@Table(schema="IFStartupBD", name="fondateur")
 public class Fondateur extends AbstraitInvestisseur implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int idFondateur;
 	@Basic(optional=false)
 	private String nom;
@@ -36,10 +38,6 @@ public class Fondateur extends AbstraitInvestisseur implements Serializable{
 
 	public int getIdFondateur() {
 		return idFondateur;
-	}
-
-	public void setIdFondateur(int idFondateur) {
-		this.idFondateur = idFondateur;
 	}
 
 	public String getNom() {

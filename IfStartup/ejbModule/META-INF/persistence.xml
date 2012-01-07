@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0">
+	<persistence-unit name="SampleUnit">
+		<jta-data-source>java:IFStartupBD</jta-data-source>
+		<provider>org.hibernate.org.ejb.HibernatePersistence</provider>
+		<properties>
+			<property name="hibernate.hbm2ddl.auto" value="update"/>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLInnoDBDialect"/>
+			
+			<!--
+			<property name="connection.url">jdbc:mysql://localhost/IFStartupBD</property>
+			<property name="connection.username" value="root"/>
+			<property name="connection.password" value="admin"/>
+			-->
+		</properties>
+	</persistence-unit>
+</persistence>
