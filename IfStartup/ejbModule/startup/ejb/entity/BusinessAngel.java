@@ -1,25 +1,15 @@
 package startup.ejb.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.io.Serializable;
+import javax.persistence.*;
 
 @Entity
 @Table(schema="IFStartupBD", name="BusinessAngel")
-public class BusinessAngel extends AbstraitInvestisseur{
-	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private int idFondateur;
-	@Basic(optional=false)
-	private String nom;
-	@Basic(optional=false)
-	private String mail;
-	@Basic(optional=false)
-	private String mdp;
-	
+@DiscriminatorValue("BA")
+
+public class BusinessAngel extends AbstraitInvestisseur implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 	public BusinessAngel(){}
 	
 	public ClubAmi monterClub (String nom){
@@ -33,17 +23,33 @@ public class BusinessAngel extends AbstraitInvestisseur{
 	public void quitterClub (ClubAmi ca){
 		// TODO...
 	}
-	
-	@Override
-	public Participation investir(Startup st, float montant) {
-		return null;
+
+	public int getIdFondateur() {
+		return idInvestisseur;
 	}
 
-	@Override
-	public Inscription inscrireLeveeDeFonds(LeveeDeFonds le) {
-		return null;
+	public String getNom() {
+		return nom;
 	}
 
-	
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public String getMdp() {
+		return mdp;
+	}
+
+	public void setMdp(String mdp) {
+		this.mdp = mdp;
+	}
 	
 }

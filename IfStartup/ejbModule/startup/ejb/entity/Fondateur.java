@@ -4,19 +4,15 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
-@Table(schema="IFStartupBD", name="fondateur")
+@Table(name="Fondateur")
+@DiscriminatorValue("FONDATEUR")
+@NamedQuery(name="findFondateurByName", query="SELECT f FROM Fondateur as f WHERE f.nom = :nom")
 public class Fondateur extends AbstraitInvestisseur implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private int idFondateur;
-	@Basic(optional=false)
-	private String nom;
-	@Basic(optional=false)
-	private String mail;
-	@Basic(optional=false)
-	private String mdp;
+	@ManyToOne
+	@JoinColumn(name="startup_id")
+	private Startup startup;
 	
 	public Fondateur(){}
 	
@@ -26,18 +22,8 @@ public class Fondateur extends AbstraitInvestisseur implements Serializable{
 		this.mdp = mdp;
 	}
 	
-	@Override
-	public Participation investir(Startup st, float montant) {
-		return null;
-	}
-
-	@Override
-	public Inscription inscrireLeveeDeFonds(LeveeDeFonds le) {
-		return null;
-	}
-
 	public int getIdFondateur() {
-		return idFondateur;
+		return idInvestisseur;
 	}
 
 	public String getNom() {
@@ -63,5 +49,12 @@ public class Fondateur extends AbstraitInvestisseur implements Serializable{
 	public void setMdp(String mdp) {
 		this.mdp = mdp;
 	}
-	
+
+	public Startup getStartup() {
+		return startup;
+	}
+
+	public void setStartup(Startup startup) {
+		this.startup = startup;
+	}
 }

@@ -1,7 +1,11 @@
 package startup.ejb.session;
 
-import startup.ejb.entity.Fondateur;
+import java.util.ArrayList;
+
+import startup.ejb.entity.*;
 
 public interface InvestisseursFacade {
-	public Fondateur ajouterFondateur (Fondateur f);
+	public Startup creerStartup(String nom, String activite, float capital, Fondateur f);
+	public ArrayList<Fondateur> rechercherFondateur (String nom);
+	public Fondateur ajouterFondateur (Fondateur f, Startup s);
 }

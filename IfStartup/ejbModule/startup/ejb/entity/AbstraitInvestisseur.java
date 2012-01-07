@@ -1,8 +1,17 @@
 package startup.ejb.entity;
 
-public abstract class AbstraitInvestisseur {
+import javax.persistence.*;
 
-	public abstract Participation investir (Startup st, float montant);
-	public abstract Inscription inscrireLeveeDeFonds (LeveeDeFonds le);
-	
+@Entity
+@Inheritance(strategy=InheritanceType.JOINED)
+public abstract class AbstraitInvestisseur {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	protected int idInvestisseur;
+	@Basic(optional=false)
+	protected String nom;
+	@Basic(optional=false)
+	protected String mail;
+	@Basic(optional=false)
+	protected String mdp;
 }
