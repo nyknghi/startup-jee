@@ -14,8 +14,8 @@ public class Startup implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private int IdStartup;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long IdStartup;
 	@Basic(optional=false)
 	private String nomStartup;
 	private String activite;
@@ -40,7 +40,7 @@ public class Startup implements Serializable{
 		this.fondateurs.add(f);
 	}
 	
-	public int getIdStartup() {
+	public long getIdStartup() {
 		return IdStartup;
 	}
 
