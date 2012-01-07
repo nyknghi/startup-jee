@@ -1,4 +1,4 @@
-package startup.ejb.entity;
+package gestion_events;
 
 public class Inscription {
 

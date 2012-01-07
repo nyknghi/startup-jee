@@ -1,4 +1,6 @@
-package startup.ejb.entity;
+package gestion_events;
+
+import gestion_investisseurs.Fondateur;
 
 import java.io.Serializable;
 import java.util.HashSet;

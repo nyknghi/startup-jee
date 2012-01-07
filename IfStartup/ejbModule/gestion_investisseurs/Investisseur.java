@@ -1,4 +1,4 @@
-package startup.ejb.entity;
+package gestion_investisseurs;
 
 public class Investisseur {
 

@@ -1,4 +1,6 @@
-package startup.ejb.session;
+package gestion_investisseurs;
+
+import gestion_events.Startup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +12,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import startup.ejb.entity.Fondateur;
-import startup.ejb.entity.Startup;
 
 
 @Stateless (name="InvestisseursBean")

@@ -1,4 +1,6 @@
-package startup.ejb.session;
+package gestion_investisseurs;
+
+import gestion_events.Startup;
 
 import java.util.ArrayList;
 

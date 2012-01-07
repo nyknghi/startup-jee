@@ -1,7 +1,11 @@
-package startup.ejb.entity;
+package gestion_investisseurs;
+
+
+import gestion_events.Startup;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
 
 @Entity
 @Table(name="Fondateur")

@@ -1,4 +1,4 @@
-package startup.ejb.session;
+package gestion_investisseurs;
 
 import javax.ejb.Remote;
 

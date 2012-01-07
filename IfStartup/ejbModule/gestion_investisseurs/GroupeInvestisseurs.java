@@ -1,4 +1,5 @@
-package startup.ejb.entity;
+package gestion_investisseurs;
+
 
 import java.io.Serializable;
 import java.util.HashSet;
