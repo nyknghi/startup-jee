@@ -1,4 +1,4 @@
-package ejb.entity;
+package startup.ejb.entity;
 
 public class Inscription {
 
