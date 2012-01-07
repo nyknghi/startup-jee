@@ -1,4 +1,4 @@
-package startup.test;
+package startup.client.test;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,15 +9,17 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import ejb.entity.Fondateur;
-import ejb.session.InvestisseursRemote;
+import startup.ejb.entity.Fondateur;
+import startup.ejb.session.InvestisseursRemote;
+
 
 public class Main {
 	public static void main(String[] args) {
+		Context ctx;
 		try {
 			Properties props = new Properties();
 			try {
-				props.load(new FileInputStream("jndi.properties"));
+				props.load(new FileInputStream("./jndi.properties"));
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -25,15 +27,19 @@ public class Main {
 		}
 		//System.out.println(props.toString());
 		
-		Context ctx = new InitialContext();
-	    
+		ctx = new InitialContext();
+		/*ctx.addToEnvironment(InitialContext.INITIAL_CONTEXT_FACTORY,
+				"org.jnp.interfaces.NamingContextFactory");
+		ctx.addToEnvironment(InitialContext.URL_PKG_PREFIXES,
+				"org.jboss.naming:org.jnp.interfaces");
+		ctx.addToEnvironment(InitialContext.PROVIDER_URL,
+				"jnp://localhost:1099");
+		*/    
 		InvestisseursRemote g_inv = (InvestisseursRemote) ctx.lookup("InvestisseursBean/remote");
 		 
 		Fondateur f = new Fondateur("Dupont", "dupont@gmail.com", "123456");
 		g_inv.ajouterFondateur(f);
     	
-		System.out.println(g_inv.testSession());
-		
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
