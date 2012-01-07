@@ -3,16 +3,11 @@ package gestion_investisseurs;
 import gestion_events.Startup;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
-
 
 @Stateless (name="InvestisseursBean")
 public class InvestisseursBean implements InvestisseursRemote, InvestisseursLocal {

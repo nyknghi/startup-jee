@@ -23,5 +23,18 @@ public class ClubAmi implements Serializable {
 	public ClubAmi(String nom){
 		this.nomClub = nom;
 	}
+
+	public int getIdClub() {
+		return idClub;
+	}
+
+	public String getNomClub() {
+		return nomClub;
+	}
+
+	public void setNomClub(String nomClub) {
+		this.nomClub = nomClub;
+	}
+	
 	
 }

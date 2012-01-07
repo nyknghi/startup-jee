@@ -1,11 +1,9 @@
 package gestion_investisseurs;
 
-
 import gestion_events.Startup;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
 
 @Entity
 @Table(name="Fondateur")
@@ -14,7 +12,7 @@ import javax.persistence.*;
 public class Fondateur extends AbstraitInvestisseur implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="startup_id")
 	private Startup startup;
 	

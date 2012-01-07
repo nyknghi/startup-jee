@@ -1,9 +1,7 @@
 package gestion_investisseurs;
 
-
 import java.io.Serializable;
 import javax.persistence.*;
-
 
 @Entity
 @Table(schema="IFStartupBD", name="BusinessAngel")

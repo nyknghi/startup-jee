@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar>
+	<display-name>IfStartup </display-name>
+	<ejb-client-jar>IfStartupClient.jar</ejb-client-jar>
+	 <enterprise-beans>
+		<session>
+			<ejb-name>InvestisseursBean</ejb-name>
+			<remote>InvestisseursRemote</remote>
+			<local>InvestisseursLocal</local>
+			<ejb-class>InvestisseursBean</ejb-class>
+			<session-type>Stateless</session-type>			
+		</session>
+	</enterprise-beans>
+</ejb-jar>
