@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -11,14 +12,21 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(schema="IFStartupBD", name="GroupeInvestisseurs")
+@Table(name="GroupeInvestisseurs")
 @DiscriminatorValue("GROUPE")
 public class GroupeInvestisseurs extends AbstraitInvestisseur implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
+	@Basic(optional=false)
+	protected String nom;
+	@Basic(optional=false)
+	protected String mail;
+	@Basic(optional=false)
+	protected String mdp;
 	@OneToMany(mappedBy="groupe")
 	@JoinColumn(name="investisseursId")
 	private List<Investisseur> investisseurs;
+	
+	public GroupeInvestisseurs(){}
 	
 	public GroupeInvestisseurs (String nom){
 		this.nom = nom;

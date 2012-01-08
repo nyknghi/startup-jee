@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(schema="IFStartupBD", name="ClubAmi")
+@Table(name="ClubAmi")
 public class ClubAmi implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -20,6 +20,8 @@ public class ClubAmi implements Serializable {
 	@OneToMany(mappedBy="clubAmi")
 	List<Membre> businessAngels;
 
+	public ClubAmi(){}
+	
 	public ClubAmi(String nom){
 		this.nomClub = nom;
 		businessAngels = new ArrayList<Membre>();

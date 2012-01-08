@@ -6,9 +6,9 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Entity
-@Table(schema="IfStartup", name="Membre")
+@Table(name="Membre")
 @IdClass(MembreId.class)
-@NamedQuery(name="findMembreById", query="SELECT m FROM MEMBRE as m WHERE f.idBA = :idBA AND f.idClub = :idClub")
+@NamedQuery(name="findMembreById", query="SELECT m FROM Membre as m WHERE m.idBA = :idBA AND m.idClub = :idClub")
 
 public class Membre implements Serializable {
 
@@ -24,6 +24,8 @@ public class Membre implements Serializable {
 	@PrimaryKeyJoinColumn(name="clubAmi_id", referencedColumnName="idClub")
 	private ClubAmi clubAmi;
 	private Date date;
+	
+	public Membre(){}
 	
 	public Membre(ClubAmi club, BusinessAngel ba){
 		this.clubAmi = club;

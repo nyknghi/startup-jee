@@ -7,12 +7,17 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-@Table(schema="IFStartupBD", name="BusinessAngel")
+@Table(name="BusinessAngel")
 @DiscriminatorValue("BA")
 
 public class BusinessAngel extends AbstraitInvestisseur implements Serializable{
 	private static final long serialVersionUID = 1L;
-
+	@Basic(optional=false)
+	protected String nom;
+	@Basic(optional=false)
+	protected String mail;
+	@Basic(optional=false)
+	protected String mdp;
 	private boolean isMandataire = false;
 	@OneToMany(mappedBy="businessAngel")
 	private List<Membre> clubAmis;

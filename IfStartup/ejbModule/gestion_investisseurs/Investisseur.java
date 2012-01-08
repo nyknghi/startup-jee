@@ -8,7 +8,12 @@ import javax.persistence.*;
 @DiscriminatorValue("INVESTISSEUR")
 public class Investisseur extends AbstraitInvestisseur implements Serializable{
 	private static final long serialVersionUID = 1L;
-
+	@Basic(optional=false)
+	protected String nom;
+	@Basic(optional=false)
+	protected String mail;
+	@Basic(optional=false)
+	protected String mdp;
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="groupeId")
 	private GroupeInvestisseurs groupe;
