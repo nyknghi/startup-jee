@@ -1,8 +1,8 @@
 package gestion_investisseurs;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import gestion_events.Startup;
+
+import javax.naming.*;
 
 public class TestInv {
 	public static void main (String[] args){
@@ -16,8 +16,12 @@ public class TestInv {
 					"jnp://localhost:1099");
 			
 			RemoteInvestisseurs remote = (RemoteInvestisseurs) ctx.lookup("BeanInvestisseurs/remote");
-			System.out.println(remote.afficherText("Hello Nghi"));
+			System.out.println(remote.afficherText("Hello"));
+			Fondateur f = new Fondateur ("Dupont", "dupont", "12345");
+			Startup s = new Startup("Startup 1", "Informatique", 10.000, f);
+			System.out.println(f);
 			
+			//System.out.println(remote.ajouterFondateur(f, s.getIdStartup()));		
 		}catch (NamingException e){
 			e.printStackTrace();
 		}
