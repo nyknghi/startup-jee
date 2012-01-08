@@ -3,42 +3,54 @@ package gestion_events;
 import gestion_investisseurs.Fondateur;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name="Startup")
+@Table(schema="IFStartupBD", name="Startup")
 public class Startup implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long IdStartup;
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	private int IdStartup;
 	@Basic(optional=false)
 	private String nomStartup;
 	private String activite;
-	@Basic(optional=false)
+	
+        @Basic(optional=true)
 	private double capital;
+        
+        @Column(nullable=true)
 	private double postValue;
 	
-	@OneToMany(cascade=CascadeType.MERGE, mappedBy="startup")
+	@OneToMany(mappedBy="startup")
 	@JoinColumn(name="fondateur_id")
-	private List<Fondateur> fondateurs;
+	private Set<Fondateur> fondateurs;
+        
+        @OneToMany (mappedBy="Startup")
+        private HashSet<Participation> parts;
+        
+
+    public Startup() {
+    }
 	
-	public Startup(String nom, String activite, double capital, Fondateur f){
+	public Startup(String nom, String activite, Fondateur f){
 		this.nomStartup = nom;
 		this.activite = activite;
-		this.capital = capital;
-		fondateurs = new ArrayList<Fondateur>();
+		fondateurs = new HashSet<Fondateur>();
 		fondateurs.add(f);
-		f.setStartup(this);
+                parts = new HashSet<Participation>();
 	}
-		
+	
+	
 	public void addFondateur(Fondateur f){
 		this.fondateurs.add(f);
 	}
 	
-	public long getIdStartup() {
+	public int getIdStartup() {
 		return IdStartup;
 	}
 
@@ -72,5 +84,5 @@ public class Startup implements Serializable{
 
 	public void setActivite(String activite) {
 		this.activite = activite;
-	}
+        }
 }
