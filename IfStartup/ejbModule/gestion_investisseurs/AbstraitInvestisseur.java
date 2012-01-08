@@ -7,7 +7,7 @@ import javax.persistence.*;
 public abstract class AbstraitInvestisseur {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	protected int idInvestisseur;
+	protected long idInvestisseur;
 	@Basic(optional=false)
 	protected String nom;
 	@Basic(optional=false)

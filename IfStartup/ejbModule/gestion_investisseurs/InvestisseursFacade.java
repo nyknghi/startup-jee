@@ -6,6 +6,17 @@ import java.util.ArrayList;
 
 public interface InvestisseursFacade {
 	public Startup creerStartup(String nom, String activite, float capital, Fondateur f);
+	
 	public ArrayList<Fondateur> rechercherFondateur (String nom);
-	public Fondateur ajouterFondateur (Fondateur f, Startup s);
+	public Fondateur rechercherFondateurParId (long id);
+	public Fondateur ajouterFondateur (Fondateur f, long idStartup);
+	
+	public Startup rechercherStartupParId (long idStartup);
+	
+	public ClubAmi monterClubAmi (BusinessAngel ba, String nomClub);
+	public ClubAmi rechercherClubParId (long id);
+	
+	public void ajouterMembre (BusinessAngel ba, long idClub, boolean mandataire);
+	public void supprimerMembre (BusinessAngel ba, ClubAmi ca);
+	public Membre rechercherMembreParId (long idBA, long idClub);
 }

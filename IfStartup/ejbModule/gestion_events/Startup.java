@@ -3,9 +3,7 @@ package gestion_events;
 import gestion_investisseurs.Fondateur;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.*;
 import javax.persistence.*;
 
 @Entity
@@ -25,17 +23,16 @@ public class Startup implements Serializable{
 	
 	@OneToMany(mappedBy="startup")
 	@JoinColumn(name="fondateur_id")
-	private Set<Fondateur> fondateurs;
+	private List<Fondateur> fondateurs;
 	
 	public Startup(String nom, String activite, float capital, Fondateur f){
 		this.nomStartup = nom;
 		this.activite = activite;
 		this.capital = capital;
-		fondateurs = new HashSet<Fondateur>();
+		fondateurs = new ArrayList<Fondateur>();
 		fondateurs.add(f);
 	}
-	
-	
+		
 	public void addFondateur(Fondateur f){
 		this.fondateurs.add(f);
 	}
@@ -75,6 +72,4 @@ public class Startup implements Serializable{
 	public void setActivite(String activite) {
 		this.activite = activite;
 	}
-	
-	
 }

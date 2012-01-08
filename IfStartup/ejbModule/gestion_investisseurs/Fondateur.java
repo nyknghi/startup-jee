@@ -15,6 +15,7 @@ public class Fondateur extends AbstraitInvestisseur implements Serializable{
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="startup_id")
 	private Startup startup;
+	private boolean isMandataire=false;
 	
 	public Fondateur(){}
 	
@@ -24,7 +25,7 @@ public class Fondateur extends AbstraitInvestisseur implements Serializable{
 		this.mdp = mdp;
 	}
 	
-	public int getIdFondateur() {
+	public long getIdFondateur() {
 		return idInvestisseur;
 	}
 
@@ -59,4 +60,14 @@ public class Fondateur extends AbstraitInvestisseur implements Serializable{
 	public void setStartup(Startup startup) {
 		this.startup = startup;
 	}
+
+	public boolean isMandataire() {
+		return isMandataire;
+	}
+
+	public void setMandataire(boolean isMandataire) {
+		this.isMandataire = isMandataire;
+	}
+	
+	
 }

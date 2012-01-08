@@ -1,12 +1,13 @@
 package gestion_investisseurs;
 
-
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -15,20 +16,21 @@ import javax.persistence.Table;
 public class GroupeInvestisseurs extends AbstraitInvestisseur implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private Investisseur mandataire;
-	private Set<Investisseur> investisseurs;
+	@OneToMany(mappedBy="groupe")
+	@JoinColumn(name="investisseursId")
+	private List<Investisseur> investisseurs;
 	
 	public GroupeInvestisseurs (String nom){
 		this.nom = nom;
-		investisseurs = new HashSet<Investisseur>();
+		this.investisseurs = new ArrayList<Investisseur>();
 	}
 	
-	public GroupeInvestisseurs (String nom, Set<Investisseur> inv){
+	public GroupeInvestisseurs (String nom, List<Investisseur> inv){
 		this.nom = nom;
 		this.investisseurs = inv;
 	}
 
-	public int getIdGroupe() {
+	public long getIdGroupe() {
 		return idInvestisseur;
 	}
 
@@ -40,19 +42,11 @@ public class GroupeInvestisseurs extends AbstraitInvestisseur implements Seriali
 		this.nom = nomGroupe;
 	}
 
-	public Investisseur getMandataire() {
-		return mandataire;
-	}
-
-	public void setMandataire(Investisseur mandataire) {
-		this.mandataire = mandataire;
-	}
-
-	public Set<Investisseur> getInvestisseurs() {
+	public List<Investisseur> getInvestisseurs() {
 		return investisseurs;
 	}
 
-	public void setInvestisseurs(Set<Investisseur> investisseurs) {
+	public void setInvestisseurs(List<Investisseur> investisseurs) {
 		this.investisseurs = investisseurs;
 	}
 }

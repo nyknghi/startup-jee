@@ -2,26 +2,27 @@ package gestion_investisseurs;
 
 import java.io.Serializable;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(schema="IFStartupBD", name="ClubAmi")
 public class ClubAmi implements Serializable {
-	private static final long serialVersionUID = 1L;
 
+	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idClub;
 	@Basic(optional=false)
 	private String nomClub;
+	@OneToMany(mappedBy="clubAmi")
+	List<Membre> businessAngels;
 
 	public ClubAmi(String nom){
 		this.nomClub = nom;
+		businessAngels = new ArrayList<Membre>();
 	}
 
 	public int getIdClub() {
@@ -36,5 +37,7 @@ public class ClubAmi implements Serializable {
 		this.nomClub = nomClub;
 	}
 	
-	
+	public List<Membre> getMembres(){
+		return businessAngels;
+	}
 }

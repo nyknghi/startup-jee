@@ -1,6 +1,9 @@
 package gestion_investisseurs;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,12 +13,19 @@ import javax.persistence.*;
 public class BusinessAngel extends AbstraitInvestisseur implements Serializable{
 	private static final long serialVersionUID = 1L;
 
+	private boolean isMandataire = false;
+	@OneToMany(mappedBy="businessAngel")
+	private List<Membre> clubAmis;
+	
 	public BusinessAngel(){}
 	
-	public ClubAmi monterClub (String nom){
-		return new ClubAmi (nom);
+	public BusinessAngel(String nom, String mail, String mdp){
+		this.nom = nom;
+		this.mail = mail;
+		this.mdp = mdp;
+		clubAmis = new ArrayList<Membre>();
 	}
-
+	
 	public Membre devenirMembre (ClubAmi ca){
 		return new Membre (ca, this);
 	}
@@ -24,7 +34,7 @@ public class BusinessAngel extends AbstraitInvestisseur implements Serializable{
 		// TODO...
 	}
 
-	public int getIdFondateur() {
+	public long getIdBusinessAngel() {
 		return idInvestisseur;
 	}
 
@@ -50,6 +60,22 @@ public class BusinessAngel extends AbstraitInvestisseur implements Serializable{
 
 	public void setMdp(String mdp) {
 		this.mdp = mdp;
+	}
+
+	public boolean isMandataire() {
+		return isMandataire;
+	}
+
+	public void setMandataire(boolean isMandataire) {
+		this.isMandataire = isMandataire;
+	}
+
+	public List<Membre> getClubAmis() {
+		return clubAmis;
+	}
+
+	public void setClubAmis(List<Membre> clubAmis) {
+		this.clubAmis = clubAmis;
 	}
 	
 }

@@ -1,30 +1,35 @@
 package gestion_investisseurs;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.*;
 
 @Entity
-@Table(schema="IfStartup", name="Membre", uniqueConstraints={@UniqueConstraint(columnNames={"clubAmi","businessAngel"})})
-public class Membre {
+@Table(schema="IfStartup", name="Membre")
+@IdClass(MembreId.class)
+@NamedQuery(name="findMembreById", query="SELECT m FROM MEMBRE as m WHERE f.idBA = :idBA AND f.idClub = :idClub")
+
+public class Membre implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idMembre;
-	private Date date;
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="clubAmi_id", referencedColumnName="idClub")
-	private ClubAmi clubAmi;
+	private long idBA;
+	@Id
+	private long idClub;
 	@ManyToOne
-	@JoinColumn(name="ba_id", referencedColumnName="idInvestisseur")
+	@PrimaryKeyJoinColumn(name="ba_id", referencedColumnName="idInvestisseur")
 	private BusinessAngel businessAngel;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn(name="clubAmi_id", referencedColumnName="idClub")
+	private ClubAmi clubAmi;
+	private Date date;
 	
 	public Membre(ClubAmi club, BusinessAngel ba){
 		this.clubAmi = club;
 		this.businessAngel = ba;
-	}
-
-	public int getIdMembre() {
-		return idMembre;
+		this.idBA = ba.getIdBusinessAngel();
+		this.idClub = club.getIdClub();
 	}
 
 	public Date getDate() {
@@ -50,7 +55,22 @@ public class Membre {
 	public void setBusinessAngel(BusinessAngel businessAngel) {
 		this.businessAngel = businessAngel;
 	}
-	
+
+	public long getIdBA() {
+		return idBA;
+	}
+
+	public void setIdBA(long idBA) {
+		this.idBA = idBA;
+	}
+
+	public long getIdClub() {
+		return idClub;
+	}
+
+	public void setIdClub(long idClub) {
+		this.idClub = idClub;
+	}
 	
 	
 }
