@@ -7,7 +7,7 @@ import java.util.*;
 import javax.persistence.*;
 
 @Entity
-@Table(schema="IFStartupBD", name="Startup")
+@Table(name="Startup")
 public class Startup implements Serializable{
 	private static final long serialVersionUID = 1L;
 
@@ -18,19 +18,20 @@ public class Startup implements Serializable{
 	private String nomStartup;
 	private String activite;
 	@Basic(optional=false)
-	private float capital;
-	private float postValue;
+	private double capital;
+	private double postValue;
 	
-	@OneToMany(mappedBy="startup")
+	@OneToMany(cascade=CascadeType.MERGE, mappedBy="startup")
 	@JoinColumn(name="fondateur_id")
 	private List<Fondateur> fondateurs;
 	
-	public Startup(String nom, String activite, float capital, Fondateur f){
+	public Startup(String nom, String activite, double capital, Fondateur f){
 		this.nomStartup = nom;
 		this.activite = activite;
 		this.capital = capital;
 		fondateurs = new ArrayList<Fondateur>();
 		fondateurs.add(f);
+		f.setStartup(this);
 	}
 		
 	public void addFondateur(Fondateur f){
@@ -49,7 +50,7 @@ public class Startup implements Serializable{
 		this.nomStartup = nomStartup;
 	}
 
-	public float getCapital() {
+	public double getCapital() {
 		return capital;
 	}
 
@@ -57,7 +58,7 @@ public class Startup implements Serializable{
 		this.capital = capital;
 	}
 
-	public float getPostValue() {
+	public double getPostValue() {
 		return postValue;
 	}
 

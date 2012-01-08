@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public interface FacadeInvestisseurs {
 	public String afficherText(String t);
 	
-	/*
+	
 	public Startup creerStartup(String nom, String activite, float capital, Fondateur f);
 	
 	public ArrayList<Fondateur> rechercherFondateur (String nom);
@@ -22,5 +22,5 @@ public interface FacadeInvestisseurs {
 	public void ajouterMembre (BusinessAngel ba, long idClub, boolean mandataire);
 	public void supprimerMembre (BusinessAngel ba, ClubAmi ca);
 	public Membre rechercherMembreParId (long idBA, long idClub);
-	*/
+	
 }

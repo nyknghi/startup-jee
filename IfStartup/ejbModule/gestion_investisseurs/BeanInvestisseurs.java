@@ -11,7 +11,7 @@ import javax.persistence.*;
 
 @Stateless
 public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseurs {
-	@PersistenceContext
+	@PersistenceContext(unitName="SampleUnit")
 	EntityManager em;
 	
 	public String afficherText(String t){
@@ -24,7 +24,7 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	public void init(){
 		System.out.println("Calling init method");
 	}
-/*
+
 	@Override
 	// Le fondateur qui cree le startup doit etre persiste
 	public Startup creerStartup(String nom, String activite, float capital, Fondateur f) {
@@ -109,5 +109,5 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	public void cleanUp(){
 		System.out.println("Calling cleanup method");
 	}
-	*/
+	
 }

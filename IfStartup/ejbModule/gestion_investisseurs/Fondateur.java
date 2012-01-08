@@ -13,7 +13,7 @@ public class Fondateur extends AbstraitInvestisseur implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="startup_id")
+	@JoinColumn(name="startup_id", referencedColumnName="idStartup")
 	private Startup startup;
 	private boolean isMandataire=false;
 	
@@ -67,6 +67,12 @@ public class Fondateur extends AbstraitInvestisseur implements Serializable{
 
 	public void setMandataire(boolean isMandataire) {
 		this.isMandataire = isMandataire;
+	}
+
+	@Override
+	public String toString() {
+		return "Fondateur [nom=" + nom + ", startup=" + startup.getNomStartup() + ", isMandataire="
+				+ isMandataire + ", mail=" + mail + ", mdp=" + mdp +"]";
 	}
 	
 	
