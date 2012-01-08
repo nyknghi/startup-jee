@@ -9,12 +9,14 @@ import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
 import javax.persistence.*;
 
-
-@Stateless(name="InvestisseursBean")
-public class InvestisseursBean implements InvestisseursRemote, InvestisseursLocal {
-	@PersistenceContext(unitName="SampleUnit")
+@Stateless
+public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseurs {
+	@PersistenceContext
 	EntityManager em;
 	
+	public String afficherText(String t){
+		return t;
+	}
 	/*@EJB
 	Gest_Events gest;
 	*/
@@ -22,7 +24,7 @@ public class InvestisseursBean implements InvestisseursRemote, InvestisseursLoca
 	public void init(){
 		System.out.println("Calling init method");
 	}
-
+/*
 	@Override
 	// Le fondateur qui cree le startup doit etre persiste
 	public Startup creerStartup(String nom, String activite, float capital, Fondateur f) {
@@ -107,4 +109,5 @@ public class InvestisseursBean implements InvestisseursRemote, InvestisseursLoca
 	public void cleanUp(){
 		System.out.println("Calling cleanup method");
 	}
+	*/
 }

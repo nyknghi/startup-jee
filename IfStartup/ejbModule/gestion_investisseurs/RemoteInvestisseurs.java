@@ -3,6 +3,6 @@ package gestion_investisseurs;
 import javax.ejb.Remote;
 
 @Remote
-public interface InvestisseursRemote extends InvestisseursFacade {
+public interface RemoteInvestisseurs extends FacadeInvestisseurs {
 
 }
