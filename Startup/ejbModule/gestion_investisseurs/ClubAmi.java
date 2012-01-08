@@ -20,6 +20,8 @@ public class ClubAmi implements Serializable {
 	@OneToMany(mappedBy="clubAmi")
 	List<Membre> businessAngels;
 
+	public ClubAmi(){}
+	
 	public ClubAmi(String nom){
 		this.nomClub = nom;
 		businessAngels = new ArrayList<Membre>();

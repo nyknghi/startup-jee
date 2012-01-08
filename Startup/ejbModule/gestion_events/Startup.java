@@ -25,6 +25,8 @@ public class Startup implements Serializable{
 	@JoinColumn(name="fondateur_id")
 	private List<Fondateur> fondateurs;
 	
+	public Startup(){}
+	
 	public Startup(String nom, String activite, double capital, Fondateur f){
 		this.nomStartup = nom;
 		this.activite = activite;
@@ -72,5 +74,11 @@ public class Startup implements Serializable{
 
 	public void setActivite(String activite) {
 		this.activite = activite;
+	}
+
+	@Override
+	public String toString() {
+		return "Startup [IdStartup=" + IdStartup + ", nomStartup=" + nomStartup
+				+ ", activite=" + activite + "]";
 	}
 }

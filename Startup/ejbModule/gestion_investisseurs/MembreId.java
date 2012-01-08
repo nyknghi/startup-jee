@@ -9,6 +9,7 @@ public class MembreId implements Serializable{
 	private long idBA;
 	private long idClub;
 	
+	public MembreId(){}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

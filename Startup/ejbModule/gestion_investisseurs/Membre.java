@@ -25,6 +25,8 @@ public class Membre implements Serializable {
 	private ClubAmi clubAmi;
 	private Date date;
 	
+	public Membre(){}
+	
 	public Membre(ClubAmi club, BusinessAngel ba){
 		this.clubAmi = club;
 		this.businessAngel = ba;

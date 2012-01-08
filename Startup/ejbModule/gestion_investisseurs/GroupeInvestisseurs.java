@@ -26,6 +26,8 @@ public class GroupeInvestisseurs extends AbstraitInvestisseur implements Seriali
 	@JoinColumn(name="investisseursId")
 	private List<Investisseur> investisseurs;
 	
+	public GroupeInvestisseurs(){}
+	
 	public GroupeInvestisseurs (String nom){
 		this.nom = nom;
 		this.investisseurs = new ArrayList<Investisseur>();

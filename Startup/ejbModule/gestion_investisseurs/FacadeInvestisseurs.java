@@ -30,5 +30,13 @@ public interface FacadeInvestisseurs {
 	public void supprimerMembre (BusinessAngel ba, ClubAmi ca);
 	public Membre rechercherMembreParId (long idBA, long idClub);
 	
+	/*
+	 * Gestion des groupes d'investisseurs
+	 */
+	public GroupeInvestisseurs monterGroupe(Investisseur inv, String nomGroupe);
+	public void adhererGroupe (GroupeInvestisseurs groupe, Investisseur inv);
+	public void quitterGroupe (GroupeInvestisseurs groupe, Investisseur inv);
+	
+	public void closeEM();
 	
 }
