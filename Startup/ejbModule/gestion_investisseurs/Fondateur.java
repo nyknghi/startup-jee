@@ -8,11 +8,6 @@ import javax.persistence.*;
 @SuppressWarnings("serial")
 @Entity
 @Table(name="Fondateur")
-@AttributeOverrides({
-    @AttributeOverride(name="nom", column=@Column(name="nom")),
-    @AttributeOverride(name="mail", column=@Column(name="mail")),
-    @AttributeOverride(name="mdp", column=@Column(name="mdp")),
-})
 @NamedQuery(name="findFondateurByName", query="SELECT f FROM Fondateur as f WHERE f.nom = :nom")
 public class Fondateur extends AbstraitInvestisseur implements Serializable{
 	@Basic(optional=false)
