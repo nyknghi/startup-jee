@@ -9,19 +9,19 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name="BusinessAngel")
 @DiscriminatorValue("BA")
 
 public class BusinessAngel extends AbstraitInvestisseur{
-	private static final long serialVersionUID = 1L;
-	
+	@Column
 	private boolean isMandataire = false;
 	@OneToMany(mappedBy="businessAngel")
 	private List<Membre> clubAmis;
 	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="organisateur")
-	private Set<LeveeDeFonds> leveeDeFonds;
+	private Set<LeveeDeFonds> leveeDeFondsBA;
 	
 	public BusinessAngel(){}
 	
@@ -30,15 +30,7 @@ public class BusinessAngel extends AbstraitInvestisseur{
 		this.mail = mail;
 		this.mdp = mdp;
 		clubAmis = new ArrayList<Membre>();
-		leveeDeFonds = new HashSet<LeveeDeFonds>();
-	}
-	
-	public Membre devenirMembre (ClubAmi ca){
-		return new Membre (ca, this);
-	}
-	
-	public void quitterClub (ClubAmi ca){
-		// TODO...
+		leveeDeFondsBA = new HashSet<LeveeDeFonds>();
 	}
 
 	public Long organisateurId(){
@@ -62,10 +54,10 @@ public class BusinessAngel extends AbstraitInvestisseur{
 	}
 
 	public Set<LeveeDeFonds> getLeveeDeFonds() {
-		return leveeDeFonds;
+		return leveeDeFondsBA;
 	}
 
 	public void setLeveeDeFonds(Set<LeveeDeFonds> leveeDeFonds) {
-		this.leveeDeFonds = leveeDeFonds;
+		this.leveeDeFondsBA = leveeDeFonds;
 	}	
 }

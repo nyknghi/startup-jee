@@ -3,12 +3,11 @@ package gestion_investisseurs;
 import java.io.Serializable;
 import javax.persistence.*;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name="Investisseur")
 @DiscriminatorValue("INVESTISSEUR")
 public class Investisseur extends AbstraitInvestisseur implements Serializable{
-	private static final long serialVersionUID = 1L;
-	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(referencedColumnName="idInvestisseur")
 	private GroupeInvestisseurs groupe;

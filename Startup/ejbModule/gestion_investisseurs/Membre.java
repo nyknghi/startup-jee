@@ -5,14 +5,13 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name="Membre")
 @IdClass(MembreId.class)
 @NamedQuery(name="findMembreById", query="SELECT m FROM Membre as m WHERE m.idBA = :idBA AND m.idClub = :idClub")
 
 public class Membre implements Serializable {
-
-	private static final long serialVersionUID = 1L;
 	@Id
 	private long idBA;
 	@Id
@@ -23,6 +22,7 @@ public class Membre implements Serializable {
 	@ManyToOne
 	@PrimaryKeyJoinColumn(name="clubAmi_id", referencedColumnName="idClub")
 	private ClubAmi clubAmi;
+	@Column
 	private Date date;
 	
 	public Membre(){}

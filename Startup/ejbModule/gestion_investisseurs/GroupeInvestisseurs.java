@@ -4,18 +4,18 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name="GroupeInvestisseurs")
 @DiscriminatorValue("GROUPE")
-public class GroupeInvestisseurs extends AbstraitInvestisseur implements Serializable{
-	private static final long serialVersionUID = 1L;
-	
-	@OneToMany(mappedBy="groupe")
+public class GroupeInvestisseurs extends AbstraitInvestisseur implements Serializable{	
+	@OneToMany(mappedBy="groupe", cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private List<Investisseur> investisseurs;
 	
 	public GroupeInvestisseurs(){}

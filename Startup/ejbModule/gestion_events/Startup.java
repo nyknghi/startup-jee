@@ -107,5 +107,12 @@ public class Startup implements Serializable{
 
 	public void setActivite(String activite) {
 		this.activite = activite;
-        }
+    }
+
+	@Override
+	public String toString() {
+		return "Startup [idStartup=" + idStartup + ", nomStartup=" + nomStartup
+				+ ", activite=" + activite + "]";
+	}
+	
 }

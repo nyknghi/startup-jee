@@ -16,10 +16,11 @@ public class Fondateur extends AbstraitInvestisseur{
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(referencedColumnName="idStartup")
 	private Startup startup;
+	@Column
 	private boolean isMandataire=false;
 	
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="organisateur")
-	private Set<LeveeDeFonds> leveeDeFonds;
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="organisateur", cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	private Set<LeveeDeFonds> leveeDeFondsFO;
 	
 	public Fondateur(){}
 	
@@ -27,7 +28,7 @@ public class Fondateur extends AbstraitInvestisseur{
 		this.nom = nom;
 		this.mail = mail;
 		this.mdp = mdp;
-		leveeDeFonds = new HashSet<LeveeDeFonds>();
+		leveeDeFondsFO = new HashSet<LeveeDeFonds>();
 	}
 	
 	public Long organisateurId(){
@@ -51,16 +52,16 @@ public class Fondateur extends AbstraitInvestisseur{
 	}
 
 	public Set<LeveeDeFonds> getLeveeDeFonds() {
-		return leveeDeFonds;
+		return leveeDeFondsFO;
 	}
 
 	public void setLeveeDeFonds(Set<LeveeDeFonds> leveeDeFonds) {
-		this.leveeDeFonds = leveeDeFonds;
+		this.leveeDeFondsFO = leveeDeFonds;
 	}
 
 	@Override
 	public String toString() {
-		return "Fondateur [nom=" + nom + ", startup=" + startup.getNomStartup() + ", isMandataire="
+		return "Fondateur [nom=" + nom + ", idstartup=" + startup.getIdStartup() + ", isMandataire="
 				+ isMandataire + ", mail=" + mail + ", mdp=" + mdp +"]";
 	}
 }

@@ -1,14 +1,20 @@
 package gestion_investisseurs;
 
+import gestion_events.EventsBeanFacade;
 import gestion_events.Startup;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.ejb.Stateless;
 import javax.persistence.*;
 
 @Stateless
+@TransactionManagement(TransactionManagementType.CONTAINER)
 public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseurs{
 	@PersistenceContext(unitName="SampleUnit")
 	EntityManager em;
@@ -23,9 +29,19 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	}
 	
 	@Override
-	public Fondateur ajouterFondateur(Fondateur f) {
+	public Fondateur creerFondateur(String nom, String mail, String mdp) {
+		Fondateur f = new Fondateur (nom, mail, mdp);
 		em.persist(f);
 		return f;
+	}
+
+	@Override
+	public Fondateur updateFondateur(Fondateur f, String nom, String mail, String mdp) {
+		f = this.rechercherFondateurParId(f.getIdInvestisseur());
+		f.setNom(nom);
+		f.setMail(mail);
+		f.setMdp(mdp);
+		return em.merge(f);
 	}
 
 	@Override
@@ -49,21 +65,34 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 		query.setParameter("nom", nom);
 		return (ArrayList<Fondateur>) query.getResultList();
 	}
-
+	
 	@Override
-	// Le fondateur qui cree le startup doit etre persiste
-	public Startup creerStartup(String nom, String activite, Fondateur f) {
-		Startup s = null;
-		s = new Startup(nom, activite, f);
-		f.setStartup(s);
-		em.persist(s);
-		em.merge(f);	
-		return s;
+	public BusinessAngel creerBA(String nom, String mail, String mdp) {
+		BusinessAngel ba = new BusinessAngel(nom, mail, mdp);
+		em.persist(ba);
+		return ba;
 	}
 
 	@Override
-	public Startup rechercherStartupParId (long idStartup){
-		return em.find(Startup.class, idStartup);
+	public BusinessAngel updateBA(BusinessAngel ba, String nom, String mail, String mdp) {
+		ba = this.rechercherBAParId(ba.getIdInvestisseur());
+		ba.setNom(nom);
+		ba.setMail(mail);
+		ba.setMdp(mdp);
+		return em.merge(ba);
+	}
+
+	@Override
+	public BusinessAngel rechercherBAParId(long id) {
+		return em.find(BusinessAngel.class, id);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<BusinessAngel> rechercherBAParNom(String nom) {
+		Query query = em.createQuery("SELECT ba FROM BusinessAngel as ba WHERE ba.nom = :nom");
+		query.setParameter("nom", nom);
+		return (List<BusinessAngel>) query.getResultList();
 	}
 	
 	@Override
@@ -73,6 +102,13 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 		em.persist(ca);
 		em.merge(ba);
 		return ca;
+	}
+	
+	@Override
+	public ClubAmi updateClubAmi(ClubAmi ca, String nomClub) {
+		ca = this.rechercherClubParId(ca.getIdClub());
+		ca.setNomClub(nomClub);
+		return em.merge(ca);
 	}
 	
 	@Override
@@ -110,15 +146,6 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 		query.setParameter("idClub", idClub);
 		return (Membre) query.getSingleResult();
 	}	
-	
-	@PreDestroy()
-	public void cleanUp(){
-		System.out.println("Calling cleanup method");
-	}	
-	
-	public void closeEM(){
-		em.close();
-	}
 
 	@Override
 	public GroupeInvestisseurs monterGroupe(Investisseur inv, String nomGroupe) {
@@ -128,6 +155,26 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 		return groupe;
 	}
 
+	@Override
+	public GroupeInvestisseurs updateGroupeInvestisseurs(GroupeInvestisseurs groupe, String nomGroupe) {
+		groupe = this.rechercherGroupeParId(groupe.getIdInvestisseur());
+		groupe.setNom(nomGroupe);
+		return em.merge(groupe);
+	}
+
+	@Override
+	public GroupeInvestisseurs rechercherGroupeParId(long id) {
+		return em.find(GroupeInvestisseurs.class, id);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<GroupeInvestisseurs> rechercherGroupeParNom(String nomGroupe) {
+		Query query = em.createQuery("SELECT g FROM GroupeInvestisseurs as g WHERE g.nom = :nom");
+		query.setParameter("nom", nomGroupe);
+		return (List<GroupeInvestisseurs>) query.getResultList();
+	}
+	
 	@Override
 	public void adhererGroupe(GroupeInvestisseurs groupe, Investisseur inv) {
 		groupe.getInvestisseurs().add(inv);
@@ -142,5 +189,14 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 		inv.setGroupe(null);
 		em.merge(groupe);
 		em.merge(inv);		
+	}
+	
+	@PreDestroy()
+	public void cleanUp(){
+		System.out.println("Calling cleanup method");
+	}	
+	
+	public void closeEM(){
+		em.close();
 	}
 }
