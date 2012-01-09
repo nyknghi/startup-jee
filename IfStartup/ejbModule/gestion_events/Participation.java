@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
-@Table (schema="IFStartupBD", name="Participation", uniqueConstraints={@UniqueConstraint(columnNames={"Levee_fk","Startup_fk"})})
+@Table (schema="IFStartupBD", name="Participation", uniqueConstraints={@UniqueConstraint(columnNames={"levee","startup"})})
 public class Participation implements Serializable {
 
     @Id
@@ -13,26 +13,26 @@ public class Participation implements Serializable {
     private int numParticipation;
     
     @ManyToOne (cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-    @Column (name ="Levee_fk",nullable=true)
-    @JoinColumn (name="Levee_fk")
+    @Column (nullable=true)
+    @JoinColumn (referencedColumnName="idLevee")
     private LeveeDeFonds levee;
     
     @ManyToOne (cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-    @Column (name = "Startup_fk", nullable = false)
-    @JoinColumn (name="Startup_fk")
-    private Startup start;
+    @Column (nullable = false)
+    @JoinColumn (referencedColumnName="idStartup")
+    private Startup startup;
     
     @ManyToOne (cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-    @Column (name = "Investisseur_fk", nullable = false)
-    @JoinColumn (name="Investisseur_fk")
-    private AbstraitInvestisseur inv;
+    @Column (nullable = false)
+    @JoinColumn (referencedColumnName="idInvestisseur")
+    private AbstraitInvestisseur investisseur;
     
     @Column (nullable=false)
     private double montant;
     
     public Participation(Startup s, AbstraitInvestisseur i, double d){
-        start = s;
-        inv = i;
+        startup = s;
+        investisseur = i;
         montant = d;
     }
     
@@ -46,12 +46,20 @@ public class Participation implements Serializable {
         return montant;
     }
 
+    public void setInv(AbstraitInvestisseur inv) {
+        this.investisseur = inv;
+    }
+
+    public AbstraitInvestisseur getInv() {
+        return investisseur;
+    }
+
     public int getNumParticipation() {
         return numParticipation;
     }
 
     public Startup getStart() {
-        return start;
+        return startup;
     }
 
     public void setLevee(LeveeDeFonds levee) {
@@ -67,6 +75,6 @@ public class Participation implements Serializable {
     }
 
     public void setStart(Startup start) {
-        this.start = start;
+        this.startup = start;
     }
 }

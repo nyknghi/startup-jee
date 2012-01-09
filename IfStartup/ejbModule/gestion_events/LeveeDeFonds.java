@@ -24,24 +24,25 @@ public class LeveeDeFonds implements Serializable{
     private double montantCible;
     
     @ManyToMany
-    @JoinTable(name="Inscription", joinColumns={@JoinColumn(name="idLevee")}, inverseJoinColumns={@JoinColumn(name="idInvestisseur", referencedColumnName="idInvestisseur")})
-    private HashSet<AbstraitInvestisseur> inv;
+    @JoinTable(name="Inscription", joinColumns={@JoinColumn(referencedColumnName="idLevee")}, 
+            inverseJoinColumns={@JoinColumn(referencedColumnName="idInvestisseur")})
+    private HashSet<AbstraitInvestisseur> investisseurs;
     
-    @OneToMany (mappedBy="Levee")
-    private HashSet<Participation> parts;
+    @OneToMany (fetch=FetchType.EAGER, mappedBy="Levee")
+    private HashSet<Participation> participations;
     
-    @ManyToOne
-    @Column (name = "Organisateur_fk", nullable = false)
-    @JoinColumn (name="Organisateur_fk")
-    private Organisateur org;
+    @ManyToOne (fetch=FetchType.LAZY)
+    @Column (nullable = false)
+    @JoinColumn (referencedColumnName="idInvestisseur")
+    private Organisateur organisateur;
     
     public LeveeDeFonds (String d, double m, Organisateur o){
         date_levee = d;
         etape = Etape.CANDIDATURE;
         montantCible = m;
-        org = o;
-        inv = new HashSet<AbstraitInvestisseur>();
-        parts = new HashSet<Participation>();
+        organisateur = o;
+        investisseurs = new HashSet<AbstraitInvestisseur>();
+        participations = new HashSet<Participation>();
     }
 
     public String getDate_levee() {
@@ -53,27 +54,27 @@ public class LeveeDeFonds implements Serializable{
     }
 
     public void setInv(HashSet<AbstraitInvestisseur> inv) {
-        this.inv = inv;
+        this.investisseurs = inv;
     }
 
     public void setOrg(Organisateur org) {
-        this.org = org;
+        this.organisateur = org;
     }
 
     public void setParts(HashSet<Participation> parts) {
-        this.parts = parts;
+        this.participations = parts;
     }
 
     public HashSet<AbstraitInvestisseur> getInv() {
-        return inv;
+        return investisseurs;
     }
 
     public Organisateur getOrg() {
-        return org;
+        return organisateur;
     }
 
     public HashSet<Participation> getParts() {
-        return parts;
+        return participations;
     }
 
     public String getDate() {

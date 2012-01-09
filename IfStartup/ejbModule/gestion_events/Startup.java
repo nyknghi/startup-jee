@@ -1,5 +1,6 @@
 package gestion_events;
 
+import gestion_investisseurs.ClubAmi;
 import gestion_investisseurs.Fondateur;
 
 import java.io.Serializable;
@@ -15,23 +16,25 @@ public class Startup implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private int IdStartup;
+	private int idStartup;
+        
 	@Basic(optional=false)
 	private String nomStartup;
-	private String activite;
 	
-        @Basic(optional=true)
-	private double capital;
+        @Column (nullable=false)
+        private String activite;
         
         @Column(nullable=true)
 	private double postValue;
 	
-	@OneToMany(mappedBy="startup")
-	@JoinColumn(name="fondateur_id")
+	@OneToMany(mappedBy="Startup")
 	private Set<Fondateur> fondateurs;
         
+        @OneToMany (fetch=FetchType.EAGER, mappedBy="Startup")
+        private HashSet<Participation> participations;
+        
         @OneToMany (mappedBy="Startup")
-        private HashSet<Participation> parts;
+        private Set<ClubAmi> clubs;
         
 
     public Startup() {
@@ -42,8 +45,37 @@ public class Startup implements Serializable{
 		this.activite = activite;
 		fondateurs = new HashSet<Fondateur>();
 		fondateurs.add(f);
-                parts = new HashSet<Participation>();
+                participations = new HashSet<Participation>();
+                clubs = new HashSet<ClubAmi>();
 	}
+
+    public Set<ClubAmi> getClubs() {
+        return clubs;
+    }
+
+    public Set<Fondateur> getFondateurs() {
+        return fondateurs;
+    }
+
+    public HashSet<Participation> getParts() {
+        return participations;
+    }
+
+    public void setClubs(Set<ClubAmi> clubs) {
+        this.clubs = clubs;
+    }
+
+    public void setFondateurs(Set<Fondateur> fondateurs) {
+        this.fondateurs = fondateurs;
+    }
+
+    public void setParts(HashSet<Participation> parts) {
+        this.participations = parts;
+    }
+
+    public void setPostValue(double postValue) {
+        this.postValue = postValue;
+    }
 	
 	
 	public void addFondateur(Fondateur f){
@@ -51,7 +83,7 @@ public class Startup implements Serializable{
 	}
 	
 	public int getIdStartup() {
-		return IdStartup;
+		return idStartup;
 	}
 
 	public String getNomStartup() {
@@ -60,14 +92,6 @@ public class Startup implements Serializable{
 
 	public void setNomStartup(String nomStartup) {
 		this.nomStartup = nomStartup;
-	}
-
-	public double getCapital() {
-		return capital;
-	}
-
-	public void setCapital(float capital) {
-		this.capital = capital;
 	}
 
 	public double getPostValue() {
