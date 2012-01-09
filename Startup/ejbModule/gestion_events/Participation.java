@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
-@Table (schema="IFStartupBD", name="Participation", uniqueConstraints={@UniqueConstraint(columnNames={"levee","startup"})})
+@Table (name="Participation", uniqueConstraints={@UniqueConstraint(columnNames={"levee","startup"})})
 public class Participation implements Serializable {
 
     @Id

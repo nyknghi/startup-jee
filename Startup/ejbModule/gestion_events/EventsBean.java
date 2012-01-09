@@ -140,5 +140,9 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
         query.setParameter("nom", inv.getNom());
         return (List<Participation>) query.getResultList();
     }
+
+    public Double postValue(Startup s, LeveeDeFonds l) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
 }

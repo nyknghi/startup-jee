@@ -36,4 +36,6 @@ public interface EventsBeanFacade {
     public double calculCapital(Startup s);
     
     public void distribuerDividende(LeveeDeFonds l);
+    
+    public Double postValue(Startup s, LeveeDeFonds l);
 }

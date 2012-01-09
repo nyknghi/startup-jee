@@ -10,7 +10,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 @Entity
-@Table(schema="IFStartupBD", name="Startup")
+@Table(name="Startup")
 public class Startup implements Serializable{
 	private static final long serialVersionUID = 1L;
 
@@ -27,13 +27,13 @@ public class Startup implements Serializable{
         @Column(nullable=true)
 	private double postValue;
 	
-	@OneToMany(mappedBy="Startup")
+	@OneToMany(mappedBy="startup")
 	private Set<Fondateur> fondateurs;
         
         @OneToMany (fetch=FetchType.EAGER, mappedBy="Startup")
         private HashSet<Participation> participations;
         
-        @OneToMany (mappedBy="Startup")
+        @OneToMany (mappedBy="startup")
         private Set<ClubAmi> clubs;
         
 

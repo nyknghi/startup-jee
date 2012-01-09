@@ -7,7 +7,7 @@ import java.util.HashSet;
 import javax.persistence.*;
 
 @Entity
-@Table (schema="IFStartupBD", name="Levee_de_fonds")
+@Table (name="Levee_de_fonds")
 public class LeveeDeFonds implements Serializable{
 
     @Id
@@ -28,7 +28,7 @@ public class LeveeDeFonds implements Serializable{
             inverseJoinColumns={@JoinColumn(referencedColumnName="idInvestisseur")})
     private HashSet<AbstraitInvestisseur> investisseurs;
     
-    @OneToMany (fetch=FetchType.EAGER, mappedBy="Levee")
+    @OneToMany (fetch=FetchType.EAGER, mappedBy="levee")
     private HashSet<Participation> participations;
     
     @ManyToOne (fetch=FetchType.LAZY)
