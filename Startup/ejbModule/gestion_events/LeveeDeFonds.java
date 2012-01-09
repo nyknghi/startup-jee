@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @SuppressWarnings("serial")
 @Entity
-@Table (name="Levee_de_fonds")
+@Table (name="Leveedefonds")
 public class LeveeDeFonds implements Serializable{
 
     @Id
@@ -25,12 +25,12 @@ public class LeveeDeFonds implements Serializable{
     @Column (nullable=false)
     private double montantCible;
     
-    @ManyToMany
+    @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(name="Inscription", joinColumns={@JoinColumn(referencedColumnName="idLevee")}, 
             inverseJoinColumns={@JoinColumn(referencedColumnName="idInvestisseur")})
     private Set<AbstraitInvestisseur> investisseurs;
     
-    @OneToMany (fetch=FetchType.EAGER, mappedBy="levee")
+    @OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="levee")
     private Set<Participation> participations;
     
     @ManyToOne (fetch=FetchType.LAZY)

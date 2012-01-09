@@ -9,7 +9,6 @@ import gestion_investisseurs.BusinessAngel;
 import gestion_investisseurs.ClubAmi;
 import gestion_investisseurs.Fondateur;
 import gestion_investisseurs.GroupeInvestisseurs;
-import gestion_investisseurs.Organisateur;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -41,8 +40,9 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
         return s;
     }
 
+    
     public void distribuerDividende(LeveeDeFonds l) {
-        Startup st;
+    /*    Startup st;
         int startupId;
         if(l.getOrg() instanceof Fondateur){
             startupId = ((Fondateur)l.getOrg()).getStartup().getIdStartup();
@@ -66,7 +66,7 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
             p.setMontant(res);
             em.merge(p);
         }
-        em.merge(st);
+        em.merge(st);*/
     }
     
     private double sousTotal(long inv, int st){
@@ -79,7 +79,7 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
         return Double.valueOf((String)query.getResultList().get(0));
     }
 
-    public LeveeDeFonds leveeDeFonds(String d, double m, Organisateur o) {
+    public LeveeDeFonds leveeDeFonds(String d, double m, AbstraitInvestisseur o) {
         LeveeDeFonds f = new LeveeDeFonds(d, m, o);
         em.persist(f);
         return f;

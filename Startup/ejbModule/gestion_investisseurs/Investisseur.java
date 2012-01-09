@@ -10,9 +10,10 @@ public class Investisseur extends AbstraitInvestisseur implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="groupeId")
+	@JoinColumn(referencedColumnName="idInvestisseur")
 	private GroupeInvestisseurs groupe;
-	private boolean isLeader;
+	@Column
+	private boolean isLeader=false;
 	
 	public Investisseur(){}
 	

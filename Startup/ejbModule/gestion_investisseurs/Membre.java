@@ -20,7 +20,7 @@ public class Membre implements Serializable {
 	@ManyToOne
 	@PrimaryKeyJoinColumn(name="ba_id", referencedColumnName="idInvestisseur")
 	private BusinessAngel businessAngel;
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@PrimaryKeyJoinColumn(name="clubAmi_id", referencedColumnName="idClub")
 	private ClubAmi clubAmi;
 	private Date date;

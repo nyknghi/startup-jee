@@ -30,13 +30,12 @@ public class Startup implements Serializable{
 	@OneToMany(mappedBy="startup")
 	private Set<Fondateur> fondateurs;
         
-        @OneToMany (fetch=FetchType.EAGER, mappedBy="startup")
-        private Set<Participation> participations;
+    @OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="startup")
+    private Set<Participation> participations;
+    
+    @OneToMany (cascade=CascadeType.ALL, mappedBy="startup")
+    private Set<ClubAmi> clubs;
         
-        @OneToMany (mappedBy="startup")
-        private Set<ClubAmi> clubs;
-        
-
     public Startup() {
     }
 	
@@ -45,8 +44,8 @@ public class Startup implements Serializable{
 		this.activite = activite;
 		fondateurs = new HashSet<Fondateur>();
 		fondateurs.add(f);
-                participations = new HashSet<Participation>();
-                clubs = new HashSet<ClubAmi>();
+        participations = new HashSet<Participation>();
+        clubs = new HashSet<ClubAmi>();
 	}
 
     public Set<ClubAmi> getClubs() {

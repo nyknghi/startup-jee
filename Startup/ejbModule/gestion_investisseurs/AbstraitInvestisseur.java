@@ -21,9 +21,9 @@ public abstract class AbstraitInvestisseur implements Serializable{
 	protected String mail;
 	@Column(nullable=false)
 	protected String mdp;
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="investisseur")
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="investisseur")
 	private Set<Participation> participations;
-	@ManyToMany()
+	@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy="investisseurs")
 	private Set<LeveeDeFonds> leveeDeFonds;
 	
 	public long getIdInvestisseur() {

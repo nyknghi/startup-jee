@@ -6,7 +6,6 @@ package gestion_events;
 
 import gestion_investisseurs.AbstraitInvestisseur;
 import gestion_investisseurs.Fondateur;
-import gestion_investisseurs.Organisateur;
 import java.util.List;
 
 /**
@@ -27,7 +26,7 @@ public interface EventsBeanFacade {
     public List<Startup> findStartupByActivity(String a);
     
     //CRUD  levee de fonds
-    public LeveeDeFonds leveeDeFonds(String d, double m, Organisateur o);
+    public LeveeDeFonds leveeDeFonds(String d, double m, AbstraitInvestisseur o);
     public void updateLeveeDeFonds(int id);
     public LeveeDeFonds findLeveeDeFonds(int id);
     

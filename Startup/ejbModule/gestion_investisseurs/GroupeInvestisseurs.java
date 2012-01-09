@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -17,7 +16,6 @@ public class GroupeInvestisseurs extends AbstraitInvestisseur implements Seriali
 	private static final long serialVersionUID = 1L;
 	
 	@OneToMany(mappedBy="groupe")
-	@JoinColumn(name="investisseursId")
 	private List<Investisseur> investisseurs;
 	
 	public GroupeInvestisseurs(){}

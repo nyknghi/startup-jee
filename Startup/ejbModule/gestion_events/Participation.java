@@ -6,24 +6,23 @@ import javax.persistence.*;
 
 @SuppressWarnings("serial")
 @Entity
-@Table (name="Participation")
-//, uniqueConstraints=@UniqueConstraint(columnNames={"levee","startup"}))
+@Table (name="Participation", uniqueConstraints=@UniqueConstraint(columnNames={"levee_idlevee","startup_idstartup"}))
 public class Participation implements Serializable {
 
     @Id
     @GeneratedValue (strategy=GenerationType.AUTO)
     private int numParticipation;
     
-    @ManyToOne (cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-    @JoinColumn (referencedColumnName="idLevee")
+    @ManyToOne (fetch=FetchType.LAZY)
+    @JoinColumn (name="levee_idlevee", referencedColumnName="idLevee", nullable=false)
     private LeveeDeFonds levee;
     
-    @ManyToOne (cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-    @JoinColumn (referencedColumnName="idStartup")
+    @ManyToOne (fetch=FetchType.LAZY)
+    @JoinColumn (name="startup_idstartup", referencedColumnName="idStartup", nullable=false)
     private Startup startup;
     
-    @ManyToOne (cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-    @JoinColumn (referencedColumnName="idInvestisseur")
+    @ManyToOne (fetch=FetchType.LAZY)
+    @JoinColumn (referencedColumnName="idInvestisseur", nullable=false)
     private AbstraitInvestisseur investisseur;
     
     @Column (nullable=false)
