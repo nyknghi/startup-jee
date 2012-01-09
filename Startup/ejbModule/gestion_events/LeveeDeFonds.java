@@ -1,11 +1,13 @@
 package gestion_events;
 
 import gestion_investisseurs.AbstraitInvestisseur;
-import gestion_investisseurs.Organisateur;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 
+@SuppressWarnings("serial")
 @Entity
 @Table (name="Levee_de_fonds")
 public class LeveeDeFonds implements Serializable{
@@ -26,17 +28,16 @@ public class LeveeDeFonds implements Serializable{
     @ManyToMany
     @JoinTable(name="Inscription", joinColumns={@JoinColumn(referencedColumnName="idLevee")}, 
             inverseJoinColumns={@JoinColumn(referencedColumnName="idInvestisseur")})
-    private HashSet<AbstraitInvestisseur> investisseurs;
+    private Set<AbstraitInvestisseur> investisseurs;
     
     @OneToMany (fetch=FetchType.EAGER, mappedBy="levee")
-    private HashSet<Participation> participations;
+    private Set<Participation> participations;
     
     @ManyToOne (fetch=FetchType.LAZY)
-    @Column (nullable = false)
     @JoinColumn (referencedColumnName="idInvestisseur")
-    private Organisateur organisateur;
+    private AbstraitInvestisseur organisateur;
     
-    public LeveeDeFonds (String d, double m, Organisateur o){
+    public LeveeDeFonds (String d, double m, AbstraitInvestisseur o){
         date_levee = d;
         etape = Etape.CANDIDATURE;
         montantCible = m;
@@ -53,27 +54,27 @@ public class LeveeDeFonds implements Serializable{
         this.date_levee = date_levee;
     }
 
-    public void setInv(HashSet<AbstraitInvestisseur> inv) {
+    public void setInv(Set<AbstraitInvestisseur> inv) {
         this.investisseurs = inv;
     }
 
-    public void setOrg(Organisateur org) {
+    public void setOrg(AbstraitInvestisseur org) {
         this.organisateur = org;
     }
 
-    public void setParts(HashSet<Participation> parts) {
+    public void setParts(Set<Participation> parts) {
         this.participations = parts;
     }
 
-    public HashSet<AbstraitInvestisseur> getInv() {
+    public Set<AbstraitInvestisseur> getInv() {
         return investisseurs;
     }
 
-    public Organisateur getOrg() {
+    public AbstraitInvestisseur getOrg() {
         return organisateur;
     }
 
-    public HashSet<Participation> getParts() {
+    public Set<Participation> getParts() {
         return participations;
     }
 

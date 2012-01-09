@@ -1,25 +1,25 @@
 package gestion_investisseurs;
 
+import gestion_events.LeveeDeFonds;
 import gestion_events.Startup;
+import java.util.HashSet;
+import java.util.Set;
 
-import java.io.Serializable;
 import javax.persistence.*;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name="Fondateur")
 @NamedQuery(name="findFondateurByName", query="SELECT f FROM Fondateur as f WHERE f.nom = :nom")
-public class Fondateur extends AbstraitInvestisseur implements Serializable{
-	@Basic(optional=false)
-	protected String nom;
-	@Basic(optional=false)
-	protected String mail;
-	@Basic(optional=false)
-	protected String mdp;
+public class Fondateur extends AbstraitInvestisseur{
+	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="startup_id", referencedColumnName="idStartup")
+	@JoinColumn(referencedColumnName="idStartup")
 	private Startup startup;
 	private boolean isMandataire=false;
+	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="organisateur")
+	private Set<LeveeDeFonds> leveeDeFonds;
 	
 	public Fondateur(){}
 	
@@ -27,6 +27,11 @@ public class Fondateur extends AbstraitInvestisseur implements Serializable{
 		this.nom = nom;
 		this.mail = mail;
 		this.mdp = mdp;
+		leveeDeFonds = new HashSet<LeveeDeFonds>();
+	}
+	
+	public Long organisateurId(){
+		return getIdInvestisseur();
 	}
 	
 	public Startup getStartup() {
@@ -45,24 +50,14 @@ public class Fondateur extends AbstraitInvestisseur implements Serializable{
 		this.isMandataire = isMandataire;
 	}
 
-	public String getNom() {
-		return nom;
+	public Set<LeveeDeFonds> getLeveeDeFonds() {
+		return leveeDeFonds;
 	}
-	public void setNom(String nom) {
-		this.nom = nom;
+
+	public void setLeveeDeFonds(Set<LeveeDeFonds> leveeDeFonds) {
+		this.leveeDeFonds = leveeDeFonds;
 	}
-	public String getMail() {
-		return mail;
-	}
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-	public String getMdp() {
-		return mdp;
-	}
-	public void setMdp(String mdp) {
-		this.mdp = mdp;
-	}
+
 	@Override
 	public String toString() {
 		return "Fondateur [nom=" + nom + ", startup=" + startup.getNomStartup() + ", isMandataire="

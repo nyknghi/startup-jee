@@ -1,5 +1,7 @@
 package gestion_investisseurs;
 
+import gestion_events.Startup;
+
 import java.io.Serializable;
 
 import javax.persistence.*;
@@ -20,6 +22,10 @@ public class ClubAmi implements Serializable {
 	@OneToMany(mappedBy="clubAmi")
 	List<Membre> businessAngels;
 
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(referencedColumnName="idStartup")
+	private Startup startup;
+	
 	public ClubAmi(){}
 	
 	public ClubAmi(String nom){
@@ -41,5 +47,13 @@ public class ClubAmi implements Serializable {
 	
 	public List<Membre> getMembres(){
 		return businessAngels;
+	}
+
+	public Startup getStartup() {
+		return startup;
+	}
+
+	public void setStartup(Startup startup) {
+		this.startup = startup;
 	}
 }

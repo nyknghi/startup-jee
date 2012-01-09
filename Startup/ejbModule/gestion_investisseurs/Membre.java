@@ -30,7 +30,7 @@ public class Membre implements Serializable {
 	public Membre(ClubAmi club, BusinessAngel ba){
 		this.clubAmi = club;
 		this.businessAngel = ba;
-		this.idBA = ba.getIdBusinessAngel();
+		this.idBA = ba.getIdInvestisseur();
 		this.idClub = club.getIdClub();
 	}
 

@@ -1,8 +1,11 @@
 package gestion_investisseurs;
 
-import java.io.Serializable;
+import gestion_events.LeveeDeFonds;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -10,17 +13,15 @@ import javax.persistence.*;
 @Table(name="BusinessAngel")
 @DiscriminatorValue("BA")
 
-public class BusinessAngel extends AbstraitInvestisseur implements Serializable{
+public class BusinessAngel extends AbstraitInvestisseur{
 	private static final long serialVersionUID = 1L;
-	@Basic(optional=false)
-	protected String nom;
-	@Basic(optional=false)
-	protected String mail;
-	@Basic(optional=false)
-	protected String mdp;
+	
 	private boolean isMandataire = false;
 	@OneToMany(mappedBy="businessAngel")
 	private List<Membre> clubAmis;
+	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="organisateur")
+	private Set<LeveeDeFonds> leveeDeFonds;
 	
 	public BusinessAngel(){}
 	
@@ -29,6 +30,7 @@ public class BusinessAngel extends AbstraitInvestisseur implements Serializable{
 		this.mail = mail;
 		this.mdp = mdp;
 		clubAmis = new ArrayList<Membre>();
+		leveeDeFonds = new HashSet<LeveeDeFonds>();
 	}
 	
 	public Membre devenirMembre (ClubAmi ca){
@@ -39,34 +41,10 @@ public class BusinessAngel extends AbstraitInvestisseur implements Serializable{
 		// TODO...
 	}
 
-	public long getIdBusinessAngel() {
-		return idInvestisseur;
+	public Long organisateurId(){
+		return getIdInvestisseur();
 	}
-
-	public String getNom() {
-		return nom;
-	}
-
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	public String getMail() {
-		return mail;
-	}
-
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-
-	public String getMdp() {
-		return mdp;
-	}
-
-	public void setMdp(String mdp) {
-		this.mdp = mdp;
-	}
-
+	
 	public boolean isMandataire() {
 		return isMandataire;
 	}
@@ -82,5 +60,12 @@ public class BusinessAngel extends AbstraitInvestisseur implements Serializable{
 	public void setClubAmis(List<Membre> clubAmis) {
 		this.clubAmis = clubAmis;
 	}
-	
+
+	public Set<LeveeDeFonds> getLeveeDeFonds() {
+		return leveeDeFonds;
+	}
+
+	public void setLeveeDeFonds(Set<LeveeDeFonds> leveeDeFonds) {
+		this.leveeDeFonds = leveeDeFonds;
+	}	
 }

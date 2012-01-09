@@ -17,7 +17,7 @@ public interface FacadeInvestisseurs {
 	/*
 	 * Gestion des startups
 	 */
-	public Startup creerStartup(String nom, String activite, double capital, Fondateur f);
+	public Startup creerStartup(String nom, String activite, Fondateur f);
 	public Startup rechercherStartupParId (long idStartup);
 	
 	/*

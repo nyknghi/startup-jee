@@ -4,8 +4,10 @@ import gestion_investisseurs.AbstraitInvestisseur;
 import java.io.Serializable;
 import javax.persistence.*;
 
+@SuppressWarnings("serial")
 @Entity
-@Table (name="Participation", uniqueConstraints={@UniqueConstraint(columnNames={"levee","startup"})})
+@Table (name="Participation")
+//, uniqueConstraints=@UniqueConstraint(columnNames={"levee","startup"}))
 public class Participation implements Serializable {
 
     @Id
@@ -13,17 +15,14 @@ public class Participation implements Serializable {
     private int numParticipation;
     
     @ManyToOne (cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-    @Column (nullable=true)
     @JoinColumn (referencedColumnName="idLevee")
     private LeveeDeFonds levee;
     
     @ManyToOne (cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-    @Column (nullable = false)
     @JoinColumn (referencedColumnName="idStartup")
     private Startup startup;
     
     @ManyToOne (cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-    @Column (nullable = false)
     @JoinColumn (referencedColumnName="idInvestisseur")
     private AbstraitInvestisseur investisseur;
     

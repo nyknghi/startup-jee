@@ -52,9 +52,9 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 
 	@Override
 	// Le fondateur qui cree le startup doit etre persiste
-	public Startup creerStartup(String nom, String activite, double capital, Fondateur f) {
+	public Startup creerStartup(String nom, String activite, Fondateur f) {
 		Startup s = null;
-		s = new Startup(nom, activite, capital, f);
+		s = new Startup(nom, activite, f);
 		f.setStartup(s);
 		em.persist(s);
 		em.merge(f);	
@@ -94,7 +94,7 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	
 	@Override
 	public void supprimerMembre (BusinessAngel ba, ClubAmi ca){
-		Membre m = this.rechercherMembreParId(ba.getIdBusinessAngel(), ca.getIdClub());
+		Membre m = this.rechercherMembreParId(ba.getIdInvestisseur(), ca.getIdClub());
 		ca.getMembres().remove(m);
 		ba.getClubAmis().remove(m);
 		em.remove(m);

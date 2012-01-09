@@ -15,7 +15,7 @@ public class Startup implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idStartup;
         
 	@Basic(optional=false)
@@ -30,8 +30,8 @@ public class Startup implements Serializable{
 	@OneToMany(mappedBy="startup")
 	private Set<Fondateur> fondateurs;
         
-        @OneToMany (fetch=FetchType.EAGER, mappedBy="Startup")
-        private HashSet<Participation> participations;
+        @OneToMany (fetch=FetchType.EAGER, mappedBy="startup")
+        private Set<Participation> participations;
         
         @OneToMany (mappedBy="startup")
         private Set<ClubAmi> clubs;
@@ -57,7 +57,7 @@ public class Startup implements Serializable{
         return fondateurs;
     }
 
-    public HashSet<Participation> getParts() {
+    public Set<Participation> getParts() {
         return participations;
     }
 
