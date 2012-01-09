@@ -50,7 +50,7 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
             startupId = ((ClubAmi)l.getOrg()).getStartup().getIdStartup();
         }
         st = em.find(Startup.class, startupId);
-        Query query = em.createQuery("select distinct par.investisseur from Startup s, in (s.participations) par"
+        Query query = em.createQuery("select distinct par.investisseur from Startup s, in s.participations as par"
                 + "where s.idStartup= :idstartup");//liste des investisseurs de la startup
         query.setParameter("idstartup", st.getIdStartup());
         LinkedList<AbstraitInvestisseur> list = (LinkedList<AbstraitInvestisseur>) query.getResultList();
@@ -70,7 +70,7 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
     }
     
     private double sousTotal(long inv, int st){
-        Query query = em.createQuery("SELECT SUM(par.montant) FROM Startup s, in (s.participations) par"
+        Query query = em.createQuery("SELECT SUM(par.montant) FROM Startup s, in s.participations as par"
                 + " WHERE s.idStartup= :idstartup "
                 + "AND par.startup.idStartup= :idstartup"
                 + "AND par.investisseur.idInvestisseur= :idinvestisseur");
