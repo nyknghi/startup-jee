@@ -69,6 +69,10 @@ public abstract class AbstraitInvestisseur implements Serializable{
 	public void setLeveeDeFonds(Set<LeveeDeFonds> leveeDeFonds) {
 		this.leveeDeFonds = leveeDeFonds;
 	}
+
+    public void addParticipation(Participation p) {
+        participations.add(p);
+    }
 	
 	
 }

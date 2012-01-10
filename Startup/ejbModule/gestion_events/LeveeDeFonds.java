@@ -25,6 +25,10 @@ public class LeveeDeFonds implements Serializable{
     @Column (nullable=false)
     private double montantCible;
     
+    @ManyToOne (fetch=FetchType.LAZY)
+    @JoinColumn (referencedColumnName="levee", nullable=false)
+    private Startup startup;
+    
     @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(name="Inscription", joinColumns={@JoinColumn(referencedColumnName="idLevee")}, 
             inverseJoinColumns={@JoinColumn(referencedColumnName="idInvestisseur")})
@@ -45,57 +49,31 @@ public class LeveeDeFonds implements Serializable{
         investisseurs = new HashSet<AbstraitInvestisseur>();
         participations = new HashSet<Participation>();
     }
+    
+    public void addInvestisseur(AbstraitInvestisseur i){
+        investisseurs.add(i);
+    }
+    
+    public void removeInvestisseur(AbstraitInvestisseur i){
+        investisseurs.remove(i);
+    }
+    
+    public void addParticipation(Participation p){
+        participations.add(p);
+    }
+    
+    public LeveeDeFonds(){}
+
+    public Startup getStartup() {
+        return startup;
+    }
+
+    public void setStartup(Startup startup) {
+        this.startup = startup;
+    }
 
     public String getDate_levee() {
         return date_levee;
-    }
-
-    public void setDate_levee(String date_levee) {
-        this.date_levee = date_levee;
-    }
-
-    public void setInv(Set<AbstraitInvestisseur> inv) {
-        this.investisseurs = inv;
-    }
-
-    public void setOrg(AbstraitInvestisseur org) {
-        this.organisateur = org;
-    }
-
-    public void setParts(Set<Participation> parts) {
-        this.participations = parts;
-    }
-
-    public Set<AbstraitInvestisseur> getInv() {
-        return investisseurs;
-    }
-
-    public AbstraitInvestisseur getOrg() {
-        return organisateur;
-    }
-
-    public Set<Participation> getParts() {
-        return participations;
-    }
-
-    public String getDate() {
-        return date_levee;
-    }
-
-    public void setDate(String date) {
-        this.date_levee = date;
-    }
-
-    public void setEtape(Etape e) {
-        etape = e;
-    }
-
-    public void setIdLevee(int idLevee) {
-        this.idLevee = idLevee;
-    }
-
-    public void setMontantCible(double montantCible) {
-        this.montantCible = montantCible;
     }
 
     public Etape getEtape() {
@@ -106,9 +84,43 @@ public class LeveeDeFonds implements Serializable{
         return idLevee;
     }
 
+    public Set<AbstraitInvestisseur> getInvestisseurs() {
+        return investisseurs;
+    }
+
     public double getMontantCible() {
         return montantCible;
     }
-    
-    public LeveeDeFonds(){} 
+
+    public AbstraitInvestisseur getOrganisateur() {
+        return organisateur;
+    }
+
+    public Set<Participation> getParticipations() {
+        return participations;
+    }
+
+    public void setDate_levee(String date_levee) {
+        this.date_levee = date_levee;
+    }
+
+    public void setEtape(Etape etape) {
+        this.etape = etape;
+    }
+
+    public void setInvestisseurs(Set<AbstraitInvestisseur> investisseurs) {
+        this.investisseurs = investisseurs;
+    }
+
+    public void setMontantCible(double montantCible) {
+        this.montantCible = montantCible;
+    }
+
+    public void setOrganisateur(AbstraitInvestisseur organisateur) {
+        this.organisateur = organisateur;
+    }
+
+    public void setParticipations(Set<Participation> participations) {
+        this.participations = participations;
+    }
 }

@@ -6,14 +6,13 @@ package gestion_events;
 
 import gestion_investisseurs.AbstraitInvestisseur;
 import gestion_investisseurs.BusinessAngel;
-import gestion_investisseurs.ClubAmi;
 import gestion_investisseurs.Fondateur;
 import gestion_investisseurs.GroupeInvestisseurs;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -23,113 +22,32 @@ import javax.persistence.Query;
  * @author UTILISATEUR
  */
 @Stateless
+@TransactionManagement (TransactionManagementType.CONTAINER)
 public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
     
-    @PersistenceContext
+    @PersistenceContext(unitName="SampleUnit")
     EntityManager em;
 
+    //CRUD participations
     public Participation participation(Startup s, AbstraitInvestisseur i, double d) {
         Participation p = new Participation(s, i, d);
+        if(i instanceof Fondateur){
+            s.addFondateur((Fondateur)i);
+        }
+        s.addParticipation(p);
+        i.addParticipation(p);
         em.persist(p);
+        em.merge(s);
+        em.merge(i);
         return p;
     }
-
-    public Startup startup(String nom, String activite, Fondateur f) {
-        Startup s = new Startup(nom, activite, f);
-        em.persist(s);
-        f.setStartup(s);
-        em.merge(f);
-        return s;
-    }
-
     
-    public void distribuerDividende(LeveeDeFonds l) {
-    /*    Startup st;
-        int startupId;
-        if(l.getOrg() instanceof Fondateur){
-            startupId = ((Fondateur)l.getOrg()).getStartup().getIdStartup();
-        }else{
-            startupId = ((ClubAmi)l.getOrg()).getStartup().getIdStartup();
-        }
-        st = em.find(Startup.class, startupId);
-        Query query = em.createQuery("select distinct par.investisseur from Startup s, in s.participations as par"
-                + "where s.idStartup= :idstartup");//liste des investisseurs de la startup
-        query.setParameter("idstartup", st.getIdStartup());
-        LinkedList<AbstraitInvestisseur> list = (LinkedList<AbstraitInvestisseur>) query.getResultList();
-        HashMap<AbstraitInvestisseur, Double> sums = new HashMap<AbstraitInvestisseur, Double>();
-        for(AbstraitInvestisseur inv: list){
-            sums.put(inv, (sousTotal(inv.getIdInvestisseur(), st.getIdStartup())/calculCapital(st))*totalParticipations(l));
-            //liste des dividendes par investisseur
-        }
-        Iterator it = st.getParts().iterator();
-        while(it.hasNext()){
-            Participation p = (Participation)it.next();
-            double res = p.getMontant()+sums.get(p.getInv());
-            p.setMontant(res);
-            em.merge(p);
-        }
-        em.merge(st);*/
+    public void updateParticipation(String s, String i, double m) {
+        Participation p = findParticipation(s, i);
+        p.setMontant(m);
+        em.merge(p);
     }
     
-    private double sousTotal(long inv, int st){
-        Query query = em.createQuery("SELECT SUM(par.montant) FROM Startup s, in s.participations as par"
-                + " WHERE s.idStartup= :idstartup "
-                + "AND par.startup.idStartup= :idstartup"
-                + "AND par.investisseur.idInvestisseur= :idinvestisseur");
-        query.setParameter("idstartup", st);
-        query.setParameter("idinvestisseur", inv);
-        return Double.valueOf((String)query.getResultList().get(0));
-    }
-
-    public LeveeDeFonds leveeDeFonds(String d, double m, AbstraitInvestisseur o) {
-        LeveeDeFonds f = new LeveeDeFonds(d, m, o);
-        em.persist(f);
-        return f;
-    }
-
-    public double totalParticipations(LeveeDeFonds l) {
-        Iterator it = l.getParts().iterator();
-        double total = 0.0;
-        while(it.hasNext()){
-            Participation temp = (Participation)it.next();
-            total += temp.getMontant();
-        }
-        return total;
-    }
-
-    public void updateParticipation(String n, double m) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public Participation findParticipation(String s, String i) {
-        Query query = em.createQuery("select p from Participation p where p.startup.idStartup= :startup and p.investisseur.idInvestisseur= :inv");
-        return (Participation) query.getSingleResult();
-    }
-
-    public void updateStartup(String n) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public Startup findStartupByName(String n) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public List<Startup> findStartupByActivity(String a) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void updateLeveeDeFonds(int id) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public LeveeDeFonds findLeveeDeFonds(int id) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public double calculCapital(Startup s) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
     public List<Participation> findParticipation(AbstraitInvestisseur inv) {
         Query query = null;
         if(inv instanceof Fondateur){
@@ -142,9 +60,103 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
         query.setParameter("nom", inv.getNom());
         return (List<Participation>) query.getResultList();
     }
+    
+    public Participation findParticipation(String s, String i) {
+        Query query = em.createQuery("select p from Participation p where p.startup.idStartup= :startup and p.investisseur.idInvestisseur= :inv");
+        return (Participation) query.getSingleResult();
+    }
 
-    public Double postValue(Startup s, LeveeDeFonds l) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    
+    //CRUD startup
+    public Startup startup(String nom, String activite, Fondateur f) {
+        Startup s = new Startup(nom, activite, f);
+        f.setStartup(s);
+        em.persist(s);
+        em.merge(f);
+        return s;
     }
     
+    public void updateStartup(String n, String nouv, String a) {
+        Startup s = findStartupByName(n);
+        if(nouv!=null){
+            s.setNomStartup(nouv);
+            if(a!=null){
+                s.setActivite(a);
+            }
+        }
+        em.merge(s);
+    }
+
+    public Startup findStartupByName(String n) {
+        Query query = em.createQuery("select s from Startup s where s.nomStartup= :nom");
+        query.setParameter("nom", n);
+        return (Startup) query.getSingleResult();
+    }
+
+    public List<Startup> findStartupByActivity(String a) {
+        Query query = em.createQuery("select s from Startup s where s.activite= :activite");
+        query.setParameter("activite", a);
+        return (List<Startup>) query.getResultList();
+    }
+    
+    
+    //CRUD levee de fonds
+    public LeveeDeFonds leveeDeFonds(String d, double m, AbstraitInvestisseur o) {
+        LeveeDeFonds f = new LeveeDeFonds(d, m, o);
+        em.persist(f);
+        return f;
+    }
+
+    public void updateLeveeDeFonds(int id, String date, Etape e) {
+        LeveeDeFonds levee = findLeveeDeFonds(id);
+        if(date!=null){
+            levee.setDate_levee(date);
+            if(e!=null){
+                levee.setEtape(e);
+            }
+        }
+        em.merge(levee);
+    }
+
+    public LeveeDeFonds findLeveeDeFonds(int id) {
+        return em.find(LeveeDeFonds.class, id);
+    }
+    
+    
+    //Business methods
+    public void distribuerDividende(LeveeDeFonds l) {
+        Startup st = l.getStartup();
+        Iterator it = st.getParticipations().iterator();
+        while(it.hasNext()){
+            Participation p = (Participation) it.next();
+            double div = (p.getMontant()/calculCapital(st))*totalParticipations(l);
+            p.setMontant(div);
+            em.merge(p);
+        }
+        em.merge(st);
+    }
+
+    public double totalParticipations(LeveeDeFonds l) {
+        Iterator it = l.getParticipations().iterator();
+        double total = 0.0;
+        while(it.hasNext()){
+            Participation temp = (Participation)it.next();
+            total += temp.getMontant();
+        }
+        return total;
+    }
+
+    public double calculCapital(Startup s) {
+        Iterator it = s.getParticipations().iterator();
+        double res = 0.0;
+        while(it.hasNext()){
+            Participation p = (Participation)it.next();
+            res += p.getMontant();
+        }
+        return res;
+    }
+
+    public Double postValue(Startup s, LeveeDeFonds l) {
+        return totalParticipations(l)+calculCapital(s);
+    }
 }
