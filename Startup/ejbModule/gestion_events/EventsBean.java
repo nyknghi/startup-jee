@@ -38,7 +38,6 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
         Startup s = new Startup(nom, activite, f);
         em.persist(s);
         f.setStartup(s);
-        System.out.println("Je suis la !");
         em.merge(f);
         return s;
     }

@@ -1,6 +1,5 @@
 package gestion_investisseurs;
 
-import gestion_events.EventsBeanFacade;
 import gestion_events.Startup;
 
 import java.util.ArrayList;
@@ -45,9 +44,10 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	}
 
 	@Override
-	public Fondateur ajouterFondateurStartup(Fondateur f, Startup s) {
+	public Fondateur ajouterFondateurStartup(Fondateur f, Startup s, boolean isMandataire) {
 		s.addFondateur(f);
 		f.setStartup(s);
+		f.setMandataire(isMandataire);
 		em.merge(s);
 		f = em.merge(f);	
 		return f;

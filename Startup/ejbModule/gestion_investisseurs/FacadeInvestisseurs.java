@@ -15,7 +15,7 @@ public interface FacadeInvestisseurs {
 	public ArrayList<Fondateur> rechercherFondateur (String nom);
 	public Fondateur updateFondateur(Fondateur f, String nom, String mail, String mdp);
 	
-	public Fondateur ajouterFondateurStartup (Fondateur f, Startup s);
+	public Fondateur ajouterFondateurStartup (Fondateur f, Startup s, boolean isMandataire);
 	
 	/*
 	 * Gestion des business Angel et club ami
