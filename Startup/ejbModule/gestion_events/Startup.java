@@ -33,7 +33,7 @@ public class Startup implements Serializable{
     @OneToMany (cascade=CascadeType.ALL, mappedBy="startup")
     private Set<ClubAmi> clubs;
     
-    @OneToMany (mappedBy="startup", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @OneToMany (cascade=CascadeType.ALL, mappedBy="startup")
     private Set<LeveeDeFonds> levee;
         
     public Startup() {}

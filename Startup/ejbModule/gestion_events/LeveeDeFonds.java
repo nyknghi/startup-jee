@@ -25,10 +25,6 @@ public class LeveeDeFonds implements Serializable{
     @Column (nullable=false)
     private double montantCible;
     
-    @ManyToOne (fetch=FetchType.LAZY)
-    @JoinColumn (referencedColumnName="levee", nullable=false)
-    private Startup startup;
-    
     @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(name="Inscription", joinColumns={@JoinColumn(referencedColumnName="idLevee")}, 
             inverseJoinColumns={@JoinColumn(referencedColumnName="idInvestisseur")})
@@ -38,8 +34,12 @@ public class LeveeDeFonds implements Serializable{
     private Set<Participation> participations;
     
     @ManyToOne (fetch=FetchType.LAZY)
-    @JoinColumn (referencedColumnName="idInvestisseur")
+    @JoinColumn (referencedColumnName="idInvestisseur", nullable=false)
     private AbstraitInvestisseur organisateur;
+    
+    @ManyToOne (fetch=FetchType.LAZY)
+    @JoinColumn (referencedColumnName="idStartup", nullable=false)
+    private Startup startup;
     
     public LeveeDeFonds (String d, double m, AbstraitInvestisseur o){
         date_levee = d;
