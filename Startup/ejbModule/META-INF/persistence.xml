@@ -4,21 +4,18 @@
 ﻿  <jta-data-source>java:PostgresDS</jta-data-source>
 ﻿  <provider>org.hibernate.ejb.HibernatePersistence</provider>
 ﻿  
-﻿  <exclude-unlisted-classes>true</exclude-unlisted-classes><properties>
+﻿  <exclude-unlisted-classes>false</exclude-unlisted-classes><properties>
 
 ﻿  ﻿  <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
 ﻿  ﻿  <property name="hibernate.archive.autodetection" value="class, hbm"/>
 ﻿  ﻿  <property name="hibernate.show_sql" value="true"/>
 ﻿  ﻿  <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
-﻿  ﻿  <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/IfStartup"/>
+﻿  ﻿  <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/IfStartupDB"/>
 ﻿  ﻿  <property name="hibernate.connection.username" value="postgres"/>
 ﻿  ﻿  <property name="hibernate.connection.password" value="admin"/>
 ﻿  ﻿  <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
 ﻿  ﻿  
 ﻿  ﻿  <property name="hibernate.transaction.manager_lookup_class" value="org.hibernate.transaction.JBossTransactionManagerLookup"/>
 ﻿  </properties>
-﻿  
-﻿  
-
 ﻿  </persistence-unit>
 </persistence>
