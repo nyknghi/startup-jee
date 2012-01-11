@@ -61,7 +61,7 @@ public interface FacadeInvestisseurs {
 	public GroupeInvestisseurs rechercherGroupeParId (long id);
 	public List<GroupeInvestisseurs> rechercherGroupeParNom (String nomGroupe);
 	
-	public Couple<GroupeInvestisseurs, Investisseur> adhererGroupe (GroupeInvestisseurs groupe, Investisseur inv);
+	public Couple<GroupeInvestisseurs, Investisseur> adhererGroupe (GroupeInvestisseurs groupe, Investisseur inv, boolean isLeader);
 	public Couple<GroupeInvestisseurs, Investisseur> quitterGroupe (GroupeInvestisseurs groupe, Investisseur inv);
 	
 	/*
@@ -70,7 +70,6 @@ public interface FacadeInvestisseurs {
 	public HashMap<String, String> listeAccountsFondateurs();
 	public HashMap<String, String> listeAccountsBA();
 	public HashMap<String, String> listeAccountsInvestisseurs();
-	public HashMap<String, String> listeAccountsGroupes();
 	
 	public void closeEM();
 

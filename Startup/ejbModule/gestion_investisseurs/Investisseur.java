@@ -1,16 +1,14 @@
 package gestion_investisseurs;
 
-import java.io.Serializable;
 import javax.persistence.*;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name="Investisseur")
-@DiscriminatorValue("INVESTISSEUR")
-public class Investisseur extends AbstraitInvestisseur implements Serializable{
+public class Investisseur extends AbstraitInvestisseur{
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(referencedColumnName="idInvestisseur")
-	private GroupeInvestisseurs groupe;
+	private GroupeInvestisseurs groupe = null;
 	@Column
 	private boolean isLeader=false;
 	
@@ -36,5 +34,12 @@ public class Investisseur extends AbstraitInvestisseur implements Serializable{
 
 	public void setLeader(boolean isLeader) {
 		this.isLeader = isLeader;
+	}
+
+	@Override
+	public String toString() {
+		return "Investisseur [idInvestisseur=" + idInvestisseur + ", nom=" + nom
+				+ ", mail=" + mail + ", mdp=" + mdp + ", groupe=" + groupe.getNom() 
+				+ ", isLeader=" + isLeader + "]"; 
 	}
 }

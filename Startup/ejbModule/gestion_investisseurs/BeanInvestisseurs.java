@@ -238,7 +238,7 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	public Couple<GroupeInvestisseurs, Investisseur> monterGroupe(Investisseur inv, String nomGroupe) {
 		GroupeInvestisseurs groupe = new GroupeInvestisseurs(nomGroupe);
 		em.persist(groupe);
-		return this.adhererGroupe(groupe, inv);
+		return this.adhererGroupe(groupe, inv, true);
 	}
 
 	@Override
@@ -267,9 +267,11 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	}
 	
 	@Override
-	public Couple<GroupeInvestisseurs, Investisseur> adhererGroupe(GroupeInvestisseurs groupe, Investisseur inv) {
+	public Couple<GroupeInvestisseurs, Investisseur> adhererGroupe(GroupeInvestisseurs groupe, 
+			Investisseur inv, boolean isLeader) {
 		groupe.getInvestisseurs().add(inv);
 		inv.setGroupe(groupe);
+		inv.setLeader(isLeader);
 		return new Couple<GroupeInvestisseurs, Investisseur>(em.merge(groupe), em.merge(inv));
 	}
 
@@ -321,20 +323,6 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 		for (int i=0; i<invs.size(); i++){
 			Investisseur inv = invs.get(i);
 			res.put(inv.getMail(), inv.getMdp());
-		}
-		
-		return res;
-	}
-
-	@Override
-	@SuppressWarnings("unchecked")
-	public HashMap<String, String> listeAccountsGroupes() {
-		HashMap<String, String> res = new HashMap<String, String>();
-		Query query = em.createQuery("SELECT g FROM GroupeInvestisseurs as g");
-		List<GroupeInvestisseurs> groupes = (List<GroupeInvestisseurs>)query.getResultList();
-		for (int i=0; i<groupes.size(); i++){
-			GroupeInvestisseurs groupe = groupes.get(i);
-			res.put(groupe.getMail(), groupe.getMdp());
 		}
 		
 		return res;

@@ -12,9 +12,9 @@ import javax.persistence.*;
 @NamedQuery(name="findFondateurByName", query="SELECT f FROM Fondateur as f WHERE f.nom = :nom")
 public class Fondateur extends AbstraitInvestisseur{
 	private static final long serialVersionUID = 465047179273343739L;
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(referencedColumnName="idStartup")
-	private Startup startup;
+	private Startup startup = null;
 	@Column
 	private boolean isMandataire=false;
 	
