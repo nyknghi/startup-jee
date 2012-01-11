@@ -7,6 +7,8 @@ import gestion_events.Startup;
 import gestion_investisseurs.BusinessAngel;
 import gestion_investisseurs.ClubAmi;
 import gestion_investisseurs.Fondateur;
+import gestion_investisseurs.GroupeInvestisseurs;
+import gestion_investisseurs.Investisseur;
 import gestion_investisseurs.RemoteInvestisseurs;
 
 import javax.naming.Context;
@@ -16,6 +18,8 @@ import javax.naming.NamingException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import util.Couple;
 import junit.framework.TestCase;
 
 public class BeanInvestisseursTest extends TestCase{
@@ -51,8 +55,9 @@ public class BeanInvestisseursTest extends TestCase{
 	
 	public void prepareEntity(){
 		f1 = remoteInv.creerFondateur("Dupont", "dupont@gmail.com", "12345");
-		s = remoteEvents.startup("MonStartup", "Informatique", f1);
-		f1.setStartup(s);
+		Couple<Startup, Fondateur> res = remoteEvents.startup("MStartup", "Informatique", f1);
+		s = res.getObjetA();
+		f1 = res.getObjetB();
 	}
 	
 	/*
@@ -70,7 +75,7 @@ public class BeanInvestisseursTest extends TestCase{
 		System.out.println(f1);
 		// Test d'ajout d'un fondateur dans la startup
 		Fondateur f2 = remoteInv.creerFondateur("Tita", "tita@gmail.com", "1707");
-		f2 = remoteInv.ajouterFondateurStartup(f2, s, true);
+		f2 = remoteInv.ajouterFondateurStartup(f2, s, true).getObjetA();
 		System.out.println(f2);
 		System.out.println("-Fin test----------------------------------------\n");
 	}
@@ -79,8 +84,9 @@ public class BeanInvestisseursTest extends TestCase{
 	public void testUpdateFondateur(){
 		System.out.println("-Test update fondateur");
 		System.out.println("Fondateur avant update: " + f1);
-		f1 = remoteInv.updateFondateur(f1, "Tartempion","dupont@gmail.com", "12345");
-		System.out.println("Fondateur apres update: " + f1);
+		Fondateur f2 = remoteInv.updateFondateur(f1, "Tartempion","dupont@gmail.com", "12345");
+		System.out.println("Fondateur apres update: " + f2);
+		assertFalse(f1.equals(f2));
 		System.out.println("-Fin test----------------------------------------\n");
 	}
 	
@@ -111,6 +117,29 @@ public class BeanInvestisseursTest extends TestCase{
 		System.out.println(ba1);
 		System.out.println(ba2);
 		System.out.println(ca);
+		System.out.println("-Fin test----------------------------------------\n");
+	}
+	
+	@Test
+	public void testSupprimerMembreCA(){
+		/**
+		 * Afficher tous les membres (business angel) du club "Club BA Paris"
+		 * puis y en supprimer un.
+		 */
+		System.out.println("-Test supprimer membre d'un club ami");
+		ClubAmi ca = remoteInv.rechercherClubParNom("Club BA Paris").get(0);
+		List<BusinessAngel> membres = remoteInv.listerMembres(ca);
+		for (int i=0; i<membres.size(); i++){
+			System.out.println(membres.get(i));
+		}
+		Couple<ClubAmi, BusinessAngel> res = remoteInv.supprimerMembre(membres.get(0), ca);
+		ca = res.getObjetA();
+		System.out.println("Membre " + membres.get(0).getNom() + " supprime");
+		membres = remoteInv.listerMembres(ca);
+		for (int i=0; i<membres.size(); i++){
+			System.out.println(membres.get(i));
+		}
+		
 		System.out.println("-Fin test----------------------------------------\n");
 	}
 	
@@ -153,16 +182,29 @@ public class BeanInvestisseursTest extends TestCase{
 	
 	@Test
 	public void testPartenaire (){
+		/**
+		 * Mettre en partenaire le club "Club BA Paris" et la startup "MaStartup"
+		 */
 		System.out.println("-Test relation entre startup et son club ami");
 		ClubAmi ca = remoteInv.rechercherClubParNom("Club BA Paris").get(0); 
-		remoteInv.mettreEnPartenaire(ca, s);
-		ca = remoteInv.updateClubAmi(ca);
-		s = remoteEvents.updateStartup(s);
+		Couple<ClubAmi, Startup> res = remoteInv.mettreEnPartenaire(ca, s);
+		ca = res.getObjetA(); s = res.getObjetB();
 		System.out.println(ca);
-		System.out.println(s.getClubs());
+		//System.out.println(s.getClubs());
 		System.out.println("-Fin test----------------------------------------\n");
 	}
 	
+	/*
+
+	public Couple<GroupeInvestisseurs, Investisseur> monterGroupe(Investisseur inv, String nomGroupe);
+	public GroupeInvestisseurs updateGroupeInvestisseurs (GroupeInvestisseurs groupe, String nomGroupe);
+	public GroupeInvestisseurs updateGroupeInvestisseurs (GroupeInvestisseurs groupe);
+	public GroupeInvestisseurs rechercherGroupeParId (long id);
+	public List<GroupeInvestisseurs> rechercherGroupeParNom (String nomGroupe);
+	
+	public Couple<GroupeInvestisseurs, Investisseur> adhererGroupe (GroupeInvestisseurs groupe, Investisseur inv);
+	public Couple<GroupeInvestisseurs, Investisseur> quitterGroupe (GroupeInvestisseurs groupe, Investisseur inv);
+	*/
 	@After
     public void tearDown(){}
 

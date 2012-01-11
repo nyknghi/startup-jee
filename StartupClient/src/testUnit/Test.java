@@ -24,10 +24,10 @@ public class Test {
 			System.out.println(remoteInv.afficherText("Hello"));
 			
 			Fondateur f = remoteInv.creerFondateur("Dupont", "dupont@gmail.com", "12345");
-			Startup s = remoteEvents.startup("MonStartup", "Informatique", f);
-			f.setStartup(s);
+			//Startup s = remoteEvents.startup("MonStartup", "Informatique", f);
+			//f.setStartup(s);
 			
-			System.out.println(s);
+			//System.out.println(s);
 			System.out.println(f);
 			
 			//remote.closeEM();
