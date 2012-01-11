@@ -51,6 +51,7 @@ public interface FacadeInvestisseurs {
 	public Investisseur updateInvestisseur (Investisseur inv);
 	public Investisseur rechercherInvestisseurParId (long id);
 	public List<Investisseur> rechercherInvestisseurParNom (String nom);
+	//public List<Investisseur> rechercherInvestisseurParGroupe (GroupeInvestisseurs groupe);
 	
 	/*
 	 * Gestion des groupes d'investisseurs

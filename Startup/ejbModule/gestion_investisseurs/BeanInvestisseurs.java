@@ -234,6 +234,17 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 		return (List<Investisseur>) query.getResultList();
 	}
 	
+	/*
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Investisseur> rechercherInvestisseurParGroupe(GroupeInvestisseurs groupe) {
+		groupe = this.rechercherGroupeParId(groupe.getIdInvestisseur());
+		Query query = em.createQuery("SELECT i FROM Investisseur as i WHERE i.groupe = :idgroupe");
+		query.setParameter("idgroupe", groupe.getIdInvestisseur());
+		return (List<Investisseur>) query.getResultList();
+	}
+	*/
+	
 	@Override
 	public Couple<GroupeInvestisseurs, Investisseur> monterGroupe(Investisseur inv, String nomGroupe) {
 		GroupeInvestisseurs groupe = new GroupeInvestisseurs(nomGroupe);
@@ -277,6 +288,8 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 
 	@Override
 	public Couple<GroupeInvestisseurs, Investisseur> quitterGroupe(GroupeInvestisseurs groupe, Investisseur inv) {
+		groupe = this.rechercherGroupeParId(groupe.getIdInvestisseur());
+		inv = this.rechercherInvestisseurParId(inv.getIdInvestisseur());
 		groupe.getInvestisseurs().remove(inv);
 		inv.setGroupe(null);
 		return new Couple<GroupeInvestisseurs, Investisseur>(em.merge(groupe), em.merge(inv));	

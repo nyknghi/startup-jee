@@ -16,7 +16,6 @@ public class GroupeInvestisseurs extends AbstraitInvestisseur{
 	@OneToMany(mappedBy="groupe", cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private List<Investisseur> investisseurs;
 	
-	
 	public GroupeInvestisseurs(){}
 	
 	public GroupeInvestisseurs (String nom){

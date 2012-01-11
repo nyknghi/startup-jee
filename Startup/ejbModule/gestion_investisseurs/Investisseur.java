@@ -6,9 +6,11 @@ import javax.persistence.*;
 @Entity
 @Table(name="Investisseur")
 public class Investisseur extends AbstraitInvestisseur{
-	@ManyToOne(fetch=FetchType.LAZY)
+	
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(referencedColumnName="idInvestisseur")
 	private GroupeInvestisseurs groupe = null;
+	
 	@Column
 	private boolean isLeader=false;
 	
