@@ -42,12 +42,15 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
         return p;
     }
     
-    public void updateParticipation(String s, String i, double m) {
+    public Participation updateParticipation(String s, String i, double m) {
         Participation p = findParticipation(s, i);
         p.setMontant(m);
-        em.merge(p);
+        return em.merge(p);
     }
     
+    public Participation updateParticipation(Participation p){
+    	return em.merge(p);
+    }
     public List<Participation> findParticipation(AbstraitInvestisseur inv) {
         Query query = null;
         if(inv instanceof Fondateur){
@@ -70,13 +73,13 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
     //CRUD startup
     public Startup startup(String nom, String activite, Fondateur f) {
         Startup s = new Startup(nom, activite, f);
-        f.setStartup(s);
         em.persist(s);
-        em.merge(f);
+        f.setStartup(s);
+        f = em.merge(f);
         return s;
     }
     
-    public void updateStartup(String n, String nouv, String a) {
+    public Startup updateStartup(String n, String nouv, String a) {
         Startup s = findStartupByName(n);
         if(nouv!=null){
             s.setNomStartup(nouv);
@@ -84,7 +87,11 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
                 s.setActivite(a);
             }
         }
-        em.merge(s);
+       return em.merge(s);
+    }
+    
+    public Startup updateStartup(Startup s){
+    	return em.merge(s);
     }
 
     public Startup findStartupByName(String n) {
@@ -107,7 +114,7 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
         return f;
     }
 
-    public void updateLeveeDeFonds(int id, String date, Etape e) {
+    public LeveeDeFonds updateLeveeDeFonds(long id, String date, Etape e) {
         LeveeDeFonds levee = findLeveeDeFonds(id);
         if(date!=null){
             levee.setDate_levee(date);
@@ -115,10 +122,14 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
                 levee.setEtape(e);
             }
         }
-        em.merge(levee);
+        return em.merge(levee);
     }
 
-    public LeveeDeFonds findLeveeDeFonds(int id) {
+    public LeveeDeFonds updateLeveeDeFonds(LeveeDeFonds levee){
+    	return em.merge(levee);
+    }
+    
+    public LeveeDeFonds findLeveeDeFonds(long id) {
         return em.find(LeveeDeFonds.class, id);
     }
     

@@ -14,6 +14,7 @@ public interface FacadeInvestisseurs {
 	public Fondateur rechercherFondateurParId (long id);
 	public ArrayList<Fondateur> rechercherFondateur (String nom);
 	public Fondateur updateFondateur(Fondateur f, String nom, String mail, String mdp);
+	public Fondateur updateFondateur(Fondateur f);
 	
 	public Fondateur ajouterFondateurStartup (Fondateur f, Startup s, boolean isMandataire);
 	
@@ -22,12 +23,17 @@ public interface FacadeInvestisseurs {
 	 */
 	public BusinessAngel creerBA (String nom, String mail, String mdp);
 	public BusinessAngel updateBA (BusinessAngel ba, String nom, String mail, String mdp);
+	public BusinessAngel updateBA(BusinessAngel ba);
 	public BusinessAngel rechercherBAParId (long id);
 	public List<BusinessAngel> rechercherBAParNom (String nom);
 	
 	public ClubAmi monterClubAmi (BusinessAngel ba, String nomClub);
 	public ClubAmi updateClubAmi (ClubAmi ca, String nomClub);
+	public ClubAmi updateClubAmi (ClubAmi ca);
 	public ClubAmi rechercherClubParId (long id);
+	public List<ClubAmi> rechercherClubParNom (String nom);
+	
+	public void mettreEnPartenaire (ClubAmi ca, Startup s);
 	
 	public void ajouterMembre (BusinessAngel ba, long idClub, boolean mandataire);
 	public void supprimerMembre (BusinessAngel ba, ClubAmi ca);
@@ -38,6 +44,7 @@ public interface FacadeInvestisseurs {
 	 */
 	public GroupeInvestisseurs monterGroupe(Investisseur inv, String nomGroupe);
 	public GroupeInvestisseurs updateGroupeInvestisseurs (GroupeInvestisseurs groupe, String nomGroupe);
+	public GroupeInvestisseurs updateGroupeInvestisseurs (GroupeInvestisseurs groupe);
 	public GroupeInvestisseurs rechercherGroupeParId (long id);
 	public List<GroupeInvestisseurs> rechercherGroupeParNom (String nomGroupe);
 	

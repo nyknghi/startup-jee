@@ -14,7 +14,7 @@ public class LeveeDeFonds implements Serializable{
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)        
-    private int idLevee;
+    private long idLevee;
     
     @Column (nullable=false)
     private String date_levee;
@@ -25,21 +25,21 @@ public class LeveeDeFonds implements Serializable{
     @Column (nullable=false)
     private double montantCible;
     
+    @ManyToOne (fetch=FetchType.LAZY)
+    @JoinColumn (referencedColumnName="idStartup", nullable=false)
+    private Startup startup;
+    
     @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(name="Inscription", joinColumns={@JoinColumn(referencedColumnName="idLevee")}, 
             inverseJoinColumns={@JoinColumn(referencedColumnName="idInvestisseur")})
     private Set<AbstraitInvestisseur> investisseurs;
     
-    @OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="levee")
+    @OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="leveeDeFonds")
     private Set<Participation> participations;
     
     @ManyToOne (fetch=FetchType.LAZY)
-    @JoinColumn (referencedColumnName="idInvestisseur", nullable=false)
+    @JoinColumn (referencedColumnName="idInvestisseur")
     private AbstraitInvestisseur organisateur;
-    
-    @ManyToOne (fetch=FetchType.LAZY)
-    @JoinColumn (referencedColumnName="idStartup", nullable=false)
-    private Startup startup;
     
     public LeveeDeFonds (String d, double m, AbstraitInvestisseur o){
         date_levee = d;
@@ -80,7 +80,7 @@ public class LeveeDeFonds implements Serializable{
         return etape;
     }
 
-    public int getIdLevee() {
+    public long getIdLevee() {
         return idLevee;
     }
 

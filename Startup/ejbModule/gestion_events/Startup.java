@@ -16,13 +16,13 @@ public class Startup implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idStartup;
+	private long idStartup;
         
 	@Basic(optional=false)
 	private String nomStartup;
 	
-        @Column (nullable=false)
-        private String activite;
+    @Column (nullable=false)
+    private String activite;
 	
 	@OneToMany(mappedBy="startup")
 	private Set<Fondateur> fondateurs;
@@ -30,22 +30,23 @@ public class Startup implements Serializable{
     @OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="startup")
     private Set<Participation> participations;
     
-    @OneToMany (cascade=CascadeType.ALL, mappedBy="startup")
+    @OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="startup")
     private Set<ClubAmi> clubs;
     
-    @OneToMany (cascade=CascadeType.ALL, mappedBy="startup")
-    private Set<LeveeDeFonds> levee;
+    @OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="startup")
+    private Set<LeveeDeFonds> leveeDeFonds;
         
     public Startup() {}
 	
     public Startup(String nom, String activite, Fondateur f){
-	this.nomStartup = nom;
-	this.activite = activite;
-	fondateurs = new HashSet<Fondateur>();
-	fondateurs.add(f);
-        participations = new HashSet<Participation>();
-        clubs = new HashSet<ClubAmi>();
-        levee = new HashSet<LeveeDeFonds>();
+		this.nomStartup = nom;
+		this.activite = activite;
+		fondateurs = new HashSet<Fondateur>();
+		fondateurs.add(f);
+		f.setStartup(this);
+	    participations = new HashSet<Participation>();
+	    clubs = new HashSet<ClubAmi>();
+	    leveeDeFonds = new HashSet<LeveeDeFonds>();
     }
     
     public void addFondateur(Fondateur f){
@@ -61,15 +62,15 @@ public class Startup implements Serializable{
     }
     
     public void addLeveeDeFonds(LeveeDeFonds l){
-        levee.add(l);
+    	leveeDeFonds.add(l);
     }
     
     public Set<LeveeDeFonds> getLevee() {
-        return levee;
+        return leveeDeFonds;
     }
 
     public void setLevee(Set<LeveeDeFonds> levee) {
-        this.levee = levee;
+        this.leveeDeFonds = levee;
     }
 
     public String getActivite() {
@@ -84,7 +85,7 @@ public class Startup implements Serializable{
         return fondateurs;
     }
 
-    public int getIdStartup() {
+    public long getIdStartup() {
         return idStartup;
     }
 
@@ -115,4 +116,10 @@ public class Startup implements Serializable{
     public void setParticipations(Set<Participation> participations) {
         this.participations = participations;
     }
+
+	@Override
+	public String toString() {
+		return "Startup [idStartup=" + idStartup + ", nomStartup=" + nomStartup
+				+ ", activite=" + activite + "]";
+	}
 }

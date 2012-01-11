@@ -24,12 +24,16 @@ public class Membre implements Serializable {
 	private ClubAmi clubAmi;
 	@Column
 	private Date date;
+	@Column
+	private boolean isMandataire;
 	
 	public Membre(){}
 	
-	public Membre(ClubAmi club, BusinessAngel ba){
+	public Membre(ClubAmi club, BusinessAngel ba, Date date, boolean isMandataire){
 		this.clubAmi = club;
 		this.businessAngel = ba;
+		this.date = date;
+		this.isMandataire = isMandataire;
 		this.idBA = ba.getIdInvestisseur();
 		this.idClub = club.getIdClub();
 	}
@@ -73,6 +77,12 @@ public class Membre implements Serializable {
 	public void setIdClub(long idClub) {
 		this.idClub = idClub;
 	}
-	
-	
+
+	public boolean isMandataire() {
+		return isMandataire;
+	}
+
+	public void setMandataire(boolean isMandataire) {
+		this.isMandataire = isMandataire;
+	}
 }

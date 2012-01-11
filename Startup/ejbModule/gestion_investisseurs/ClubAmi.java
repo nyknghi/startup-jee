@@ -15,15 +15,20 @@ import java.util.List;
 public class ClubAmi implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idClub;
+	private long idClub;
 	@Basic(optional=false)
 	private String nomClub;
-	@OneToMany(mappedBy="clubAmi", cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	
+	@OneToMany(mappedBy="clubAmi")//, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	List<Membre> businessAngels;
-
+	
+	@OneToOne
+	@JoinColumn(referencedColumnName="idInvestisseur")
+	private BusinessAngel mandataire;
+	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(referencedColumnName="idStartup")
-	private Startup startup;
+	private Startup startup = null;
 	
 	public ClubAmi(){}
 	
@@ -32,7 +37,7 @@ public class ClubAmi implements Serializable {
 		businessAngels = new ArrayList<Membre>();
 	}
 
-	public int getIdClub() {
+	public long getIdClub() {
 		return idClub;
 	}
 
@@ -54,5 +59,19 @@ public class ClubAmi implements Serializable {
 
 	public void setStartup(Startup startup) {
 		this.startup = startup;
+	}
+
+	public BusinessAngel getMandataire() {
+		return mandataire;
+	}
+
+	public void setMandataire(BusinessAngel mandataire) {
+		this.mandataire = mandataire;
+	}
+
+	@Override
+	public String toString() {
+		return "ClubAmi [idClub=" + idClub + ", nomClub=" + nomClub
+				+ ", mandataire=" + mandataire.getNom() + ", startup= " + startup + "]";
 	}
 }

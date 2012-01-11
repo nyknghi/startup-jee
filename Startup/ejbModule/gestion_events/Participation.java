@@ -11,11 +11,11 @@ public class Participation implements Serializable {
 
     @Id
     @GeneratedValue (strategy=GenerationType.AUTO)
-    private int numParticipation;
+    private long numParticipation;
     
     @ManyToOne (fetch=FetchType.LAZY)
     @JoinColumn (name="levee_idlevee", referencedColumnName="idLevee", nullable=false)
-    private LeveeDeFonds levee;
+    private LeveeDeFonds leveeDeFonds;
     
     @ManyToOne (fetch=FetchType.LAZY)
     @JoinColumn (name="startup_idstartup", referencedColumnName="idStartup", nullable=false)
@@ -36,8 +36,8 @@ public class Participation implements Serializable {
     
     public Participation(){}
 
-    public LeveeDeFonds getLevee() {
-        return levee;
+    public LeveeDeFonds getLeveeDeFonds() {
+        return leveeDeFonds;
     }
 
     public double getMontant() {
@@ -52,7 +52,7 @@ public class Participation implements Serializable {
         return investisseur;
     }
 
-    public int getNumParticipation() {
+    public long getNumParticipation() {
         return numParticipation;
     }
 
@@ -60,8 +60,8 @@ public class Participation implements Serializable {
         return startup;
     }
 
-    public void setLevee(LeveeDeFonds levee) {
-        this.levee = levee;
+    public void setLeveeDeFonds(LeveeDeFonds levee) {
+        this.leveeDeFonds = levee;
     }
 
     public void setMontant(double montant) {

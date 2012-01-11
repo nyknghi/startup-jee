@@ -3,6 +3,7 @@ package gestion_investisseurs;
 import gestion_events.Startup;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -42,15 +43,21 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 		f.setMdp(mdp);
 		return em.merge(f);
 	}
+	
+	@Override
+	public Fondateur updateFondateur(Fondateur f) {
+		return em.merge(f);
+	}
 
 	@Override
 	public Fondateur ajouterFondateurStartup(Fondateur f, Startup s, boolean isMandataire) {
+		f = this.rechercherFondateurParId(f.getIdInvestisseur());
+		// Ajout recherche startup
 		s.addFondateur(f);
 		f.setStartup(s);
 		f.setMandataire(isMandataire);
 		em.merge(s);
-		f = em.merge(f);	
-		return f;
+		return em.merge(f);	
 	}
 	
 	@Override
@@ -83,6 +90,11 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	}
 
 	@Override
+	public BusinessAngel updateBA(BusinessAngel ba) {
+		return em.merge(ba);
+	}
+	
+	@Override
 	public BusinessAngel rechercherBAParId(long id) {
 		return em.find(BusinessAngel.class, id);
 	}
@@ -98,10 +110,12 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	@Override
 	public ClubAmi monterClubAmi (BusinessAngel ba, String nomClub) {
 		ClubAmi ca = new ClubAmi(nomClub);
-		this.ajouterMembre(ba, ca.getIdClub(), true);
 		em.persist(ca);
+		this.ajouterMembre(ba, ca.getIdClub(), true);
+		ca.setMandataire(ba);
+		ba.setMandataire(true);
 		em.merge(ba);
-		return ca;
+		return em.merge(ca);
 	}
 	
 	@Override
@@ -112,19 +126,42 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	}
 	
 	@Override
+	public ClubAmi updateClubAmi(ClubAmi ca) {
+		return em.merge(ca);
+	}
+	
+	@Override
 	public ClubAmi rechercherClubParId (long id){
 		return em.find(ClubAmi.class, id);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ClubAmi> rechercherClubParNom (String nom){
+		Query query = em.createQuery("SELECT ca FROM ClubAmi as ca WHERE ca.nomClub = :nom");
+		query.setParameter("nom", nom);
+		return (List<ClubAmi>) query.getResultList();
+	}
+	
+	@Override
+	public void mettreEnPartenaire (ClubAmi ca, Startup s){
+		ca = this.rechercherClubParId(ca.getIdClub());
+		// ajout recherche startup
+		ca.setStartup(s);
+		s.getClubs().add(ca);
+		em.merge(ca);
+		em.merge(s);
 	}
 	
 	@Override
 	public void ajouterMembre (BusinessAngel ba, long idClub, boolean mandataire){
 		ClubAmi ca = this.rechercherClubParId(idClub);
 		ba.setMandataire(mandataire);
-		Membre membre = new Membre(ca, ba);
+		Membre membre = new Membre(ca, ba, new Date(), mandataire);
 		ca.getMembres().add(membre);
 		ba.getClubAmis().add(membre);
-		em.persist(ba);
 		em.persist(membre);
+		em.merge(ba);
 		em.merge(ca);
 	}
 	
@@ -162,6 +199,11 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 		return em.merge(groupe);
 	}
 
+	@Override
+	public GroupeInvestisseurs updateGroupeInvestisseurs(GroupeInvestisseurs groupe) {
+		return em.merge(groupe);
+	}
+	
 	@Override
 	public GroupeInvestisseurs rechercherGroupeParId(long id) {
 		return em.find(GroupeInvestisseurs.class, id);

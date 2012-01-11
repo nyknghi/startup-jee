@@ -1,7 +1,6 @@
 package gestion_investisseurs;
 
 import gestion_events.LeveeDeFonds;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -9,14 +8,15 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-@SuppressWarnings("serial")
 @Entity
 @Table(name="BusinessAngel")
 @DiscriminatorValue("BA")
 
 public class BusinessAngel extends AbstraitInvestisseur{
+	private static final long serialVersionUID = 643274423123815491L;
 	@Column
 	private boolean isMandataire = false;
+	
 	@OneToMany(mappedBy="businessAngel")
 	private List<Membre> clubAmis;
 	
@@ -59,5 +59,11 @@ public class BusinessAngel extends AbstraitInvestisseur{
 
 	public void setLeveeDeFonds(Set<LeveeDeFonds> leveeDeFonds) {
 		this.leveeDeFondsBA = leveeDeFonds;
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return "BusinessAngel [id=" + idInvestisseur + ", nom=" + nom + 
+				", isMandataire=" + isMandataire + "]";
+	}
 }
