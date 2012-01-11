@@ -5,6 +5,7 @@ import gestion_events.Startup;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -23,10 +24,6 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	EntityManager em;
 	
 	EventsBean eventBean = new EventsBean();
-	
-	public String afficherText(String t){
-		return t;
-	}
 
 	@PostConstruct
 	public void init(){
@@ -202,6 +199,41 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 		return query.getResultList();
 	}
 
+
+	@Override
+	public Investisseur creerInvestisseur(String nom, String mail, String mdp) {
+		Investisseur inv = new Investisseur(nom, mail, mdp);
+		em.persist(inv);
+		return inv;
+	}
+
+	@Override
+	public Investisseur updateInvestisseur(Investisseur inv, String nom, String mail, String mdp) {
+		inv = this.rechercherInvestisseurParId(inv.getIdInvestisseur());
+		inv.setNom(nom);
+		inv.setMail(mail);
+		inv.setMdp(mdp);
+		return em.merge(inv);
+	}
+
+	@Override
+	public Investisseur updateInvestisseur(Investisseur inv) {
+		return em.merge(inv);
+	}
+
+	@Override
+	public Investisseur rechercherInvestisseurParId(long id) {
+		return em.find(Investisseur.class, id);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Investisseur> rechercherInvestisseurParNom(String nom) {
+		Query query = em.createQuery("SELECT i FROM Investisseur as i WHERE i.nom = :nom");
+		query.setParameter("nom", nom);
+		return (List<Investisseur>) query.getResultList();
+	}
+	
 	@Override
 	public Couple<GroupeInvestisseurs, Investisseur> monterGroupe(Investisseur inv, String nomGroupe) {
 		GroupeInvestisseurs groupe = new GroupeInvestisseurs(nomGroupe);
@@ -246,6 +278,66 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 		groupe.getInvestisseurs().remove(inv);
 		inv.setGroupe(null);
 		return new Couple<GroupeInvestisseurs, Investisseur>(em.merge(groupe), em.merge(inv));	
+	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	/**
+	 * La methode recupere la liste des accounts de tous les investisseurs.
+	 * Le resultat sera stocke dans un HashMap dont la cle est l'email et la valeur est le mdp 
+	 */
+	public HashMap<String, String> listeAccountsFondateurs(){
+		HashMap<String, String> res = new HashMap<String, String>();
+		Query query = em.createQuery("SELECT f FROM Fondateur as f");
+		List<Fondateur> fondateurs = (List<Fondateur>)query.getResultList();
+		for (int i=0; i<fondateurs.size(); i++){
+			Fondateur f = fondateurs.get(i);
+			res.put(f.getMail(), f.getMdp());
+		}
+		
+		return res;
+	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public HashMap<String, String> listeAccountsBA() {
+		HashMap<String, String> res = new HashMap<String, String>();
+		Query query = em.createQuery("SELECT ba FROM BusinessAngel as ba");
+		List<BusinessAngel> bas = (List<BusinessAngel>)query.getResultList();
+		for (int i=0; i<bas.size(); i++){
+			BusinessAngel ba = bas.get(i);
+			res.put(ba.getMail(), ba.getMdp());
+		}
+		
+		return res;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public HashMap<String, String> listeAccountsInvestisseurs() {
+		HashMap<String, String> res = new HashMap<String, String>();
+		Query query = em.createQuery("SELECT inv FROM Investisseur as inv");
+		List<Investisseur> invs = (List<Investisseur>)query.getResultList();
+		for (int i=0; i<invs.size(); i++){
+			Investisseur inv = invs.get(i);
+			res.put(inv.getMail(), inv.getMdp());
+		}
+		
+		return res;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public HashMap<String, String> listeAccountsGroupes() {
+		HashMap<String, String> res = new HashMap<String, String>();
+		Query query = em.createQuery("SELECT g FROM GroupeInvestisseurs as g");
+		List<GroupeInvestisseurs> groupes = (List<GroupeInvestisseurs>)query.getResultList();
+		for (int i=0; i<groupes.size(); i++){
+			GroupeInvestisseurs groupe = groupes.get(i);
+			res.put(groupe.getMail(), groupe.getMdp());
+		}
+		
+		return res;
 	}
 	
 	@PreDestroy()

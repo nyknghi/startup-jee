@@ -3,6 +3,7 @@ package gestion_investisseurs;
 import gestion_events.Startup;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import util.Couple;
@@ -43,6 +44,15 @@ public interface FacadeInvestisseurs {
 	public List<BusinessAngel> listerMembres (ClubAmi ca);
 	
 	/*
+	 * Gestion des investisseurs
+	 */
+	public Investisseur creerInvestisseur (String nom, String mail, String mdp);
+	public Investisseur updateInvestisseur (Investisseur inv, String nom, String mail, String mdp);
+	public Investisseur updateInvestisseur (Investisseur inv);
+	public Investisseur rechercherInvestisseurParId (long id);
+	public List<Investisseur> rechercherInvestisseurParNom (String nom);
+	
+	/*
 	 * Gestion des groupes d'investisseurs
 	 */
 	public Couple<GroupeInvestisseurs, Investisseur> monterGroupe(Investisseur inv, String nomGroupe);
@@ -54,6 +64,14 @@ public interface FacadeInvestisseurs {
 	public Couple<GroupeInvestisseurs, Investisseur> adhererGroupe (GroupeInvestisseurs groupe, Investisseur inv);
 	public Couple<GroupeInvestisseurs, Investisseur> quitterGroupe (GroupeInvestisseurs groupe, Investisseur inv);
 	
+	/*
+	 * Gestion des accounts
+	 */
+	public HashMap<String, String> listeAccountsFondateurs();
+	public HashMap<String, String> listeAccountsBA();
+	public HashMap<String, String> listeAccountsInvestisseurs();
+	public HashMap<String, String> listeAccountsGroupes();
+	
 	public void closeEM();
-	public String afficherText(String t);
+
 }
