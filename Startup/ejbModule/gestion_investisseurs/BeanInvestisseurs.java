@@ -1,5 +1,6 @@
 package gestion_investisseurs;
 
+import gestion_events.EventsBean;
 import gestion_events.Startup;
 
 import java.util.ArrayList;
@@ -13,11 +14,15 @@ import javax.ejb.TransactionManagementType;
 import javax.ejb.Stateless;
 import javax.persistence.*;
 
+import util.Couple;
+
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseurs{
 	@PersistenceContext(unitName="SampleUnit")
 	EntityManager em;
+	
+	EventsBean eventBean = new EventsBean();
 	
 	public String afficherText(String t){
 		return t;
@@ -50,14 +55,13 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	}
 
 	@Override
-	public Fondateur ajouterFondateurStartup(Fondateur f, Startup s, boolean isMandataire) {
+	public Couple<Fondateur, Startup> ajouterFondateurStartup(Fondateur f, Startup s, boolean isMandataire) {
 		f = this.rechercherFondateurParId(f.getIdInvestisseur());
-		// Ajout recherche startup
+		s = this.rechercherStartupById(s.getIdStartup());		
 		s.addFondateur(f);
 		f.setStartup(s);
 		f.setMandataire(isMandataire);
-		em.merge(s);
-		return em.merge(f);	
+		return new Couple<Fondateur, Startup>(em.merge(f), em.merge(s));
 	}
 	
 	@Override
@@ -65,6 +69,10 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 		return em.find(Fondateur.class, id);
 	}
 
+	public Startup rechercherStartupById (long id){
+		return em.find(Startup.class, id);
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<Fondateur> rechercherFondateur(String nom) {
@@ -144,36 +152,36 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	}
 	
 	@Override
-	public void mettreEnPartenaire (ClubAmi ca, Startup s){
+	public Couple<ClubAmi, Startup> mettreEnPartenaire (ClubAmi ca, Startup s){
 		ca = this.rechercherClubParId(ca.getIdClub());
-		// ajout recherche startup
+		//s = eventBean.findStartupById(s.getIdStartup());
+		s = this.rechercherStartupById(s.getIdStartup());
 		ca.setStartup(s);
 		s.getClubs().add(ca);
-		em.merge(ca);
-		em.merge(s);
+		return new Couple<ClubAmi, Startup>(em.merge(ca), em.merge(s));
 	}
 	
 	@Override
-	public void ajouterMembre (BusinessAngel ba, long idClub, boolean mandataire){
+	public Couple<ClubAmi, BusinessAngel> ajouterMembre (BusinessAngel ba, long idClub, boolean mandataire){
 		ClubAmi ca = this.rechercherClubParId(idClub);
 		ba.setMandataire(mandataire);
 		Membre membre = new Membre(ca, ba, new Date(), mandataire);
 		ca.getMembres().add(membre);
 		ba.getClubAmis().add(membre);
 		em.persist(membre);
-		em.merge(ba);
-		em.merge(ca);
+		return new Couple<ClubAmi, BusinessAngel>(em.merge(ca), em.merge(ba));
 	}
 	
 	@Override
-	public void supprimerMembre (BusinessAngel ba, ClubAmi ca){
+	public Couple<ClubAmi, BusinessAngel> supprimerMembre (BusinessAngel ba, ClubAmi ca){
 		Membre m = this.rechercherMembreParId(ba.getIdInvestisseur(), ca.getIdClub());
+		ba = this.rechercherBAParId(ba.getIdInvestisseur());
+		ca = this.rechercherClubParId(ca.getIdClub());
 		ca.getMembres().remove(m);
 		ba.getClubAmis().remove(m);
 		em.remove(m);
-		em.merge(ba);
-		em.merge(ca);
-		em.flush();
+		System.out.println("Membre " + ba.getIdInvestisseur() + "supprime");
+		return new Couple<ClubAmi, BusinessAngel>(em.merge(ca), em.merge(ba));
 	}
 	
 	@Override
@@ -182,14 +190,23 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 		query.setParameter("idBA", idBA);
 		query.setParameter("idClub", idClub);
 		return (Membre) query.getSingleResult();
-	}	
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<BusinessAngel> listerMembres (ClubAmi ca){
+		ca = this.rechercherClubParId(ca.getIdClub());
+		Query query = em.createQuery("SELECT ba FROM Membre AS m, BusinessAngel AS ba " +
+				"WHERE m.idClub = :idClub AND m.idBA = ba.idInvestisseur");
+		query.setParameter("idClub", ca.getIdClub());
+		return query.getResultList();
+	}
 
 	@Override
-	public GroupeInvestisseurs monterGroupe(Investisseur inv, String nomGroupe) {
+	public Couple<GroupeInvestisseurs, Investisseur> monterGroupe(Investisseur inv, String nomGroupe) {
 		GroupeInvestisseurs groupe = new GroupeInvestisseurs(nomGroupe);
 		em.persist(groupe);
-		this.adhererGroupe(groupe, inv);
-		return groupe;
+		return this.adhererGroupe(groupe, inv);
 	}
 
 	@Override
@@ -218,19 +235,17 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	}
 	
 	@Override
-	public void adhererGroupe(GroupeInvestisseurs groupe, Investisseur inv) {
+	public Couple<GroupeInvestisseurs, Investisseur> adhererGroupe(GroupeInvestisseurs groupe, Investisseur inv) {
 		groupe.getInvestisseurs().add(inv);
 		inv.setGroupe(groupe);
-		em.merge(groupe);
-		em.merge(inv);
+		return new Couple<GroupeInvestisseurs, Investisseur>(em.merge(groupe), em.merge(inv));
 	}
 
 	@Override
-	public void quitterGroupe(GroupeInvestisseurs groupe, Investisseur inv) {
+	public Couple<GroupeInvestisseurs, Investisseur> quitterGroupe(GroupeInvestisseurs groupe, Investisseur inv) {
 		groupe.getInvestisseurs().remove(inv);
 		inv.setGroupe(null);
-		em.merge(groupe);
-		em.merge(inv);		
+		return new Couple<GroupeInvestisseurs, Investisseur>(em.merge(groupe), em.merge(inv));	
 	}
 	
 	@PreDestroy()

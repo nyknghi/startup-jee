@@ -17,6 +17,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import util.Couple;
+
 /**
  *
  * @author UTILISATEUR
@@ -71,12 +73,11 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
 
     
     //CRUD startup
-    public Startup startup(String nom, String activite, Fondateur f) {
+    public Couple<Startup, Fondateur> startup(String nom, String activite, Fondateur f) {
         Startup s = new Startup(nom, activite, f);
         em.persist(s);
         f.setStartup(s);
-        f = em.merge(f);
-        return s;
+        return new Couple<Startup, Fondateur>(em.merge(s), em.merge(f));
     }
     
     public Startup updateStartup(String n, String nouv, String a) {
@@ -100,6 +101,10 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
         return (Startup) query.getSingleResult();
     }
 
+    public Startup findStartupById(long id){
+    	return em.find(Startup.class, id);
+    }
+    
     public List<Startup> findStartupByActivity(String a) {
         Query query = em.createQuery("select s from Startup s where s.activite= :activite");
         query.setParameter("activite", a);

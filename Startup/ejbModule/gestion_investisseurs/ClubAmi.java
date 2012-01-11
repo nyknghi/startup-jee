@@ -16,17 +16,17 @@ public class ClubAmi implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long idClub;
-	@Basic(optional=false)
+	@Column (nullable=false)
 	private String nomClub;
 	
-	@OneToMany(mappedBy="clubAmi")//, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	@OneToMany(mappedBy="clubAmi", cascade=CascadeType.ALL)
 	List<Membre> businessAngels;
 	
 	@OneToOne
 	@JoinColumn(referencedColumnName="idInvestisseur")
 	private BusinessAngel mandataire;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(referencedColumnName="idStartup")
 	private Startup startup = null;
 	

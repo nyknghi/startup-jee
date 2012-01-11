@@ -8,6 +8,8 @@ import gestion_investisseurs.AbstraitInvestisseur;
 import gestion_investisseurs.Fondateur;
 import java.util.List;
 
+import util.Couple;
+
 /**
  *
  * @author UTILISATEUR
@@ -21,10 +23,11 @@ public interface EventsBeanFacade {
     public Participation findParticipation(String s, String i);
     
     //CRUD startup
-    public Startup startup(String nom, String activite, Fondateur f);
+    public Couple<Startup, Fondateur> startup(String nom, String activite, Fondateur f);
     public Startup updateStartup(String n, String nouv, String a);
     public Startup updateStartup(Startup s);
     public Startup findStartupByName(String n);
+    public Startup findStartupById(long id);
     public List<Startup> findStartupByActivity(String a);
     
     //CRUD  levee de fonds

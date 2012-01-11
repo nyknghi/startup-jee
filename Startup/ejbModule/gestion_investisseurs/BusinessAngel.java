@@ -17,7 +17,7 @@ public class BusinessAngel extends AbstraitInvestisseur{
 	@Column
 	private boolean isMandataire = false;
 	
-	@OneToMany(mappedBy="businessAngel")
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="businessAngel")
 	private List<Membre> clubAmis;
 	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="organisateur")

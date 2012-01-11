@@ -5,6 +5,8 @@ import gestion_events.Startup;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.Couple;
+
 public interface FacadeInvestisseurs {
 	
 	/* 
@@ -16,8 +18,8 @@ public interface FacadeInvestisseurs {
 	public Fondateur updateFondateur(Fondateur f, String nom, String mail, String mdp);
 	public Fondateur updateFondateur(Fondateur f);
 	
-	public Fondateur ajouterFondateurStartup (Fondateur f, Startup s, boolean isMandataire);
-	
+	public Couple<Fondateur,Startup> ajouterFondateurStartup (Fondateur f, Startup s, boolean isMandataire);
+	public Startup rechercherStartupById (long id);
 	/*
 	 * Gestion des business Angel et club ami
 	 */
@@ -33,23 +35,24 @@ public interface FacadeInvestisseurs {
 	public ClubAmi rechercherClubParId (long id);
 	public List<ClubAmi> rechercherClubParNom (String nom);
 	
-	public void mettreEnPartenaire (ClubAmi ca, Startup s);
+	public Couple<ClubAmi, Startup> mettreEnPartenaire (ClubAmi ca, Startup s);
 	
-	public void ajouterMembre (BusinessAngel ba, long idClub, boolean mandataire);
-	public void supprimerMembre (BusinessAngel ba, ClubAmi ca);
+	public Couple<ClubAmi, BusinessAngel> ajouterMembre (BusinessAngel ba, long idClub, boolean mandataire);
+	public Couple<ClubAmi, BusinessAngel> supprimerMembre (BusinessAngel ba, ClubAmi ca);
 	public Membre rechercherMembreParId (long idBA, long idClub);
+	public List<BusinessAngel> listerMembres (ClubAmi ca);
 	
 	/*
 	 * Gestion des groupes d'investisseurs
 	 */
-	public GroupeInvestisseurs monterGroupe(Investisseur inv, String nomGroupe);
+	public Couple<GroupeInvestisseurs, Investisseur> monterGroupe(Investisseur inv, String nomGroupe);
 	public GroupeInvestisseurs updateGroupeInvestisseurs (GroupeInvestisseurs groupe, String nomGroupe);
 	public GroupeInvestisseurs updateGroupeInvestisseurs (GroupeInvestisseurs groupe);
 	public GroupeInvestisseurs rechercherGroupeParId (long id);
 	public List<GroupeInvestisseurs> rechercherGroupeParNom (String nomGroupe);
 	
-	public void adhererGroupe (GroupeInvestisseurs groupe, Investisseur inv);
-	public void quitterGroupe (GroupeInvestisseurs groupe, Investisseur inv);
+	public Couple<GroupeInvestisseurs, Investisseur> adhererGroupe (GroupeInvestisseurs groupe, Investisseur inv);
+	public Couple<GroupeInvestisseurs, Investisseur> quitterGroupe (GroupeInvestisseurs groupe, Investisseur inv);
 	
 	public void closeEM();
 	public String afficherText(String t);
