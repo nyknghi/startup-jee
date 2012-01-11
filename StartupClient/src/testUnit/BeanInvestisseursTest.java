@@ -134,7 +134,7 @@ public class BeanInvestisseursTest extends TestCase{
 		}
 		Couple<ClubAmi, BusinessAngel> res = remoteInv.supprimerMembre(membres.get(0), ca);
 		ca = res.getObjetA();
-		System.out.println("Membre " + membres.get(0).getNom() + " supprime");
+		System.out.println("Membre " + membres.get(0).getNom() + " a quitte son club");
 		membres = remoteInv.listerMembres(ca);
 		for (int i=0; i<membres.size(); i++){
 			System.out.println(membres.get(i));
@@ -195,16 +195,64 @@ public class BeanInvestisseursTest extends TestCase{
 	}
 	
 	/*
-
-	public Couple<GroupeInvestisseurs, Investisseur> monterGroupe(Investisseur inv, String nomGroupe);
-	public GroupeInvestisseurs updateGroupeInvestisseurs (GroupeInvestisseurs groupe, String nomGroupe);
-	public GroupeInvestisseurs updateGroupeInvestisseurs (GroupeInvestisseurs groupe);
-	public GroupeInvestisseurs rechercherGroupeParId (long id);
-	public List<GroupeInvestisseurs> rechercherGroupeParNom (String nomGroupe);
+	 * TEST GROUPE INVESTISSEURS
+	 */
 	
-	public Couple<GroupeInvestisseurs, Investisseur> adhererGroupe (GroupeInvestisseurs groupe, Investisseur inv);
-	public Couple<GroupeInvestisseurs, Investisseur> quitterGroupe (GroupeInvestisseurs groupe, Investisseur inv);
-	*/
+	@Test
+	public void testCreerGroupeInv(){
+		System.out.println("-Test creation d'un groupe investisseurs");
+		Investisseur inv1 = remoteInv.creerInvestisseur("Marc", "marc@gmail.com", "marcmdp");
+		Investisseur inv2 = remoteInv.creerInvestisseur("Jerry", "jerry@gmail.com", "jmdp");
+		
+		Couple<GroupeInvestisseurs, Investisseur> res = remoteInv.monterGroupe(inv1, "Groupe des beaux gosses");
+		GroupeInvestisseurs groupe = res.getObjetA();
+		inv1 = res.getObjetB();
+		
+		res = remoteInv.adhererGroupe(groupe, inv2, false);
+		groupe = res.getObjetA();
+		inv2 = res.getObjetB();
+		
+		System.out.println(inv1);
+		System.out.println(inv2);
+		System.out.println(groupe);				
+		System.out.println("-Fin test----------------------------------------\n");
+	}
+	
+	@Test
+	public void testRechercherInvestisseur(){
+		System.out.println("-Test recherche investisseur");
+		List<Investisseur> invs = remoteInv.rechercherInvestisseurParNom("Jerry");
+		Investisseur inv = invs.get(invs.size()-1);
+		System.out.println(inv);
+		System.out.println("-Fin test----------------------------------------\n");
+	}
+	
+	@Test 
+	public void testUpdateGroupeInvestisseurs(){
+		System.out.println("-Test update groupe investisseurs");
+		GroupeInvestisseurs groupe = remoteInv.rechercherGroupeParNom("Groupe des beaux gosses").get(0);
+		System.out.println(groupe);
+		groupe = remoteInv.updateGroupeInvestisseurs(groupe, "Beaux gosses");
+		System.out.println(groupe);
+		System.out.println("-Fin test----------------------------------------\n");
+	}
+	
+	@Test
+	public void testQuitterGroupe (){
+		System.out.println("-Test quitter groupe");
+		GroupeInvestisseurs groupe = remoteInv.rechercherGroupeParNom("Groupe des beaux gosses").get(0);
+		System.out.println("Nombre d'investisseurs dans le groupe " + groupe.getInvestisseurs().size());
+		
+		Investisseur inv = groupe.getInvestisseurs().get(0);
+		
+		Couple<GroupeInvestisseurs, Investisseur> res = remoteInv.quitterGroupe(groupe, inv);
+		groupe = res.getObjetA();
+		inv = res.getObjetB();
+		System.out.println("Investisseur " + inv.getIdInvestisseur() + " a quitte son groupe");
+		System.out.println("Nombre d'investisseurs dans le groupe " + groupe.getInvestisseurs().size());
+		System.out.println("-Fin test----------------------------------------\n");
+	}
+	
 	@After
     public void tearDown(){}
 

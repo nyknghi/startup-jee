@@ -21,7 +21,6 @@ public class Test {
 			RemoteInvestisseurs remoteInv = (RemoteInvestisseurs) ctx.lookup("BeanInvestisseurs/remote");
 			EventsBeanRemote remoteEvents = (EventsBeanRemote) ctx.lookup("EventsBean/remote");
 			
-			System.out.println(remoteInv.afficherText("Hello"));
 			
 			Fondateur f = remoteInv.creerFondateur("Dupont", "dupont@gmail.com", "12345");
 			//Startup s = remoteEvents.startup("MonStartup", "Informatique", f);
