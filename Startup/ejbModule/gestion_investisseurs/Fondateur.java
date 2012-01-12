@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Fondateur extends AbstraitInvestisseur{
 	private static final long serialVersionUID = 465047179273343739L;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(referencedColumnName="idStartup")
 	private Startup startup = null;
 	

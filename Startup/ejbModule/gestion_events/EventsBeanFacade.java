@@ -6,6 +6,8 @@ package gestion_events;
 
 import gestion_investisseurs.AbstraitInvestisseur;
 import gestion_investisseurs.Fondateur;
+
+import java.util.Date;
 import java.util.List;
 
 import util.Couple;
@@ -17,22 +19,23 @@ import util.Couple;
 public interface EventsBeanFacade {
     //CRUD participations
     public Participation participation(Startup s, AbstraitInvestisseur i, double d);
-    public Participation updateParticipation(String s, String i, double m);
+    public Participation participation(LeveeDeFonds levee, AbstraitInvestisseur i, double m);
+    public Participation updateParticipation(long idStartup, long idInv, double m);
     public Participation updateParticipation(Participation p);
     public List<Participation> findParticipation(AbstraitInvestisseur inv);
-    public Participation findParticipation(String s, String i);
+    public Participation findParticipation(long idStartup, long idInv);
     
     //CRUD startup
     public Couple<Startup, Fondateur> startup(String nom, String activite, Fondateur f);
-    public Startup updateStartup(String n, String nouv, String a);
+    public Startup updateStartup(Startup s, String nom, String a);
     public Startup updateStartup(Startup s);
-    public Startup findStartupByName(String n);
+    public List<Startup> findStartupByName(String n);
     public Startup findStartupById(long id);
     public List<Startup> findStartupByActivity(String a);
     
     //CRUD  levee de fonds
-    public LeveeDeFonds leveeDeFonds(String d, double m, AbstraitInvestisseur o);
-    public LeveeDeFonds updateLeveeDeFonds(long id, String date, Etape e);
+    public LeveeDeFonds leveeDeFonds(Date d, double montant, AbstraitInvestisseur o);
+    public LeveeDeFonds updateLeveeDeFonds(long id, Date date, Etape e);
     public LeveeDeFonds updateLeveeDeFonds(LeveeDeFonds levee);
     public LeveeDeFonds findLeveeDeFonds(long id);
     

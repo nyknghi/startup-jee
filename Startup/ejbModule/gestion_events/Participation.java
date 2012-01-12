@@ -14,24 +14,24 @@ public class Participation implements Serializable {
     private long numParticipation;
     
     @ManyToOne (fetch=FetchType.LAZY)
-    @JoinColumn (name="levee_idlevee", referencedColumnName="idLevee", nullable=false)
+    @JoinColumn (name="levee_idlevee", referencedColumnName="idLevee")
     private LeveeDeFonds leveeDeFonds;
     
-    @ManyToOne (fetch=FetchType.LAZY)
+    @ManyToOne (fetch=FetchType.EAGER)
     @JoinColumn (name="startup_idstartup", referencedColumnName="idStartup", nullable=false)
     private Startup startup;
     
-    @ManyToOne (fetch=FetchType.LAZY)
+    @ManyToOne (fetch=FetchType.EAGER)
     @JoinColumn (referencedColumnName="idInvestisseur", nullable=false)
     private AbstraitInvestisseur investisseur;
     
     @Column (nullable=false)
     private double montant;
     
-    public Participation(Startup s, AbstraitInvestisseur i, double d){
-        startup = s;
-        investisseur = i;
-        montant = d;
+    public Participation(Startup s, AbstraitInvestisseur i, double montant){
+        this.startup = s;
+        this.investisseur = i;
+        this.montant = montant;
     }
     
     public Participation(){}
@@ -75,4 +75,11 @@ public class Participation implements Serializable {
     public void setStart(Startup start) {
         this.startup = start;
     }
+
+	@Override
+	public String toString() {
+		return "Participation [numParticipation=" + numParticipation
+				+ ", startup=" + startup.getNomStartup() + ", investisseur=" + investisseur.getNom()
+				+ ", montant=" + montant + "]";
+	}
 }

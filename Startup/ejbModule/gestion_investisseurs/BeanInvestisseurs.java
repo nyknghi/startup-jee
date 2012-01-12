@@ -1,6 +1,9 @@
 package gestion_investisseurs;
 
+import gestion_events.Etape;
 import gestion_events.EventsBean;
+import gestion_events.EventsBeanLocal;
+import gestion_events.LeveeDeFonds;
 import gestion_events.Startup;
 
 import java.util.ArrayList;
@@ -13,6 +16,9 @@ import javax.annotation.PreDestroy;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.ejb.Stateless;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.persistence.*;
 
 import util.Couple;
@@ -23,11 +29,17 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	@PersistenceContext(unitName="SampleUnit")
 	EntityManager em;
 	
-	EventsBean eventBean = new EventsBean();
+	EventsBeanLocal eventLocal;
 
 	@PostConstruct
 	public void init(){
 		System.out.println("Calling init method");
+		try{
+			Context ctx = new InitialContext();
+			eventLocal = (EventsBeanLocal) ctx.lookup("EventsBean/local");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}  
 	}
 	
 	@Override
@@ -293,6 +305,39 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 		groupe.getInvestisseurs().remove(inv);
 		inv.setGroupe(null);
 		return new Couple<GroupeInvestisseurs, Investisseur>(em.merge(groupe), em.merge(inv));	
+	}
+	
+	@Override
+	public Couple<AbstraitInvestisseur,LeveeDeFonds> organiserLeveeFonds(AbstraitInvestisseur ainv, double cible) {
+		LeveeDeFonds levee = eventLocal.leveeDeFonds(new Date(), cible, ainv);
+		if (ainv instanceof Fondateur){
+			Fondateur f = (Fondateur)ainv;
+			f.getLeveeDeFonds().add(levee);
+			levee.setOrganisateur(f);
+			return new Couple<AbstraitInvestisseur,LeveeDeFonds>(em.merge(f), em.merge(levee));
+		}
+		else if (ainv instanceof BusinessAngel){
+			BusinessAngel ba = (BusinessAngel)ainv;
+			ba.getLeveeDeFonds().add(levee);
+			levee.setOrganisateur(ba);
+			return new Couple<AbstraitInvestisseur,LeveeDeFonds>(em.merge(ba), em.merge(levee));
+		} else {
+			System.out.println("Droit organisateur !");
+			return null;
+		}
+	}
+
+	@Override
+	public LeveeDeFonds modifierEtape(LeveeDeFonds levee, Etape etape) {
+		levee = eventLocal.updateLeveeDeFonds(levee.getIdLevee(), new Date(), etape);
+		return em.merge(levee);
+	}
+
+	@Override
+	public LeveeDeFonds annulerLeveeFonds(LeveeDeFonds levee) {
+		levee = eventLocal.findLeveeDeFonds(levee.getIdLevee());
+		levee.setEtape(Etape.ANNULLATION);
+		return em.merge(levee);
 	}
 	
 	@Override

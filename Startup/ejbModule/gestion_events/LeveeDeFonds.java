@@ -2,6 +2,7 @@ package gestion_events;
 
 import gestion_investisseurs.AbstraitInvestisseur;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,7 +18,7 @@ public class LeveeDeFonds implements Serializable{
     private long idLevee;
     
     @Column (nullable=false)
-    private String date_levee;
+    private Date date_levee;
     
     @Column (nullable=false)
     private Etape etape;
@@ -41,7 +42,7 @@ public class LeveeDeFonds implements Serializable{
     @JoinColumn (referencedColumnName="idInvestisseur")
     private AbstraitInvestisseur organisateur;
     
-    public LeveeDeFonds (String d, double m, AbstraitInvestisseur o){
+    public LeveeDeFonds (Date d, double m, AbstraitInvestisseur o){
         date_levee = d;
         etape = Etape.CANDIDATURE;
         montantCible = m;
@@ -72,7 +73,7 @@ public class LeveeDeFonds implements Serializable{
         this.startup = startup;
     }
 
-    public String getDate_levee() {
+    public Date getDate_levee() {
         return date_levee;
     }
 
@@ -100,7 +101,7 @@ public class LeveeDeFonds implements Serializable{
         return participations;
     }
 
-    public void setDate_levee(String date_levee) {
+    public void setDate_levee(Date date_levee) {
         this.date_levee = date_levee;
     }
 

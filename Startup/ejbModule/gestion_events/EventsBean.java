@@ -4,32 +4,45 @@
  */
 package gestion_events;
 
-import gestion_investisseurs.AbstraitInvestisseur;
-import gestion_investisseurs.BusinessAngel;
-import gestion_investisseurs.Fondateur;
-import gestion_investisseurs.GroupeInvestisseurs;
+import gestion_investisseurs.*;
+
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import util.Couple;
 
-/**
- *
- * @author UTILISATEUR
- */
 @Stateless
 @TransactionManagement (TransactionManagementType.CONTAINER)
 public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
     
     @PersistenceContext(unitName="SampleUnit")
     EntityManager em;
-
+    LocalInvestisseurs localInv;
+    
+    @PostConstruct
+	public void init(){
+		System.out.println("Calling init method");
+		try{
+			Context ctx = new InitialContext();
+			localInv = (LocalInvestisseurs) ctx.lookup("BeanInvestisseurs/local");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}    
+	}
+    
     //CRUD participations
     public Participation participation(Startup s, AbstraitInvestisseur i, double d) {
         Participation p = new Participation(s, i, d);
@@ -44,8 +57,14 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
         return p;
     }
     
-    public Participation updateParticipation(String s, String i, double m) {
-        Participation p = findParticipation(s, i);
+	@Override
+	public Participation participation(LeveeDeFonds levee, AbstraitInvestisseur i, double m) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+    
+    public Participation updateParticipation(long idStartup, long idInv, double m) {
+        Participation p = findParticipation(idStartup, idInv);
         p.setMontant(m);
         return em.merge(p);
     }
@@ -53,37 +72,42 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
     public Participation updateParticipation(Participation p){
     	return em.merge(p);
     }
-    public List<Participation> findParticipation(AbstraitInvestisseur inv) {
+    
+    @SuppressWarnings("unchecked")
+	public List<Participation> findParticipation(AbstraitInvestisseur inv) {
         Query query = null;
         if(inv instanceof Fondateur){
-            query = em.createQuery("select f.participations from Fondateur f where f.nom= :nom");
+            query = em.createQuery("select f.participations from Fondateur as f where f.nom= :nom");
         }else if(inv instanceof GroupeInvestisseurs){
-            query = em.createQuery("select g.participations from GroupeInvestisseurs g where g.nom= :nom");
+            query = em.createQuery("select g.participations from GroupeInvestisseurs as g where g.nom= :nom");
         }else if(inv instanceof BusinessAngel){
-            query = em.createQuery("select b.participations from BusinessAngel b where b.nom= :nom");
+            query = em.createQuery("select b.participations from BusinessAngel as b where b.nom= :nom");
         }
         query.setParameter("nom", inv.getNom());
         return (List<Participation>) query.getResultList();
     }
     
-    public Participation findParticipation(String s, String i) {
-        Query query = em.createQuery("select p from Participation p where p.startup.idStartup= :startup and p.investisseur.idInvestisseur= :inv");
+    public Participation findParticipation(long idStartup, long idInv) {
+        Query query = em.createQuery("select p from Participation as p where p.startup.idStartup= :startup and p.investisseur.idInvestisseur= :inv");
+        query.setParameter("startup", idStartup);
+        query.setParameter("inv", idInv);
         return (Participation) query.getSingleResult();
     }
 
     
     //CRUD startup
     public Couple<Startup, Fondateur> startup(String nom, String activite, Fondateur f) {
+    	f = localInv.rechercherFondateurParId(f.getIdInvestisseur());
         Startup s = new Startup(nom, activite, f);
         em.persist(s);
         f.setStartup(s);
         return new Couple<Startup, Fondateur>(em.merge(s), em.merge(f));
     }
     
-    public Startup updateStartup(String n, String nouv, String a) {
-        Startup s = findStartupByName(n);
-        if(nouv!=null){
-            s.setNomStartup(nouv);
+    public Startup updateStartup(Startup s, String nom, String a) {
+        s = findStartupById(s.getIdStartup());
+        if(nom!=null){
+            s.setNomStartup(nom);
             if(a!=null){
                 s.setActivite(a);
             }
@@ -95,31 +119,33 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
     	return em.merge(s);
     }
 
-    public Startup findStartupByName(String n) {
-        Query query = em.createQuery("select s from Startup s where s.nomStartup= :nom");
+    @SuppressWarnings("unchecked")
+	public List<Startup> findStartupByName(String n) {
+        Query query = em.createQuery("SELECT s FROM Startup as s WHERE s.nomStartup= :nom");
         query.setParameter("nom", n);
-        return (Startup) query.getSingleResult();
+        return (List<Startup>) query.getResultList();
     }
 
     public Startup findStartupById(long id){
     	return em.find(Startup.class, id);
     }
     
-    public List<Startup> findStartupByActivity(String a) {
-        Query query = em.createQuery("select s from Startup s where s.activite= :activite");
+    @SuppressWarnings("unchecked")
+	public List<Startup> findStartupByActivity(String a) {
+        Query query = em.createQuery("select s from Startup as s where s.activite= :activite");
         query.setParameter("activite", a);
         return (List<Startup>) query.getResultList();
     }
     
     
     //CRUD levee de fonds
-    public LeveeDeFonds leveeDeFonds(String d, double m, AbstraitInvestisseur o) {
-        LeveeDeFonds f = new LeveeDeFonds(d, m, o);
+    public LeveeDeFonds leveeDeFonds(Date date, double montant, AbstraitInvestisseur o) {
+        LeveeDeFonds f = new LeveeDeFonds(date, montant, o);
         em.persist(f);
         return f;
     }
 
-    public LeveeDeFonds updateLeveeDeFonds(long id, String date, Etape e) {
+    public LeveeDeFonds updateLeveeDeFonds(long id, Date date, Etape e) {
         LeveeDeFonds levee = findLeveeDeFonds(id);
         if(date!=null){
             levee.setDate_levee(date);
@@ -175,4 +201,9 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
     public Double postValue(Startup s, LeveeDeFonds l) {
         return totalParticipations(l)+calculCapital(s);
     }
+    
+    @PreDestroy()
+	public void cleanUp(){
+		System.out.println("Calling cleanup method");
+	}
 }

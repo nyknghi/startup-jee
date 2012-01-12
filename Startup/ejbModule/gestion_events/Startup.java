@@ -24,7 +24,7 @@ public class Startup implements Serializable{
     @Column (nullable=false)
     private String activite;
 	
-	@OneToMany(mappedBy="startup")
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="startup")
 	private Set<Fondateur> fondateurs;
         
     @OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="startup")

@@ -1,8 +1,11 @@
 package gestion_investisseurs;
 
+import gestion_events.Etape;
+import gestion_events.LeveeDeFonds;
 import gestion_events.Startup;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -64,6 +67,13 @@ public interface FacadeInvestisseurs {
 	
 	public Couple<GroupeInvestisseurs, Investisseur> adhererGroupe (GroupeInvestisseurs groupe, Investisseur inv, boolean isLeader);
 	public Couple<GroupeInvestisseurs, Investisseur> quitterGroupe (GroupeInvestisseurs groupe, Investisseur inv);
+	
+	/*
+	 * Gestion des levees de fonds
+	 */
+	public Couple<AbstraitInvestisseur,LeveeDeFonds> organiserLeveeFonds (AbstraitInvestisseur ainv, double cible); 
+	public LeveeDeFonds modifierEtape (LeveeDeFonds levee, Etape etape);
+	public LeveeDeFonds annulerLeveeFonds (LeveeDeFonds levee);
 	
 	/*
 	 * Gestion des accounts
