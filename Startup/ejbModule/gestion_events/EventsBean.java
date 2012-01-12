@@ -44,23 +44,35 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
 	}
     
     //CRUD participations
-    public Participation participation(Startup s, AbstraitInvestisseur i, double d) {
-        Participation p = new Participation(s, i, d);
+    public Couple<Startup, Participation> participation(Startup s, AbstraitInvestisseur i, double m) {
+        Participation p = new Participation(s, i, m);
         if(i instanceof Fondateur){
             s.addFondateur((Fondateur)i);
         }
+        em.persist(p);
         s.addParticipation(p);
         i.addParticipation(p);
-        em.persist(p);
-        em.merge(s);
         em.merge(i);
-        return p;
+        return new Couple<Startup, Participation>(em.merge(s), em.merge(p));
     }
     
 	@Override
-	public Participation participation(LeveeDeFonds levee, AbstraitInvestisseur i, double m) {
-		// TODO Auto-generated method stub
-		return null;
+	public Couple<LeveeDeFonds, Participation> participation(LeveeDeFonds levee, AbstraitInvestisseur i, double m) {
+		levee = this.findLeveeDeFonds(levee.getIdLevee());
+		Startup s = this.findStartupById(levee.getStartup().getIdStartup());
+		if (levee.getEtape().equals(Etape.ENGAGEMENT)){
+			Participation p = new Participation(levee, i, m);
+			em.persist(p);
+			levee.addParticipation(p);
+			i.addParticipation(p);
+			s.addParticipation(p);
+			em.merge(s);
+			em.merge(i);
+			return new Couple<LeveeDeFonds, Participation>(em.merge(levee), em.merge(p));
+		} else {
+			System.out.println("Err_Etape_LeveeFonds: La levee de fonds ne prend encore des participations");
+			return null;
+		}
 	}
     
     public Participation updateParticipation(long idStartup, long idInv, double m) {
@@ -139,10 +151,14 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
     
     
     //CRUD levee de fonds
-    public LeveeDeFonds leveeDeFonds(Date date, double montant, AbstraitInvestisseur o) {
-        LeveeDeFonds f = new LeveeDeFonds(date, montant, o);
-        em.persist(f);
-        return f;
+    public Couple<Startup,LeveeDeFonds> leveeDeFonds(Date date, double montant, AbstraitInvestisseur o, Startup s) {
+        LeveeDeFonds levee = new LeveeDeFonds(date, montant, o, s);
+        System.out.println("Etape " + levee.getEtape());
+        em.persist(levee);
+        s.getLevee().add(levee);
+        o.getLeveeDeFonds().add(levee);
+        em.merge(o);
+        return new Couple<Startup, LeveeDeFonds>(em.merge(s), em.merge(levee));
     }
 
     public LeveeDeFonds updateLeveeDeFonds(long id, Date date, Etape e) {
@@ -164,11 +180,11 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
         return em.find(LeveeDeFonds.class, id);
     }
     
-    
     //Business methods
     public void distribuerDividende(LeveeDeFonds l) {
+    	l = this.findLeveeDeFonds(l.getIdLevee());
         Startup st = l.getStartup();
-        Iterator it = st.getParticipations().iterator();
+        Iterator<Participation> it = st.getParticipations().iterator();
         while(it.hasNext()){
             Participation p = (Participation) it.next();
             double div = (p.getMontant()/calculCapital(st))*totalParticipations(l);
@@ -179,7 +195,7 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
     }
 
     public double totalParticipations(LeveeDeFonds l) {
-        Iterator it = l.getParticipations().iterator();
+        Iterator<Participation> it = l.getParticipations().iterator();
         double total = 0.0;
         while(it.hasNext()){
             Participation temp = (Participation)it.next();
@@ -188,18 +204,32 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
         return total;
     }
 
-    public double calculCapital(Startup s) {
-        Iterator it = s.getParticipations().iterator();
+	public double calculCapital(Startup s) {
+    	s = this.findStartupById(s.getIdStartup());
+    	/*System.out.println(s.getIdStartup());
+    	Query query = em.createQuery("SELECT p FROM Participation AS p WHERE p.startup = :idStartup");
+    	query.setParameter("idStartup", s.getIdStartup());
+    	List<Participation> parts = (List<Participation>)query.getResultList();
+    	*/
+        Iterator<Participation> it = s.getParticipations().iterator();
         double res = 0.0;
         while(it.hasNext()){
             Participation p = (Participation)it.next();
             res += p.getMontant();
         }
+        s.setCapital(res);
+        em.merge(s);
+        System.out.println(res);
         return res;
     }
 
-    public Double postValue(Startup s, LeveeDeFonds l) {
-        return totalParticipations(l)+calculCapital(s);
+    public double postValue(Startup s, LeveeDeFonds l) {
+    	s = this.findStartupById(s.getIdStartup());
+    	l = this.findLeveeDeFonds(l.getIdLevee());
+    	double res = totalParticipations(l)+calculCapital(s);
+    	s.setPostValue(res);
+    	em.merge(s);
+    	return res;
     }
     
     @PreDestroy()

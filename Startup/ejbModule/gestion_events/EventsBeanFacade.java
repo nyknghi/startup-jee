@@ -18,8 +18,8 @@ import util.Couple;
  */
 public interface EventsBeanFacade {
     //CRUD participations
-    public Participation participation(Startup s, AbstraitInvestisseur i, double d);
-    public Participation participation(LeveeDeFonds levee, AbstraitInvestisseur i, double m);
+    public Couple<Startup, Participation> participation(Startup s, AbstraitInvestisseur i, double m);
+    public Couple<LeveeDeFonds, Participation> participation(LeveeDeFonds levee, AbstraitInvestisseur i, double m);
     public Participation updateParticipation(long idStartup, long idInv, double m);
     public Participation updateParticipation(Participation p);
     public List<Participation> findParticipation(AbstraitInvestisseur inv);
@@ -34,7 +34,7 @@ public interface EventsBeanFacade {
     public List<Startup> findStartupByActivity(String a);
     
     //CRUD  levee de fonds
-    public LeveeDeFonds leveeDeFonds(Date d, double montant, AbstraitInvestisseur o);
+    public Couple<Startup,LeveeDeFonds> leveeDeFonds(Date d, double montant, AbstraitInvestisseur o, Startup s);
     public LeveeDeFonds updateLeveeDeFonds(long id, Date date, Etape e);
     public LeveeDeFonds updateLeveeDeFonds(LeveeDeFonds levee);
     public LeveeDeFonds findLeveeDeFonds(long id);
@@ -45,5 +45,5 @@ public interface EventsBeanFacade {
     
     public void distribuerDividende(LeveeDeFonds l);
     
-    public Double postValue(Startup s, LeveeDeFonds l);
+    public double postValue(Startup s, LeveeDeFonds l);
 }

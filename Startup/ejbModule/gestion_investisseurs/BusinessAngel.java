@@ -1,10 +1,7 @@
 package gestion_investisseurs;
 
-import gestion_events.LeveeDeFonds;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.*;
 
@@ -19,9 +16,7 @@ public class BusinessAngel extends AbstraitInvestisseur{
 	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="businessAngel")
 	private List<Membre> clubAmis;
-	
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="organisateur")
-	private Set<LeveeDeFonds> leveeDeFondsBA;
+
 	
 	public BusinessAngel(){}
 	
@@ -30,7 +25,6 @@ public class BusinessAngel extends AbstraitInvestisseur{
 		this.mail = mail;
 		this.mdp = mdp;
 		clubAmis = new ArrayList<Membre>();
-		leveeDeFondsBA = new HashSet<LeveeDeFonds>();
 	}
 
 	public Long organisateurId(){
@@ -51,14 +45,6 @@ public class BusinessAngel extends AbstraitInvestisseur{
 
 	public void setClubAmis(List<Membre> clubAmis) {
 		this.clubAmis = clubAmis;
-	}
-
-	public Set<LeveeDeFonds> getLeveeDeFonds() {
-		return leveeDeFondsBA;
-	}
-
-	public void setLeveeDeFonds(Set<LeveeDeFonds> leveeDeFonds) {
-		this.leveeDeFondsBA = leveeDeFonds;
 	}
 
 	@Override

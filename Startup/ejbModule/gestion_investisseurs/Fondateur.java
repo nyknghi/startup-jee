@@ -1,9 +1,6 @@
 package gestion_investisseurs;
 
-import gestion_events.LeveeDeFonds;
 import gestion_events.Startup;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.*;
 
@@ -20,16 +17,12 @@ public class Fondateur extends AbstraitInvestisseur{
 	@Column
 	private boolean isMandataire=false;
 	
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="organisateur", cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-	private Set<LeveeDeFonds> leveeDeFondsFO;
-	
 	public Fondateur(){}
 	
 	public Fondateur(String nom, String mail, String mdp){
 		this.nom = nom;
 		this.mail = mail;
 		this.mdp = mdp;
-		leveeDeFondsFO = new HashSet<LeveeDeFonds>();
 	}
 	
 	public Long organisateurId(){
@@ -51,23 +44,12 @@ public class Fondateur extends AbstraitInvestisseur{
 	public void setMandataire(boolean isMandataire) {
 		this.isMandataire = isMandataire;
 	}
-
-	public Set<LeveeDeFonds> getLeveeDeFonds() {
-		return leveeDeFondsFO;
-	}
-
-	public void setLeveeDeFonds(Set<LeveeDeFonds> leveeDeFonds) {
-		this.leveeDeFondsFO = leveeDeFonds;
-	}
-
 	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (isMandataire ? 1231 : 1237);
-		result = prime * result
-				+ ((leveeDeFondsFO == null) ? 0 : leveeDeFondsFO.hashCode());
 		result = prime * result + ((startup == null) ? 0 : startup.hashCode());
 		return result;
 	}
@@ -82,11 +64,6 @@ public class Fondateur extends AbstraitInvestisseur{
 			return false;
 		Fondateur other = (Fondateur) obj;
 		if (isMandataire != other.isMandataire)
-			return false;
-		if (leveeDeFondsFO == null) {
-			if (other.leveeDeFondsFO != null)
-				return false;
-		} else if (!leveeDeFondsFO.equals(other.leveeDeFondsFO))
 			return false;
 		if (startup == null) {
 			if (other.startup != null)

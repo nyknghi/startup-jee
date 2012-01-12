@@ -5,7 +5,6 @@ import gestion_events.LeveeDeFonds;
 import gestion_events.Startup;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,7 +22,7 @@ public interface FacadeInvestisseurs {
 	public Fondateur updateFondateur(Fondateur f);
 	
 	public Couple<Fondateur,Startup> ajouterFondateurStartup (Fondateur f, Startup s, boolean isMandataire);
-	public Startup rechercherStartupById (long id);
+
 	/*
 	 * Gestion des business Angel et club ami
 	 */
@@ -71,7 +70,7 @@ public interface FacadeInvestisseurs {
 	/*
 	 * Gestion des levees de fonds
 	 */
-	public Couple<AbstraitInvestisseur,LeveeDeFonds> organiserLeveeFonds (AbstraitInvestisseur ainv, double cible); 
+	public Couple<AbstraitInvestisseur,LeveeDeFonds> organiserLeveeFonds (Startup s, AbstraitInvestisseur ainv, double cible); 
 	public LeveeDeFonds modifierEtape (LeveeDeFonds levee, Etape etape);
 	public LeveeDeFonds annulerLeveeFonds (LeveeDeFonds levee);
 	

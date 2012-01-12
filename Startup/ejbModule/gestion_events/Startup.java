@@ -23,6 +23,12 @@ public class Startup implements Serializable{
 	
     @Column (nullable=false)
     private String activite;
+    
+    @Column
+    private double capital=0.0;
+    
+    @Column
+    private double postValue=0.0;
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="startup")
 	private Set<Fondateur> fondateurs;
@@ -116,6 +122,22 @@ public class Startup implements Serializable{
     public void setParticipations(Set<Participation> participations) {
         this.participations = participations;
     }
+
+	public double getCapital() {
+		return capital;
+	}
+
+	public void setCapital(double capital) {
+		this.capital = capital;
+	}
+
+	public double getPostValue() {
+		return postValue;
+	}
+
+	public void setPostValue(double postValue) {
+		this.postValue = postValue;
+	}
 
 	@Override
 	public String toString() {

@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @SuppressWarnings("serial")
 @Entity
-@Table (name="Participation", uniqueConstraints=@UniqueConstraint(columnNames={"levee_idlevee","startup_idstartup"}))
+//@Table (name="Participation", uniqueConstraints=@UniqueConstraint(columnNames={"levee_idlevee","startup_idstartup"}))
 public class Participation implements Serializable {
 
     @Id
@@ -30,6 +30,13 @@ public class Participation implements Serializable {
     
     public Participation(Startup s, AbstraitInvestisseur i, double montant){
         this.startup = s;
+        this.investisseur = i;
+        this.montant = montant;
+    }
+    
+    public Participation(LeveeDeFonds levee, AbstraitInvestisseur i, double montant){
+        this.leveeDeFonds = levee;
+        this.startup = levee.getStartup();
         this.investisseur = i;
         this.montant = montant;
     }

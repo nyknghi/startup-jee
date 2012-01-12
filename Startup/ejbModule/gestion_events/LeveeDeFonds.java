@@ -21,6 +21,7 @@ public class LeveeDeFonds implements Serializable{
     private Date date_levee;
     
     @Column (nullable=false)
+    @Enumerated(EnumType.STRING)
     private Etape etape;
     
     @Column (nullable=false)
@@ -42,11 +43,12 @@ public class LeveeDeFonds implements Serializable{
     @JoinColumn (referencedColumnName="idInvestisseur")
     private AbstraitInvestisseur organisateur;
     
-    public LeveeDeFonds (Date d, double m, AbstraitInvestisseur o){
+    public LeveeDeFonds (Date d, double m, AbstraitInvestisseur o, Startup s){
         date_levee = d;
         etape = Etape.CANDIDATURE;
         montantCible = m;
         organisateur = o;
+        startup = s;
         investisseurs = new HashSet<AbstraitInvestisseur>();
         participations = new HashSet<Participation>();
     }
@@ -124,4 +126,11 @@ public class LeveeDeFonds implements Serializable{
     public void setParticipations(Set<Participation> participations) {
         this.participations = participations;
     }
+
+	@Override
+	public String toString() {
+		return "LeveeDeFonds [idLevee=" + idLevee + ", date_levee="
+				+ date_levee + ", etape=" + etape + ", montantCible="
+				+ montantCible + "]";
+	}
 }

@@ -1,7 +1,6 @@
 package gestion_investisseurs;
 
 import gestion_events.Etape;
-import gestion_events.EventsBean;
 import gestion_events.EventsBeanLocal;
 import gestion_events.LeveeDeFonds;
 import gestion_events.Startup;
@@ -66,7 +65,7 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	@Override
 	public Couple<Fondateur, Startup> ajouterFondateurStartup(Fondateur f, Startup s, boolean isMandataire) {
 		f = this.rechercherFondateurParId(f.getIdInvestisseur());
-		s = this.rechercherStartupById(s.getIdStartup());		
+		s = eventLocal.findStartupById(s.getIdStartup());
 		s.addFondateur(f);
 		f.setStartup(s);
 		f.setMandataire(isMandataire);
@@ -76,10 +75,6 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	@Override
 	public Fondateur rechercherFondateurParId (long id){
 		return em.find(Fondateur.class, id);
-	}
-
-	public Startup rechercherStartupById (long id){
-		return em.find(Startup.class, id);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -163,8 +158,6 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	@Override
 	public Couple<ClubAmi, Startup> mettreEnPartenaire (ClubAmi ca, Startup s){
 		ca = this.rechercherClubParId(ca.getIdClub());
-		//s = eventBean.findStartupById(s.getIdStartup());
-		s = this.rechercherStartupById(s.getIdStartup());
 		ca.setStartup(s);
 		s.getClubs().add(ca);
 		return new Couple<ClubAmi, Startup>(em.merge(ca), em.merge(s));
@@ -308,8 +301,8 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	}
 	
 	@Override
-	public Couple<AbstraitInvestisseur,LeveeDeFonds> organiserLeveeFonds(AbstraitInvestisseur ainv, double cible) {
-		LeveeDeFonds levee = eventLocal.leveeDeFonds(new Date(), cible, ainv);
+	public Couple<AbstraitInvestisseur,LeveeDeFonds> organiserLeveeFonds(Startup s, AbstraitInvestisseur ainv, double cible) {
+		LeveeDeFonds levee = eventLocal.leveeDeFonds(new Date(), cible, ainv, s).getObjetB();
 		if (ainv instanceof Fondateur){
 			Fondateur f = (Fondateur)ainv;
 			f.getLeveeDeFonds().add(levee);

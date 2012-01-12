@@ -4,6 +4,7 @@ import gestion_events.LeveeDeFonds;
 import gestion_events.Participation;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -21,10 +22,12 @@ public abstract class AbstraitInvestisseur implements Serializable{
 	protected String mail;
 	@Column
 	protected String mdp;
+	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="investisseur")
-	private Set<Participation> participations;
-	@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy="investisseurs")
-	private Set<LeveeDeFonds> leveeDeFonds;
+	private Set<Participation> participations = new HashSet<Participation>();
+	
+	@ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy="investisseurs")
+	private Set<LeveeDeFonds> leveeDeFonds = new HashSet<LeveeDeFonds>();
 	
 	public long getIdInvestisseur() {
 		return idInvestisseur;
