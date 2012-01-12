@@ -1,6 +1,9 @@
 package testUnit;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import gestion_events.EventsBeanRemote;
 import gestion_events.Startup;
@@ -54,6 +57,7 @@ public class BeanInvestisseursTest extends TestCase{
     }
 	
 	public void prepareEntity(){
+		// CREATION
 		f1 = remoteInv.creerFondateur("Dupont", "dupont@gmail.com", "12345");
 		Couple<Startup, Fondateur> res = remoteEvents.startup("MStartup", "Informatique", f1);
 		s = res.getObjetA();
@@ -65,36 +69,20 @@ public class BeanInvestisseursTest extends TestCase{
 	 */
 	
 	@Test
-	public void testCreationStartup(){
-		/**
-		 * Creer 2 fondateurs f1 et f2
-		 * f1 va monter sa startup et f2 va y rejoindre
-		 */
-		System.out.println("-Test creation fondateur et startup");
-		System.out.println(s);
-		System.out.println(f1);
-		// Test d'ajout d'un fondateur dans la startup
-		Fondateur f2 = remoteInv.creerFondateur("Tita", "tita@gmail.com", "1707");
-		f2 = remoteInv.ajouterFondateurStartup(f2, s, true).getObjetA();
-		System.out.println(f2);
-		System.out.println("-Fin test----------------------------------------\n");
-	}
-	
-	@Test
-	public void testUpdateFondateur(){
-		System.out.println("-Test update fondateur");
+	public void testCRUDFondateur(){
+		System.out.println("-Test CRUD fondateur");
+		// UPDATE
 		System.out.println("Fondateur avant update: " + f1);
 		Fondateur f2 = remoteInv.updateFondateur(f1, "Tartempion","dupont@gmail.com", "12345");
 		System.out.println("Fondateur apres update: " + f2);
 		assertFalse(f1.equals(f2));
-		System.out.println("-Fin test----------------------------------------\n");
-	}
-	
-	@Test
-	public void testRechercheFondateur(){
-		System.out.println("-Test recherche fondateur");
-		Fondateur f2 = remoteInv.rechercherFondateurParId(f1.getIdInvestisseur());
-		System.out.println(f2);
+		// RECHERCHE
+		f2 = remoteInv.rechercherFondateurParId(f1.getIdInvestisseur());
+		if (f2 == null){
+			System.out.println("Fondateur non trouve !");
+		} else {
+			System.out.println(f2);
+		}
 		System.out.println("-Fin test----------------------------------------\n");
 	}
 	
@@ -177,7 +165,6 @@ public class BeanInvestisseursTest extends TestCase{
 		ca = remoteInv.updateClubAmi(ca, ca.getNomClub());
 		System.out.println("Club apres update: " + ca);
 		System.out.println("-Fin test----------------------------------------\n");
-		
 	}
 	
 	@Test
@@ -199,7 +186,7 @@ public class BeanInvestisseursTest extends TestCase{
 	 */
 	
 	@Test
-	public void testCreerGroupeInv(){
+	public void testGestionGroupeInv(){
 		System.out.println("-Test creation d'un groupe investisseurs");
 		Investisseur inv1 = remoteInv.creerInvestisseur("Marc", "marc@gmail.com", "marcmdp");
 		Investisseur inv2 = remoteInv.creerInvestisseur("Jerry", "jerry@gmail.com", "jmdp");
@@ -214,7 +201,11 @@ public class BeanInvestisseursTest extends TestCase{
 		
 		System.out.println(inv1);
 		System.out.println(inv2);
-		System.out.println(groupe);				
+		System.out.println(groupe);
+		
+		// Changer le nom du groupe
+		groupe = remoteInv.updateGroupeInvestisseurs(groupe, "Beaux gosses");
+		System.out.println(groupe);
 		System.out.println("-Fin test----------------------------------------\n");
 	}
 	
@@ -227,29 +218,39 @@ public class BeanInvestisseursTest extends TestCase{
 		System.out.println("-Fin test----------------------------------------\n");
 	}
 	
-	@Test 
-	public void testUpdateGroupeInvestisseurs(){
-		System.out.println("-Test update groupe investisseurs");
-		GroupeInvestisseurs groupe = remoteInv.rechercherGroupeParNom("Groupe des beaux gosses").get(0);
-		System.out.println(groupe);
-		groupe = remoteInv.updateGroupeInvestisseurs(groupe, "Beaux gosses");
-		System.out.println(groupe);
-		System.out.println("-Fin test----------------------------------------\n");
-	}
-	
 	@Test
 	public void testQuitterGroupe (){
 		System.out.println("-Test quitter groupe");
-		GroupeInvestisseurs groupe = remoteInv.rechercherGroupeParNom("Groupe des beaux gosses").get(0);
-		System.out.println("Nombre d'investisseurs dans le groupe " + groupe.getInvestisseurs().size());
-		
-		Investisseur inv = groupe.getInvestisseurs().get(0);
-		
-		Couple<GroupeInvestisseurs, Investisseur> res = remoteInv.quitterGroupe(groupe, inv);
-		groupe = res.getObjetA();
-		inv = res.getObjetB();
-		System.out.println("Investisseur " + inv.getIdInvestisseur() + " a quitte son groupe");
-		System.out.println("Nombre d'investisseurs dans le groupe " + groupe.getInvestisseurs().size());
+		List<GroupeInvestisseurs> groupes = remoteInv.rechercherGroupeParNom("Beaux gosses");
+		if (groupes.size() > 0){
+			GroupeInvestisseurs groupe = groupes.get(0);
+			List<Investisseur> invs = remoteInv.rechercherInvestisseurParNom("Jerry");
+			Investisseur inv = invs.get(invs.size()-1);
+			Couple<GroupeInvestisseurs, Investisseur> res = remoteInv.quitterGroupe(groupe, inv);
+			groupe = res.getObjetA();
+			inv = res.getObjetB();
+			System.out.println("Investisseur " + inv.getIdInvestisseur() + " a quitte son groupe");
+			
+		} else {
+			System.out.println("Groupe non trouve !");
+		}
+		System.out.println("-Fin test----------------------------------------\n");
+	}
+	
+	/*
+	 * TEST DES ACCOUNTS 
+	 */
+	@Test
+	public void testAccounts(){
+		System.out.println("-Test recuperation des accounts");
+		HashMap<String, String> acc_fond = remoteInv.listeAccountsFondateurs();
+		Set<String> emails = acc_fond.keySet();
+		Iterator<String> it = emails.iterator();
+		while (it.hasNext()){
+			String email = it.next();
+			String mdp = acc_fond.get(email);
+			System.out.println("email=" + email + ", mdp=" + mdp);
+		}
 		System.out.println("-Fin test----------------------------------------\n");
 	}
 	
