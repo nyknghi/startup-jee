@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Fondateur</title>
 </head>
 <body>
         <table>
@@ -15,7 +15,7 @@
             </tr>
             <tr>
                 <td>
-                    <a href="creerinvestisseur.jsp">Monter groupe</a>
+                    <a href="OrganiserLevee.jsp">Organiser une levée de fonds</a>
                 </td>                
             </tr>            
         </table>

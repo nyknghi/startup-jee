@@ -17,9 +17,30 @@
    TARGET="page0" TITLE="failure" TYPE="forward" model-entity="StrutsProcessItemOutput"/>
   <PROCESS-ITEM-OUTPUT ID="success" NAME="forward1" PATH="/admin.jsp"
    TARGET="page3" TITLE="success" TYPE="forward" model-entity="StrutsProcessItemOutput"/>
+  <PROCESS-ITEM-OUTPUT ID="fondateur" NAME="forward2"
+   PATH="/fondateur.jsp" TARGET="page1" TITLE="fondateur" TYPE="forward" model-entity="StrutsProcessItemOutput"/>
+  <PROCESS-ITEM-OUTPUT ID="ba" NAME="forward3" PATH="/BA.jsp"
+   TARGET="page5" TITLE="ba" TYPE="forward" model-entity="StrutsProcessItemOutput"/>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="page0" PATH="/failure.jsp" SHAPE="256,514,0,0"
   SUBTYPE="jsp" TITLE="failure.jsp" TYPE="page" model-entity="StrutsProcessItem"/>
  <PROCESS-ITEM ID="#creerstartup" NAME="action2" PATH="/creerstartup"
   SHAPE="56,216,137,25" TITLE="creerStartupForm" TYPE="action" model-entity="StrutsProcessItem"/>
+ <PROCESS-ITEM ID="#CreerStartup" NAME="action3" PATH="/CreerStartup"
+  SHAPE="32,609,0,0" TITLE="creerStartupForm" TYPE="action" model-entity="StrutsProcessItem"/>
+ <PROCESS-ITEM NAME="page1" PATH="/fondateur.jsp" SHAPE="448,353,0,0"
+  SUBTYPE="jsp" TITLE="fondateur.jsp" TYPE="page" model-entity="StrutsProcessItem"/>
+ <PROCESS-ITEM ID="#OrganiserLevee" NAME="action4"
+  PATH="/OrganiserLevee" SHAPE="240,657,0,0" TITLE="OrganiserLeveeForm"
+  TYPE="action" model-entity="StrutsProcessItem"/>
+ <PROCESS-ITEM ID="#CreerInvestisseur" NAME="action5"
+  PATH="/CreerInvestisseur" SHAPE="448,641,0,0"
+  TITLE="CreerInvestisseurForm" TYPE="action" model-entity="StrutsProcessItem"/>
+ <PROCESS-ITEM NAME="page4" PATH="/ba.jsp" SHAPE="240,577,0,0"
+  SUBTYPE="jsp" TITLE="ba.jsp" TYPE="page" model-entity="StrutsProcessItem"/>
+ <PROCESS-ITEM NAME="page5" PATH="/BA.jsp" SHAPE="448,465,0,0"
+  SUBTYPE="jsp" TITLE="BA.jsp" TYPE="page" model-entity="StrutsProcessItem"/>
+ <PROCESS-ITEM ID="#ParticiperLevee" NAME="action6"
+  PATH="/ParticiperLevee" SHAPE="656,689,0,0"
+  TITLE="ParticiperLeveeForm" TYPE="action" model-entity="StrutsProcessItem"/>
 </PROCESS>

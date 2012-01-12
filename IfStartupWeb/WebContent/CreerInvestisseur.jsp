@@ -5,19 +5,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Accréditer investisseur</title>
 </head>
 <body>
         <b>Accréditer investisseur</b>
         <hr>
-        <html:form action="/Login">
+        <html:form action="/CreerInvestisseur">
             <table>
                 <tr>
                     <td>
                         Nom d'investisseur :
                     </td>
                     <td>
-                        <html:text name="LoginForm" property="nom" />
+                        <html:text name="CreerInvestisseurForm" property="nom" />
                     </td>
                 </tr>
                 <tr>
@@ -25,13 +25,13 @@
                         Type d'investisseur :
                     </td>
                     <td>
-                        <html:radio name="LoginForm" property="type" value="F" >
+                        <html:radio name="CreerInvestisseurForm" property="type" value="F" >
                             Fondateur
                         </html:radio>
-                        <html:radio name="LoginForm" property="type" value="B" >
+                        <html:radio name="CreerInvestisseurForm" property="type" value="B" >
                             Business Angel
                         </html:radio>
-                        <html:radio name="LoginForm" property="type" value="I" >
+                        <html:radio name="CreerInvestisseurForm" property="type" value="I" >
                             Investisseur
                         </html:radio>                        
                     </td>
@@ -41,7 +41,7 @@
                         Capital :
                     </td>
                     <td>
-                        <html:text name="LoginForm" property="capital" />
+                        <html:text name="CreerInvestisseurForm" property="capital" />
                     </td>
                 </tr>                
                 <tr>
@@ -49,7 +49,7 @@
                         Email :
                     </td>
                     <td>
-                        <html:text name="LoginForm" property="email" />
+                        <html:text name="CreerInvestisseurForm" property="email" />
                     </td>
                 </tr> 
                 <tr>

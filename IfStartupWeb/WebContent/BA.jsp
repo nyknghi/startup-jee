@@ -10,12 +10,12 @@
         <table>
             <tr>
                 <td>
-                    <a href="creerstartup.jsp">Creer Startup</a>
+                    <a href="OrganiserLevee.jsp">Organiser une levée de fonds</a>
                 </td>              
             </tr>
             <tr>
                 <td>
-                    <a href="CreerInvestisseur.jsp">Accrediter investisseur</a>
+                    <a href="PaticiperLevee.jsp">Participer à une levée de fonds</a>
                 </td>                
             </tr>            
         </table>
