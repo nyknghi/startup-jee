@@ -25,7 +25,7 @@ import util.Couple;
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseurs{
-	@PersistenceContext(unitName="SampleUnit")
+	@PersistenceContext
 	EntityManager em;
 	
 	EventsBeanLocal eventLocal;

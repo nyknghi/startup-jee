@@ -28,7 +28,7 @@ import util.Couple;
 @TransactionManagement (TransactionManagementType.CONTAINER)
 public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
     
-    @PersistenceContext(unitName="SampleUnit")
+    @PersistenceContext
     EntityManager em;
     LocalInvestisseurs localInv;
     
