@@ -33,6 +33,8 @@ public interface EventsBeanFacade {
     public Startup findStartupById(long id);
     public List<Startup> findStartupByActivity(String a);
     
+    public List<Startup> findAllStartup();
+    
     //CRUD  levee de fonds
     public Couple<Startup,LeveeDeFonds> leveeDeFonds(Date d, double montant, AbstraitInvestisseur o, Startup s);
     public LeveeDeFonds updateLeveeDeFonds(long id, Date date, Etape e);

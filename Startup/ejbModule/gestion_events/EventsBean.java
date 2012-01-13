@@ -149,6 +149,11 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
         return (List<Startup>) query.getResultList();
     }
     
+    @SuppressWarnings("unchecked")
+	public List<Startup> findAllStartup(){
+    	Query query = em.createQuery("select s from Startup as s");
+        return (List<Startup>) query.getResultList();
+    }
     
     //CRUD levee de fonds
     public Couple<Startup,LeveeDeFonds> leveeDeFonds(Date date, double montant, AbstraitInvestisseur o, Startup s) {
