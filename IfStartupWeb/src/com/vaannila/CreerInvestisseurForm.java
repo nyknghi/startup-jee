@@ -6,34 +6,46 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 
-public class CreerInvestisseurForm {
-	private String nom;
-	private String type;
-	private String capital;
-	private String email;
-	public String getNom() {
-		return nom;
-	}
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
-	public String getCapital() {
-		return capital;
-	}
-	public void setCapital(String capital) {
-		this.capital = capital;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
+public class CreerInvestisseurForm extends org.apache.struts.action.ActionForm{
+    
+    private String nom;
+    private String email;
+    private String password;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+        
+    @Override
+    public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+        ActionErrors errors = new ActionErrors();
+        if(nom==null || nom.isEmpty()){
+            errors.add("nom", new ActionMessage("Spécifiez le nom de l'investisseur"));
+        }else if(email==null || email.isEmpty()){
+            errors.add("email", new ActionMessage("Spécifiez l'adresse mail"));
+        }else if(password==null || password.isEmpty()){
+            errors.add("email", new ActionMessage("Le mot de passe est obligatoire"));
+        }
+        return errors;
+    }
 }

@@ -1,6 +1,5 @@
 package com.vaannila;
 
-import gestion_investisseurs.AbstraitInvestisseur;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,10 +17,9 @@ public class OrganiserLeveeAction extends org.apache.struts.action.Action{
         double cible = Double.valueOf(f.getCible());
         try{
             BeanUtil.getInvestisseurs().organiserLeveeFonds(BeanUtil.getEvents().findStartupByName(f.getStartup()).get(0), BeanUtil.getInvestisseurs().findByEmail((String)request.getAttribute("login")), cible);
+            return mapping.findForward("success-organiser_levee");
         }catch(Exception e){
             return mapping.findForward("error-organiser_levee");
         }
-        return mapping.findForward("error-organiser_levee");
     }
-
 }

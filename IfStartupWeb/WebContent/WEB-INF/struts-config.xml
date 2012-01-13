@@ -27,6 +27,7 @@
    <forward name="success" path="/BA.jsp"></forward>
   </action>
   <action input="/OrganiserLevee.jsp" name="OrganiserLeveeForm" path="/OrganiserLevee" scope="session" type="com.vaannila.OrganiserLeveeAction">
+      
   </action>  
   <action input="/ParticiperLevee.jsp" name="ParticiperLeveeForm" path="/ParticiperLevee" scope="session" type="com.vaannila.ParticiperLeveeAction">
   </action>   
