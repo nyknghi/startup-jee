@@ -1,5 +1,6 @@
 package gestion_investisseurs;
 
+import gestion_events.Inscription;
 import gestion_events.LeveeDeFonds;
 import gestion_events.Participation;
 
@@ -26,7 +27,10 @@ public abstract class AbstraitInvestisseur implements Serializable{
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="investisseur")
 	private Set<Participation> participations = new HashSet<Participation>();
 	
-	@ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy="investisseurs")
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="investisseur")
+	private Set<Inscription> inscriptions = new HashSet<Inscription>();
+	
+	@OneToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy="investisseur")
 	private Set<LeveeDeFonds> leveeDeFonds = new HashSet<LeveeDeFonds>();
 	
 	public long getIdInvestisseur() {
@@ -76,6 +80,12 @@ public abstract class AbstraitInvestisseur implements Serializable{
     public void addParticipation(Participation p) {
         participations.add(p);
     }
-	
-	
+
+	public Set<Inscription> getInscriptions() {
+		return inscriptions;
+	}
+
+	public void setInscriptions(Set<Inscription> inscriptions) {
+		this.inscriptions = inscriptions;
+	}
 }

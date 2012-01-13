@@ -301,6 +301,18 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	}
 	
 	@Override
+	public AbstraitInvestisseur findByEmail(String email){
+		@SuppressWarnings("unchecked")
+		List<AbstraitInvestisseur> res = (List<AbstraitInvestisseur>) em.find(AbstraitInvestisseur.class, email);
+		if (res.size() != 0){
+			return res.get(0);
+		} else {
+			System.out.println("Aucun investisseur n'est trouve !");
+			return null;
+		}
+	}
+	
+	@Override
 	public Couple<AbstraitInvestisseur,LeveeDeFonds> organiserLeveeFonds(Startup s, AbstraitInvestisseur ainv, double cible) {
 		LeveeDeFonds levee = eventLocal.leveeDeFonds(new Date(), cible, ainv, s).getObjetB();
 		if (ainv instanceof Fondateur){

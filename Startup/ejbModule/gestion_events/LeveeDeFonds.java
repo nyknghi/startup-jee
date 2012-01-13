@@ -32,14 +32,22 @@ public class LeveeDeFonds implements Serializable{
     @JoinColumn (referencedColumnName="idStartup", nullable=false)
     private Startup startup;
     
-    @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    /*@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(name="Inscription", joinColumns={@JoinColumn(referencedColumnName="idLevee")}, 
             inverseJoinColumns={@JoinColumn(referencedColumnName="idInvestisseur")})
     private Set<AbstraitInvestisseur> investisseurs;
+    */
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn (referencedColumnName="idInvestisseur", nullable=false)
+    private AbstraitInvestisseur investisseur; 
     
     @OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="leveeDeFonds")
     private Set<Participation> participations;
     
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="investisseur")
+	private Set<Inscription> inscriptions;
+	
     @ManyToOne (fetch=FetchType.LAZY)
     @JoinColumn (referencedColumnName="idInvestisseur")
     private AbstraitInvestisseur organisateur;
@@ -50,18 +58,19 @@ public class LeveeDeFonds implements Serializable{
         montantCible = m;
         organisateur = o;
         startup = s;
-        investisseurs = new HashSet<AbstraitInvestisseur>();
+       // investisseurs = new HashSet<AbstraitInvestisseur>();
         participations = new HashSet<Participation>();
+        inscriptions = new HashSet<Inscription>();
     }
     
-    public void addInvestisseur(AbstraitInvestisseur i){
+  /*  public void addInvestisseur(AbstraitInvestisseur i){
         investisseurs.add(i);
     }
     
     public void removeInvestisseur(AbstraitInvestisseur i){
         investisseurs.remove(i);
     }
-    
+    */
     public void addParticipation(Participation p){
         participations.add(p);
     }
@@ -88,10 +97,10 @@ public class LeveeDeFonds implements Serializable{
         return idLevee;
     }
 
-    public Set<AbstraitInvestisseur> getInvestisseurs() {
+   /* public Set<AbstraitInvestisseur> getInvestisseurs() {
         return investisseurs;
     }
-
+*/
     public double getMontantCible() {
         return montantCible;
     }
@@ -112,10 +121,10 @@ public class LeveeDeFonds implements Serializable{
         this.etape = etape;
     }
 
-    public void setInvestisseurs(Set<AbstraitInvestisseur> investisseurs) {
+  /*  public void setInvestisseurs(Set<AbstraitInvestisseur> investisseurs) {
         this.investisseurs = investisseurs;
     }
-
+*/
     public void setMontantCible(double montantCible) {
         this.montantCible = montantCible;
     }
@@ -127,6 +136,14 @@ public class LeveeDeFonds implements Serializable{
     public void setParticipations(Set<Participation> participations) {
         this.participations = participations;
     }
+    
+	public Set<Inscription> getInscriptions() {
+		return inscriptions;
+	}
+
+	public void setInscriptions(Set<Inscription> inscriptions) {
+		this.inscriptions = inscriptions;
+	}
 
 	@Override
 	public String toString() {

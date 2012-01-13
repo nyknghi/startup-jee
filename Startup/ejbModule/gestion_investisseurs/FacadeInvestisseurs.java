@@ -67,6 +67,8 @@ public interface FacadeInvestisseurs {
 	public Couple<GroupeInvestisseurs, Investisseur> adhererGroupe (GroupeInvestisseurs groupe, Investisseur inv, boolean isLeader);
 	public Couple<GroupeInvestisseurs, Investisseur> quitterGroupe (GroupeInvestisseurs groupe, Investisseur inv);
 	
+	public AbstraitInvestisseur findByEmail(String email);
+	
 	/*
 	 * Gestion des levees de fonds
 	 */

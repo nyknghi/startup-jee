@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @SuppressWarnings("serial")
 @Entity
-//@Table (name="Participation", uniqueConstraints=@UniqueConstraint(columnNames={"levee_idlevee","startup_idstartup"}))
+@Table (name="Participation", uniqueConstraints=@UniqueConstraint(columnNames={"investisseur_idinvestisseur","startup_idstartup"}))
 public class Participation implements Serializable {
 
     @Id
@@ -22,7 +22,7 @@ public class Participation implements Serializable {
     private Startup startup;
     
     @ManyToOne (fetch=FetchType.EAGER)
-    @JoinColumn (referencedColumnName="idInvestisseur", nullable=false)
+    @JoinColumn (name="investisseur_idinvestisseur", referencedColumnName="idInvestisseur", nullable=false)
     private AbstraitInvestisseur investisseur;
     
     @Column (nullable=false)
