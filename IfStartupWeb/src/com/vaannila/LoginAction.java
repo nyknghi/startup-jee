@@ -9,34 +9,20 @@ import org.apache.struts.action.ActionForward;
 
 public class LoginAction extends org.apache.struts.action.Action {
 
-    /* forward name="success" path="" */
-    private final static String SUCCESS = "success";
-    private final static String FAILURE = "failure";
-    /**
-     * This is the action called from the Struts framework.
-     * @param mapping The ActionMapping used to select this instance.
-     * @param form The optional ActionForm bean for this request.
-     * @param request The HTTP Request we are processing.
-     * @param response The HTTP Response we are processing.
-     * @throws java.lang.Exception
-     * @return
-     */
+    @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-    	
         LoginForm loginForm = (LoginForm) form;
-        if (loginForm.getUserName().equals("admin")) {
-            return mapping.findForward(SUCCESS);
-        }
-        if (loginForm.getUserName().equals("fondateur")) {
+        if (loginForm.getEmail().equals("root") && loginForm.getPassword().equals("admin")){
+            return mapping.findForward("success");
+        }else if (BeanUtil.getInvestisseurs().listeAccountsInvestisseurs().containsKey(loginForm.getEmail()) && BeanUtil.getInvestisseurs().listeAccountsInvestisseurs().containsValue(loginForm.getPassword())){
+            return mapping.findForward("investisseur");
+        }else if(BeanUtil.getInvestisseurs().listeAccountsFondateurs().containsKey(loginForm.getEmail()) && BeanUtil.getInvestisseurs().listeAccountsFondateurs().containsValue(loginForm.getPassword())){
             return mapping.findForward("fondateur");
-        }
-        if (loginForm.getUserName().equals("ba")) {
+        }else if(BeanUtil.getInvestisseurs().listeAccountsBA().containsKey(loginForm.getEmail()) && BeanUtil.getInvestisseurs().listeAccountsBA().containsValue(loginForm.getPassword())){
             return mapping.findForward("ba");
-        }        
-        else {
-            return mapping.findForward(FAILURE);
         }
+        return mapping.findForward("failure");
     }
 }

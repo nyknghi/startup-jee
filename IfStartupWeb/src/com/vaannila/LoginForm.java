@@ -8,14 +8,7 @@ import org.apache.struts.action.ActionMessage;
 
 public class LoginForm extends org.apache.struts.action.ActionForm {
     
-    private String userName;
-
     private String password;
-    
-    private String nom;
-    private String capital;
-    private String activite;
-    private String type;
     private String email;
 
     
@@ -26,61 +19,20 @@ public class LoginForm extends org.apache.struts.action.ActionForm {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getNom() {
-		return nom;
-	}
-
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	public String getCapital() {
-		return capital;
-	}
-
-	public void setCapital(String capital) {
-		this.capital = capital;
-	}
-
-	public String getActivite() {
-		return activite;
-	}
-
-	public void setActivite(String activite) {
-		this.activite = activite;
-	}
-
-	/**
-     *
-     */
+        
     public LoginForm() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-    /**
-     * This is the action called from the Struts framework.
-     * @param mapping The ActionMapping used to select this instance.
-     * @param request The HTTP Request we are processing.
-     * @return
-     */
+    @Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = new ActionErrors();
-        if (userName == null || userName.length() < 1) {
-            errors.add("userName", new ActionMessage("error.userName.required"));
+        if (getEmail() == null || getEmail().equals("")) {
+            errors.add("email", new ActionMessage("Email requis"));
             // TODO: add 'error.name.required' key to your resources
         }
-        if (password == null || password.length() < 1) {
-            errors.add("password", new ActionMessage("error.password.required"));
+        if (getPassword() == null || getPassword().equals("")) {
+            errors.add("password", new ActionMessage("Mot de passe requis"));
             // TODO: add 'error.name.required' key to your resources
         }
         return errors;
@@ -89,19 +41,6 @@ public class LoginForm extends org.apache.struts.action.ActionForm {
     /**
      * @return the userName
      */
-    public String getUserName() {
-        System.out.println("Inside getter "+userName);
-        return userName;
-    }
-
-    /**
-     * @param userName the userName to set
-     */
-    public void setUserName(String userName) {
-        System.out.println("Inside setter "+userName);
-        this.userName = userName;
-    }
-
     /**
      * @return the password
      */
