@@ -73,6 +73,7 @@ public interface FacadeInvestisseurs {
 	public Couple<AbstraitInvestisseur,LeveeDeFonds> organiserLeveeFonds (Startup s, AbstraitInvestisseur ainv, double cible); 
 	public LeveeDeFonds modifierEtape (LeveeDeFonds levee, Etape etape);
 	public LeveeDeFonds annulerLeveeFonds (LeveeDeFonds levee);
+	public Couple<AbstraitInvestisseur, LeveeDeFonds> inscrireLevee (AbstraitInvestisseur ainv, LeveeDeFonds levee);
 	
 	/*
 	 * Gestion des accounts
