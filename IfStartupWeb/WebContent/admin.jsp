@@ -19,11 +19,11 @@
             <tbody>
                 <tr>
                     <td>Nouvel Investisseur</td>
-                    <td><a href="CreerInvestisseur.jsp"></a></td>
+                    <td><a href="CreerInvestisseur.jsp">Nouvel Investisseur</a></td>
                 </tr>
                 <tr>
                     <td>Nouvelle Startup</td>
-                    <td><a href="creerstartup.jsp"></a></td>
+                    <td><a href="creerstartup.jsp">Nouvelle Startup</a></td>
                 </tr>
             </tbody>
         </table>

@@ -6,12 +6,24 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 
+import java.util.List;
+
+
 public class OrganiserLeveeForm extends org.apache.struts.action.ActionForm{
     private String date;
     private String cible;
     private String startup;
+    private List startupList;
 
-    public String getCible() {
+    public List getStartupList() {
+		return startupList;
+	}
+
+	public void setStartupList(List startupList) {
+		this.startupList = startupList;
+	}
+
+	public String getCible() {
         return cible;
     }
 

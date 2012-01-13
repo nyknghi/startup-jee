@@ -16,7 +16,7 @@
     </head>
     <body>
         <div style="color:red">
-            <h1>Invalid user name  <bean:write name="LoginForm" property="userName"></bean:write></h1>
+            <h1>Invalid user name  <bean:write name="LoginForm" property="email"></bean:write></h1>
         </div>
     </body>
 </html>
