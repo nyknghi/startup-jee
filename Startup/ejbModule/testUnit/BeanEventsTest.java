@@ -139,6 +139,12 @@ public class BeanEventsTest extends TestCase{
 		f1 = (Fondateur)org_levee.getObjetA();
 		System.out.println(levee);
 		
+		// Inscription
+		Couple<AbstraitInvestisseur, LeveeDeFonds> ins = remoteInv.inscrireLevee(f2, levee);
+		levee = ins.getObjetB();
+		f2 = (Fondateur) ins.getObjetA();
+		System.out.println("Investisseur " + f2.getNom() + " a inscrit a la levee de fonds " + levee.getIdLevee());
+				
 		Couple<LeveeDeFonds, Participation> inv_part = null;
 		while (inv_part == null){
 			inv_part = remoteEvents.participation(levee, f2, 12000);

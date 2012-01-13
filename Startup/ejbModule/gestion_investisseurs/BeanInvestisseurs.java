@@ -335,21 +335,24 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	
 	public Couple<AbstraitInvestisseur, LeveeDeFonds> inscrireLevee (AbstraitInvestisseur ainv, LeveeDeFonds levee){
 		levee = eventLocal.findLeveeDeFonds(levee.getIdLevee());
-		Query query = em.createQuery("INSERT INTO Inscription VALUES (?,?)");
+		Query query = em.createQuery("INSERT INTO Inscription (leveedefonds_idlevee, investisseurs_idinvestisseur) VALUES (?, ?)");
+		query.setParameter(0, levee.getIdLevee());
+		query.setParameter(1, ainv.getIdInvestisseur());
+		
 		if (ainv instanceof Fondateur){
 			Fondateur f = this.rechercherFondateurParId(ainv.getIdInvestisseur());
 			f.getLeveeDeFonds().add(levee);
+			return new Couple<AbstraitInvestisseur, LeveeDeFonds> (em.merge(f), em.merge(levee));
 		} else if (ainv instanceof BusinessAngel){
 			BusinessAngel ba = this.rechercherBAParId(ainv.getIdInvestisseur());
 			ba.getLeveeDeFonds().add(levee);
+			return new Couple<AbstraitInvestisseur, LeveeDeFonds> (em.merge(ba), em.merge(levee));
 		} else if (ainv instanceof Investisseur){
 			Investisseur inv = this.rechercherInvestisseurParId(ainv.getIdInvestisseur());
 			inv.getLeveeDeFonds().add(levee);
+			return new Couple<AbstraitInvestisseur, LeveeDeFonds> (em.merge(inv), em.merge(levee));
 		}
-		
-		query.setParameter(0, ainv.getIdInvestisseur());
-		query.setParameter(1, levee.getIdLevee());
-		return new Couple<AbstraitInvestisseur, LeveeDeFonds> (em.merge(ainv), em.merge(levee));
+		return null;
 	}
 	
 	@Override
