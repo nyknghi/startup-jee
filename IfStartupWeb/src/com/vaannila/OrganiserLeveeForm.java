@@ -6,28 +6,49 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 
-public class OrganiserLeveeForm {
-	private String nom;
-	private String date;
-	private String cible;
-	public String getNom() {
-		return nom;
-	}
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-	public String getDate() {
-		return date;
-	}
-	public void setDate(String date) {
-		this.date = date;
-	}
-	public String getCible() {
-		return cible;
-	}
-	public void setCible(String cible) {
-		this.cible = cible;
-	}
-	
-	
+public class OrganiserLeveeForm extends org.apache.struts.action.ActionForm{
+    private String date;
+    private String cible;
+    private String startup;
+
+    public String getCible() {
+        return cible;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setCible(String cible) {
+        this.cible = cible;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getStartup() {
+        return startup;
+    }
+
+    public void setStartup(String startup) {
+        this.startup = startup;
+    }
+    
+    @Override
+    public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+        ActionErrors errors = new ActionErrors();
+        if(getStartup()==null || getStartup().isEmpty()){
+            errors.add("organisateur", new ActionMessage("Spécifiez la startup qui organise l'evenement"));
+        }else if(getCible()==null || getCible().isEmpty()){
+            errors.add("cible", new ActionMessage("Spécifiez le montant cible à collecter"));
+        }else{
+            try{
+                double d = Double.valueOf(getCible());
+            }catch(Exception e){
+                errors.add("cible", new ActionMessage("Spécifiez un montant valide"));
+            }
+        }
+        return errors;
+    }
 }

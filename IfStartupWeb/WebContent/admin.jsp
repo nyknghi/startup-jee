@@ -1,28 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+         pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-        <table>
-            <tr>
-                <td>
-                    <a href="creerstartup.jsp">Creer Startup</a>
-                </td>              
-            </tr>
-            <tr>
-                <td>
-                    <a href="CreerInvestisseur.jsp">Accrediter investisseur</a>
-                </td>                
-            </tr>
-            <tr>
-                <td>
-                    <a href="OrganiserLevee.jsp">Organiser une levée de fonds</a>
-                </td>                
-            </tr>                         
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<html:html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <link rel="stylesheet" type="text/css" href="myCss.css">
+        <title>ADMINISTRATION</title>
+    </head>
+    <body>
+        <table border="0" cellspacing="2">
+            <thead>
+                <tr>
+                    <th>ADMINISTRATION</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Nouvel Investisseur</td>
+                    <td><a href="CreerInvestisseur.jsp"></a></td>
+                </tr>
+                <tr>
+                    <td>Nouvelle Startup</td>
+                    <td><a href="creerstartup.jsp"></a></td>
+                </tr>
+            </tbody>
         </table>
-</body>
-</html>
+    </body>
+</html:html>

@@ -1,23 +1,41 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="UTF-8"%>
-<%@taglib uri="/WEB-INF/struts-html.tld" prefix="html"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>JSP</title>
-</head>
-<body>
-	<div style="color: red">
-		<html:errors />
-	</div>
-	<html:form action="/Login">
-            User name : <html:text name="LoginForm" property="userName" />
-		<br>
-            Password  : <html:password name="LoginForm"
-			property="password" />
-		<br>
-		<html:submit value="Login" />
-	</html:form>	
-</body>
-</html>
+<%--
+    Document   : Login
+    Created on : 11 janv. 2012, 15:57:25
+    Author     : UTILISATEUR
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean
+           " %>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+
+<html:html lang="true">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="myCss.css">
+        <title>CONNECTION</title>
+    </head>
+    <body>
+        <h1>Authentification</h1>
+        <html:form action="/Login">
+    <table border="0">
+        <tbody>
+            <tr>
+                <td>Entrer votre email:</td>
+                <td><html:text name="LoginForm" property="email" /></td>
+            </tr>
+            <tr>
+                <td>Entrer votre mot de passe:</td>
+                <td><html:password name="LoginForm" property="password" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><html:submit value="Connection" /></td>
+            </tr>
+        </tbody>
+    </table>
+</html:form>
+    </body>
+</html:html>
