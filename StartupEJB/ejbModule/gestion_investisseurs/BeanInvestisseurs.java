@@ -348,6 +348,7 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	
 	public Couple<LeveeDeFonds, Inscription> inscrireLevee (AbstraitInvestisseur ainv, LeveeDeFonds levee){
 		levee = eventLocal.findLeveeDeFonds(levee.getIdLevee());
+		System.out.println(ainv.getIdInvestisseur());
 		Inscription ins = new Inscription(levee, ainv);
 		em.persist(ins);
 		levee.getInscriptions().add(ins);

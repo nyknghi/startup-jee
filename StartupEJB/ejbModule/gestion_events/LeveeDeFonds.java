@@ -32,24 +32,14 @@ public class LeveeDeFonds implements Serializable{
     @JoinColumn (referencedColumnName="idStartup", nullable=false)
     private Startup startup;
     
-    /*@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinTable(name="Inscription", joinColumns={@JoinColumn(referencedColumnName="idLevee")}, 
-            inverseJoinColumns={@JoinColumn(referencedColumnName="idInvestisseur")})
-    private Set<AbstraitInvestisseur> investisseurs;
-    */
-    
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn (referencedColumnName="idInvestisseur", nullable=false)
-    private AbstraitInvestisseur investisseur; 
-    
     @OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="leveeDeFonds")
     private Set<Participation> participations;
     
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="investisseur")
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="leveeDeFonds")
 	private Set<Inscription> inscriptions;
 	
     @ManyToOne (fetch=FetchType.LAZY)
-    @JoinColumn (referencedColumnName="idInvestisseur")
+    @JoinColumn (referencedColumnName="idInvestisseur", nullable=false)
     private AbstraitInvestisseur organisateur;
     
     public LeveeDeFonds (Date d, double m, AbstraitInvestisseur o, Startup s){

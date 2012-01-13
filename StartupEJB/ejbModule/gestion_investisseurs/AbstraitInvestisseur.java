@@ -30,7 +30,7 @@ public abstract class AbstraitInvestisseur implements Serializable{
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="investisseur")
 	private Set<Inscription> inscriptions = new HashSet<Inscription>();
 	
-	@OneToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy="investisseur")
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="organisateur")
 	private Set<LeveeDeFonds> leveeDeFonds = new HashSet<LeveeDeFonds>();
 	
 	public long getIdInvestisseur() {

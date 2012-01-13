@@ -24,7 +24,7 @@ public class Inscription implements Serializable{
     @GeneratedValue (strategy=GenerationType.AUTO)
     private long numInscription;
     
-    @ManyToOne (fetch=FetchType.LAZY)
+    @ManyToOne (fetch=FetchType.EAGER)
     @JoinColumn (name="levee_idlevee", referencedColumnName="idLevee", nullable=false)
     private LeveeDeFonds leveeDeFonds;
     
@@ -73,5 +73,12 @@ public class Inscription implements Serializable{
 
 	public void setDate_ins(Date date_ins) {
 		this.date_ins = date_ins;
+	}
+
+	@Override
+	public String toString() {
+		return "Inscription [numInscription=" + numInscription
+				+ ", leveeDeFonds=" + leveeDeFonds.getIdLevee() + ", investisseur="
+				+ investisseur.getNom() + ", date_ins=" + date_ins + "]";
 	}
 }

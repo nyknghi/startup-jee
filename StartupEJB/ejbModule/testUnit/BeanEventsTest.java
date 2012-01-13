@@ -3,6 +3,7 @@ package testUnit;
 import java.util.List;
 import gestion_events.Etape;
 import gestion_events.EventsBeanRemote;
+import gestion_events.Inscription;
 import gestion_events.LeveeDeFonds;
 import gestion_events.Participation;
 import gestion_events.Startup;
@@ -99,6 +100,14 @@ public class BeanEventsTest extends TestCase{
 			}
 		}
 		
+		System.out.println("\nRecherche tous les startups dans la BD");
+		List<Startup> resStart = remoteEvents.findAllStartup();
+		if (resStart.size() > 0){
+			for (Startup st : resStart){
+				System.out.println(st);
+			}
+		}
+		
 		System.out.println("-Fin test----------------------------------------\n");
 	}
 	
@@ -139,12 +148,15 @@ public class BeanEventsTest extends TestCase{
 		f1 = (Fondateur)org_levee.getObjetA();
 		System.out.println(levee);
 		
-		/* Inscription
-		Couple<AbstraitInvestisseur, LeveeDeFonds> ins = remoteInv.inscrireLevee(f2, levee);
-		levee = ins.getObjetB();
-		f2 = (Fondateur) ins.getObjetA();
-		System.out.println("Investisseur " + f2.getNom() + " a inscrit a la levee de fonds " + levee.getIdLevee());
-			*/	
+		
+		//Inscription
+		Couple<LeveeDeFonds, Inscription> ins = remoteInv.inscrireLevee(f3, levee);
+		levee = ins.getObjetA();
+		Inscription i = ins.getObjetB();
+		//System.out.println("Investisseur " + f2.getNom() + " a inscrit a la levee de fonds " + levee.getIdLevee());
+		System.out.println(i);
+		
+		
 		Couple<LeveeDeFonds, Participation> inv_part = null;
 		while (inv_part == null){
 			inv_part = remoteEvents.participation(levee, f2, 12000);
@@ -195,6 +207,4 @@ public class BeanEventsTest extends TestCase{
 		System.out.println("Capital de la startup " + s2.getNomStartup() + " est : " + capital);
 		System.out.println("-Fin test----------------------------------------\n");
 	}
-
-	
 }
