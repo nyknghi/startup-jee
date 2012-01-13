@@ -27,7 +27,10 @@
  <PROCESS-ITEM ID="#creerstartup" NAME="action2" PATH="/creerstartup"
   SHAPE="56,216,137,25" TITLE="creerStartupForm" TYPE="action" model-entity="StrutsProcessItem"/>
  <PROCESS-ITEM ID="#CreerStartup" NAME="action3" PATH="/CreerStartup"
-  SHAPE="32,609,0,0" TITLE="creerStartupForm" TYPE="action" model-entity="StrutsProcessItem"/>
+  SHAPE="32,609,0,0" TITLE="creerStartupForm" TYPE="action" model-entity="StrutsProcessItem">
+  <PROCESS-ITEM-OUTPUT ID="success" NAME="forward0" PATH="/BA.jsp"
+   TARGET="page5" TITLE="success" TYPE="forward" model-entity="StrutsProcessItemOutput"/>
+ </PROCESS-ITEM>
  <PROCESS-ITEM NAME="page1" PATH="/fondateur.jsp" SHAPE="448,353,0,0"
   SUBTYPE="jsp" TITLE="fondateur.jsp" TYPE="page" model-entity="StrutsProcessItem"/>
  <PROCESS-ITEM ID="#OrganiserLevee" NAME="action4"

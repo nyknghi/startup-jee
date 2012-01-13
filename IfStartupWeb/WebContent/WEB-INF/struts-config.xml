@@ -24,6 +24,7 @@
   </action>
   <action input="/creerstartup.jsp" name="creerStartupForm" path="/CreerStartup"
    scope="session" type="com.vaannila.creerStartupAction">
+   <forward name="success" path="/BA.jsp"></forward>
   </action>
   <action input="/OrganiserLevee.jsp" name="OrganiserLeveeForm" path="/OrganiserLevee"
    scope="session" type="com.vaannila.OrganiserLeveeAction">
