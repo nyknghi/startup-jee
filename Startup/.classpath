@@ -12,5 +12,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="D:/my documents/M2_IF/Serveur d&apos;application/Projet Startup/junit-4.10.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
