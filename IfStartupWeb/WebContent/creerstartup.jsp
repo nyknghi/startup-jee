@@ -42,6 +42,26 @@
                     </td>
                 </tr>
             </table>
+      <TABLE border="1">
+        <tr>
+          <td>
+            Nom du Startup
+          </td>
+          <td>
+            Activité
+          </td>
+        </tr>
+        <c:forEach items="${requestScope.startups}" var="startup">
+        <tr>
+          <td>
+            ${startup.nomstartup}
+          </td>
+          <td>
+            ${startup.activite}
+          </td>
+        </tr>
+        </c:forEach>
+      </TABLE>            
         </html:form>
 </body>
 </html>

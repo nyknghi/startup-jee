@@ -17,7 +17,12 @@
                 <td>
                     <a href="CreerInvestisseur.jsp">Accrediter investisseur</a>
                 </td>                
-            </tr>            
+            </tr>
+            <tr>
+                <td>
+                    <a href="OrganiserLevee.jsp">Organiser une levée de fonds</a>
+                </td>                
+            </tr>                         
         </table>
 </body>
 </html>

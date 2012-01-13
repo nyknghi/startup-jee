@@ -1,5 +1,7 @@
 package com.vaannila;
 
+import java.util.List;
+
 import gestion_events.EventsBeanRemote;
 import gestion_events.Startup;
 import gestion_investisseurs.Fondateur;
@@ -15,6 +17,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionForward;
 
+
 import util.Couple;
 
 public class creerStartupAction extends org.apache.struts.action.Action {
@@ -22,8 +25,7 @@ public class creerStartupAction extends org.apache.struts.action.Action {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
     	creerStartupForm creerForm = (creerStartupForm) form;
-    	
-    	
+    	List<Startup> startups = null;
 		try{
 			Context ctx = new InitialContext();
 			ctx.addToEnvironment(InitialContext.INITIAL_CONTEXT_FACTORY,
@@ -41,6 +43,9 @@ public class creerStartupAction extends org.apache.struts.action.Action {
 			Couple<Startup, Fondateur> res = remoteEvents.startup(creerForm.getNom(), creerForm.getActivite(), f);
 			Startup s = res.getObjetA();
 			f = res.getObjetB();
+			
+			startups = remoteEvents.findAllStartup();
+			request.setAttribute("startups", startups);			
 			//f.setStartup(s);
 			
 			//System.out.println(s);
