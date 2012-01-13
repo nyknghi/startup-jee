@@ -18,6 +18,7 @@ public class LeveeDeFonds implements Serializable{
     private long idLevee;
     
     @Column (nullable=false)
+    @Temporal(TemporalType.DATE)
     private Date date_levee;
     
     @Column (nullable=false)
