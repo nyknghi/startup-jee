@@ -424,4 +424,34 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	public void closeEM(){
 		em.close();
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Fondateur> findAllFondateur() {
+		Query query = em.createQuery("Select f from Fondateur as f");
+		return (List<Fondateur>) query.getResultList(); 	
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<BusinessAngel> findAllBusinessAngel() {
+		Query query = em.createQuery("Select ba from BusinessAngel as ba");
+		return (List<BusinessAngel>) query.getResultList(); 	
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Investisseur> findAllInvestisseur() {
+		Query query = em.createQuery("Select i from Investisseur as i");
+		return (List<Investisseur>) query.getResultList(); 	
+	}
+	
+	@Override
+	public List<AbstraitInvestisseur> findAllInvestisseurs(){
+		List<AbstraitInvestisseur> ainvs = new ArrayList<AbstraitInvestisseur>();
+		ainvs.addAll(findAllFondateur());
+		ainvs.addAll(findAllBusinessAngel());
+		ainvs.addAll(findAllInvestisseur());
+		return ainvs;
+	}
 }

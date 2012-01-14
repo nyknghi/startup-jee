@@ -7,6 +7,7 @@ import java.util.Set;
 
 import gestion_events.EventsBeanRemote;
 import gestion_events.Startup;
+import gestion_investisseurs.AbstraitInvestisseur;
 import gestion_investisseurs.BusinessAngel;
 import gestion_investisseurs.ClubAmi;
 import gestion_investisseurs.Fondateur;
@@ -233,6 +234,18 @@ public class BeanInvestisseursTest extends TestCase{
 			
 		} else {
 			System.out.println("Groupe non trouve !");
+		}
+		System.out.println("-Fin test----------------------------------------\n");
+	}
+	
+	@Test
+	public void testFindAllInvestisseur(){
+		System.out.println("-Test lister investisseurs");
+		List<AbstraitInvestisseur> invs = remoteInv.findAllInvestisseurs();
+		if (invs.size() > 0){
+			for (int i = 0; i<invs.size(); i++){
+				System.out.println(invs.get(i));
+			}
 		}
 		System.out.println("-Fin test----------------------------------------\n");
 	}
