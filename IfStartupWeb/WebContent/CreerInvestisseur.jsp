@@ -43,7 +43,15 @@
                     <td>
                         <html:text name="CreerInvestisseurForm" property="email" />
                     </td>
-                </tr> 
+                </tr>
+                <tr>
+                    <td>
+                        Mot de passe :
+                    </td>
+                    <td>
+                        <html:text name="CreerInvestisseurForm" property="password" />
+                    </td>
+                </tr>
                 <tr>
                     <td>
                         <html:submit value="Créer"/>

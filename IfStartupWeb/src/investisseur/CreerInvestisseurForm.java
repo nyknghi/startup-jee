@@ -63,7 +63,7 @@ public class CreerInvestisseurForm extends org.apache.struts.action.ActionForm{
         }else if(email==null || email.isEmpty()){
             errors.add("email", new ActionMessage("Specifiez l'adresse mail"));
         }else if(password==null || password.isEmpty()){
-            errors.add("email", new ActionMessage("Le mot de passe est obligatoire"));
+            errors.add("mdp", new ActionMessage("Le mot de passe est obligatoire"));
         }
         return errors;
     }
