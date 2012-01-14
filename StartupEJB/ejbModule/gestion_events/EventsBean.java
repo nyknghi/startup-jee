@@ -6,6 +6,7 @@ package gestion_events;
 
 import gestion_investisseurs.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -153,6 +154,15 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
 	public List<Startup> findAllStartup(){
     	Query query = em.createQuery("select s from Startup as s");
         return (List<Startup>) query.getResultList();
+    }
+    
+    @SuppressWarnings("unchecked")
+	@Override
+    public List<Startup> findStartupByCritere(String nom, String activite){
+    	Query query = em.createQuery("SELECT s FROM Startup as s WHERE s.nomStartup = :nom AND s.activite = :activite");
+    	query.setParameter("nom", nom);
+    	query.setParameter("activite", activite);
+    	return (List<Startup>) query.getResultList();    	
     }
     
     //CRUD levee de fonds

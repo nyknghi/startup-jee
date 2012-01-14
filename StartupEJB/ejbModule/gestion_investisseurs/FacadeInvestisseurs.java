@@ -21,6 +21,7 @@ public interface FacadeInvestisseurs {
 	public ArrayList<Fondateur> rechercherFondateur (String nom);
 	public Fondateur updateFondateur(Fondateur f, String nom, String mail, String mdp);
 	public Fondateur updateFondateur(Fondateur f);
+	public List<Fondateur> findFondateurByMail(String mail);
 	public List<Fondateur> findAllFondateur();
 	
 	public Couple<Fondateur,Startup> ajouterFondateurStartup (Fondateur f, Startup s, boolean isMandataire);

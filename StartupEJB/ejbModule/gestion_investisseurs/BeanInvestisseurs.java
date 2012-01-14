@@ -86,6 +86,14 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 		return (ArrayList<Fondateur>) query.getResultList();
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Fondateur> findFondateurByMail(String mail){
+		Query query = em.createNamedQuery("Select f from Fondateur as f where f.mail = :mail");
+		query.setParameter("mail", mail);
+		return (ArrayList<Fondateur>) query.getResultList();
+	}
+	
 	@Override
 	public BusinessAngel creerBA(String nom, String mail, String mdp) {
 		BusinessAngel ba = new BusinessAngel(nom, mail, mdp);
