@@ -2,43 +2,50 @@
 <!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
                                "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
 <struts-config>
- <data-sources/>
- <form-beans>
-  <form-bean name="LoginForm" type="login.LoginForm"/>
-  <form-bean name="creerStartupForm" type="startup.creerStartupForm"/>
-  <form-bean name="OrganiserLeveeForm" type="levees.OrganiserLeveeForm"/>
-  <form-bean name="CreerInvestisseurForm" type="investisseur.CreerInvestisseurForm"/>
-  <form-bean name="ParticiperLeveeForm" type="levees.ParticiperLeveeForm"></form-bean>
- </form-beans>
+    <data-sources/>
+    <form-beans>
+        <form-bean name="LoginForm" type="login.LoginForm"/>
+        <form-bean name="creerStartupForm" type="startup.creerStartupForm"/>
+        <form-bean name="OrganiserLeveeForm" type="levees.OrganiserLeveeForm"/>
+        <form-bean name="CreerInvestisseurForm" type="investisseur.CreerInvestisseurForm"/>
+        <form-bean name="ParticiperLeveeForm" type="levees.ParticiperLeveeForm"></form-bean>
+    </form-beans>
  
- <global-exceptions/>
- <global-forwards>
-  <forward name="welcome" path="/Welcome.do"/>
- </global-forwards>
+    <global-exceptions/>
+    <global-forwards>
+        <forward name="welcome" path="/Welcome.do"/>
+    </global-forwards>
  
- <action-mappings>
-  <action input="/login.jsp" name="LoginForm" path="/Login" scope="session" type="login.LoginAction">
-   <forward name="success" path="/admin.jsp"/>
-   <forward name="failure" path="/failure.jsp"/>
-   <forward name="fondateur" path="/fondateur.jsp"/>
-   <forward name="ba" path="/BA.jsp"/>
-  </action>
-  <action input="/creerstartup.jsp" name="creerStartupForm" path="/CreerStartup" scope="session" type="startup.creerStartupAction">
-   <forward name="success" path="/BA.jsp"></forward>
-  </action>
-  <action input="/OrganiserLevee.jsp" name="OrganiserLeveeForm" path="/OrganiserLevee" scope="session" type="levees.OrganiserLeveeAction">
-      
-  </action>  
-  <action input="/ParticiperLevee.jsp" name="ParticiperLeveeForm" path="/ParticiperLevee" scope="session" type="levees.ParticiperLeveeAction">
-  </action>   
-  <action input="/CreerInvestisseur.jsp" name="CreerInvestisseurForm" path="/CreerInvestisseur" scope="session" type="investisseur.CreerInvestisseurAction">
-  </action>    
-      <action forward="/welcomeStruts.jsp" path="/Welcome"/>
-      <action name="creerStartupForm" path="/creerstartup"/>
- </action-mappings>
+    <action-mappings>
+        <action input="/login.jsp" name="LoginForm" path="/Login" scope="session" type="login.LoginAction">
+            <forward name="success" path="/admin.jsp"/>
+            <forward name="failure" path="/failure.jsp"/>
+            <forward name="fondateur" path="/fondateur.jsp"/>
+            <forward name="ba" path="/BA.jsp"/>
+        </action>
+        
+        <action input="/creerstartup.jsp" name="creerStartupForm" path="/CreerStartup" scope="session" type="startup.creerStartupAction">
+            <forward name="success" path="/BA.jsp"></forward>
+        </action>
+        
+        <action input="/OrganiserLevee.jsp" name="OrganiserLeveeForm" path="/OrganiserLevee" scope="session" type="levees.OrganiserLeveeAction">
+        </action>
+        
+        <action input="/ParticiperLevee.jsp" name="ParticiperLeveeForm" path="/ParticiperLevee" scope="session" type="levees.ParticiperLeveeAction">
+        </action>
+        
+        <action input="/CreerInvestisseur.jsp" name="CreerInvestisseurForm" path="/CreerInvestisseur" scope="session" type="investisseur.CreerInvestisseurAction">
+            <forward name="success-creerInvestisseur" path="/AllInvestisseurs.jsp"/>
+            <forward name="errors-creerInvestiseur" path="/failure.jsp"/>
+            
+            
+        </action>
+        <action name="CreerInvestisseurForm" path="/AllInvestisseurs" scope="request" type="investisseur.AllInvestisseursAction"/>
+        
+    </action-mappings>
  
- <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
- <message-resources parameter="com/vaannila/ApplicationResource"/>
+    <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
+    <message-resources parameter="com/vaannila/ApplicationResource"/>
  <!-- ========================= Tiles plugin ===============================
 
     This plugin initialize Tiles definition factory. This later can takes some
@@ -66,12 +73,12 @@
 
     Paths found in Tiles definitions are relative to the main context.
     -->
- <plug-in className="org.apache.struts.tiles.TilesPlugin">
-  <set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml"/>
-  <set-property property="moduleAware" value="true"/>
- </plug-in>
+    <plug-in className="org.apache.struts.tiles.TilesPlugin">
+        <set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml"/>
+        <set-property property="moduleAware" value="true"/>
+    </plug-in>
  <!-- ========================= Validator plugin ================================= -->
- <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
-  <set-property property="pathnames" value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml"/>
- </plug-in>
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+        <set-property property="pathnames" value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml"/>
+    </plug-in>
 </struts-config>

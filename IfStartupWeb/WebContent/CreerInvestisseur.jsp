@@ -25,13 +25,13 @@
                         Type d'investisseur :
                     </td>
                     <td>
-                        <html:radio name="CreerInvestisseurForm" property="type" value="F" >
+                        <html:radio name="CreerInvestisseurForm" property="type" value="Fondateur" >
                             Fondateur
                         </html:radio>
-                        <html:radio name="CreerInvestisseurForm" property="type" value="B" >
+                        <html:radio name="CreerInvestisseurForm" property="type" value="BA" >
                             Business Angel
                         </html:radio>
-                        <html:radio name="CreerInvestisseurForm" property="type" value="I" >
+                        <html:radio name="CreerInvestisseurForm" property="type" value="Investisseur" >
                             Investisseur
                         </html:radio>                        
                     </td>

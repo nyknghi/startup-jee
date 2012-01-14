@@ -1,5 +1,6 @@
 package investisseur;
 
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts.action.ActionErrors;
@@ -12,6 +13,7 @@ public class CreerInvestisseurForm extends org.apache.struts.action.ActionForm{
     private String email;
     private String password;
     private String type;
+    private ArrayList<InvestisseurBean> list = new ArrayList<InvestisseurBean>();
 
     public String getType() {
 		return type;
@@ -44,7 +46,15 @@ public class CreerInvestisseurForm extends org.apache.struts.action.ActionForm{
     public void setPassword(String password) {
         this.password = password;
     }
-        
+
+    public ArrayList<InvestisseurBean> getList() {
+        return list;
+    }
+
+    public void setList(ArrayList<InvestisseurBean> list) {
+        this.list = list;
+    }
+    
     @Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = new ActionErrors();

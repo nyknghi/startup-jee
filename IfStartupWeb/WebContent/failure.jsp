@@ -5,7 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -16,7 +15,8 @@
     </head>
     <body>
         <div style="color:red">
-            <h1>Invalid user name  <bean:write name="LoginForm" property="email"></bean:write></h1>
+            <h1>ERREUR D'AUTHENTIFICATION</h1>
+            <a href="login.jsp">Retour à la page de connection</a>
         </div>
     </body>
 </html>
