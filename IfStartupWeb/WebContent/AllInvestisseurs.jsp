@@ -17,7 +17,7 @@
     </head>
     <body>
         <h1>GERER LES INVESTISSEURS</h1>
-        <html:form action="">
+        <html:form action="/AllInvestisseurs">
             <table border="0" cellspacing="1" cellpadding="1">
                 <tbody>
                     <tr>
@@ -34,11 +34,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <logic:iterate id="list" name="CreerInvestisseurForm" property="list"/>
+                                    <logic:iterate id="investisseurs" name="listUsers"/>
                                     <tr>
-                                        <td><html:text name="list" property="nom"/></td>
-                                        <td><html:text name="list" property="email"/></td>
-                                        <td><html:text name="list" property="password"/></td>
+                                        <td><bean:write name="investisseurs" property="nom"/></td>
+                                        <td><bean:write name="list" property="email"/></td>
+                                        <td><bean:write name="list" property="password"/></td>
                                     </tr>
                                 </tbody>
                             </table>

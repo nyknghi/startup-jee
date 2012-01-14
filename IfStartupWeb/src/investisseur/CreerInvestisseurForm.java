@@ -13,8 +13,15 @@ public class CreerInvestisseurForm extends org.apache.struts.action.ActionForm{
     private String email;
     private String password;
     private String type;
-    private ArrayList<InvestisseurBean> list = new ArrayList<InvestisseurBean>();
-
+    
+    public CreerInvestisseurForm(String n, String e, String p){
+    	nom = n;
+    	email = e;
+    	password = p;
+    }
+    
+    public CreerInvestisseurForm(){}
+    
     public String getType() {
 		return type;
 	}
@@ -46,14 +53,6 @@ public class CreerInvestisseurForm extends org.apache.struts.action.ActionForm{
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public ArrayList<InvestisseurBean> getList() {
-        return list;
-    }
-
-    public void setList(ArrayList<InvestisseurBean> list) {
-        this.list = list;
-    }
     
     @Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
@@ -66,5 +65,12 @@ public class CreerInvestisseurForm extends org.apache.struts.action.ActionForm{
             errors.add("mdp", new ActionMessage("Le mot de passe est obligatoire"));
         }
         return errors;
+    }
+    
+    @Override
+    public void reset(ActionMapping mapping, HttpServletRequest request){
+    	nom = null;
+    	email = null;
+    	password = null;
     }
 }

@@ -21,7 +21,6 @@ import org.apache.struts.action.ActionMapping;
 public class AllInvestisseursAction extends org.apache.struts.action.Action {
 
     /* forward name="success" path="" */
-
     /**
      * This is the action called from the Struts framework.
      * @param mapping The ActionMapping used to select this instance.
@@ -35,7 +34,6 @@ public class AllInvestisseursAction extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        CreerInvestisseurForm f= (CreerInvestisseurForm)form;
         ArrayList<AbstraitInvestisseur> list = (ArrayList<AbstraitInvestisseur>) BeanUtil.getInvestisseurs().findAllInvestisseurs();
         ArrayList<InvestisseurBean> l = new ArrayList<InvestisseurBean>();
         Iterator it = list.iterator();
@@ -43,7 +41,7 @@ public class AllInvestisseursAction extends org.apache.struts.action.Action {
             AbstraitInvestisseur a = (AbstraitInvestisseur)it.next();
             l.add(new InvestisseurBean(a.getNom(),a.getMail(),a.getMdp()));
         }
-        f.setList(l);
-        return mapping.findForward("success-allInvestisseurs");
+        request.setAttribute("listUsers", l);
+        return mapping.findForward("success-creerInvestisseur");
     }
 }

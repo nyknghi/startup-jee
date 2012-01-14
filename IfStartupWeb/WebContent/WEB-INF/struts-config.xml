@@ -39,6 +39,10 @@
             <forward name="errors-creerInvestiseur" path="/failure.jsp"/>
             
         </action>
+		
+		<action path="/AllInvestisseurs" scope="session" type="investisseur.AllInvestisseursAction">
+            <forward name="success-creerInvestisseur" path="/AllInvestisseurs.jsp"/>
+        </action>
     </action-mappings>
  
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

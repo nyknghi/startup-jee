@@ -52,7 +52,7 @@ public class CreerInvestisseurAction extends org.apache.struts.action.Action {
                 Fondateur fond = (Fondateur)it.next();
                 list.add(new InvestisseurBean(fond.getNom(), fond.getMail(), fond.getMdp()));
             }
-            f.setList(list);
+            request.setAttribute("listUsers", list);
             return mapping.findForward("success-creerInvestisseur");
         }catch(Exception e){
             return mapping.findForward("errors-creerInvestisseur"); 
