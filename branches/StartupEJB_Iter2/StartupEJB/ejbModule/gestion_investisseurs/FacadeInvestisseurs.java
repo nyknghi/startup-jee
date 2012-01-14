@@ -21,6 +21,7 @@ public interface FacadeInvestisseurs {
 	public ArrayList<Fondateur> rechercherFondateur (String nom);
 	public Fondateur updateFondateur(Fondateur f, String nom, String mail, String mdp);
 	public Fondateur updateFondateur(Fondateur f);
+	public List<Fondateur> findAllFondateur();
 	
 	public Couple<Fondateur,Startup> ajouterFondateurStartup (Fondateur f, Startup s, boolean isMandataire);
 
@@ -32,6 +33,7 @@ public interface FacadeInvestisseurs {
 	public BusinessAngel updateBA(BusinessAngel ba);
 	public BusinessAngel rechercherBAParId (long id);
 	public List<BusinessAngel> rechercherBAParNom (String nom);
+	public List<BusinessAngel> findAllBusinessAngel();
 	
 	public ClubAmi monterClubAmi (BusinessAngel ba, String nomClub);
 	public ClubAmi updateClubAmi (ClubAmi ca, String nomClub);
@@ -54,6 +56,7 @@ public interface FacadeInvestisseurs {
 	public Investisseur updateInvestisseur (Investisseur inv);
 	public Investisseur rechercherInvestisseurParId (long id);
 	public List<Investisseur> rechercherInvestisseurParNom (String nom);
+	public List<Investisseur> findAllInvestisseur();
 	//public List<Investisseur> rechercherInvestisseurParGroupe (GroupeInvestisseurs groupe);
 	
 	/*
@@ -69,6 +72,7 @@ public interface FacadeInvestisseurs {
 	public Couple<GroupeInvestisseurs, Investisseur> quitterGroupe (GroupeInvestisseurs groupe, Investisseur inv);
 	
 	public AbstraitInvestisseur findByEmail(String email);
+	public List<AbstraitInvestisseur> findAllInvestisseurs();
 	
 	/*
 	 * Gestion des levees de fonds

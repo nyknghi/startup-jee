@@ -41,7 +41,7 @@ public class Investisseur extends AbstraitInvestisseur{
 	@Override
 	public String toString() {
 		return "Investisseur [idInvestisseur=" + idInvestisseur + ", nom=" + nom
-				+ ", mail=" + mail + ", mdp=" + mdp + ", groupe=" + groupe.getNom() 
+				+ ", mail=" + mail + ", mdp=" + mdp + ", groupe=" + groupe
 				+ ", isLeader=" + isLeader + "]"; 
 	}
 }
