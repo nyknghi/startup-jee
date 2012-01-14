@@ -10,7 +10,6 @@
         <form-bean name="CreerInvestisseurForm" type="investisseur.CreerInvestisseurForm"/>
         <form-bean name="ParticiperLeveeForm" type="levees.ParticiperLeveeForm"></form-bean>
     </form-beans>
- 
     <global-exceptions/>
     <global-forwards>
         <forward name="welcome" path="/Welcome.do"/>
@@ -22,6 +21,7 @@
             <forward name="failure" path="/failure.jsp"/>
             <forward name="fondateur" path="/fondateur.jsp"/>
             <forward name="ba" path="/BA.jsp"/>
+            <forward name="investisseur" path="/Investisseur.jsp"/>
         </action>
         
         <action input="/creerstartup.jsp" name="creerStartupForm" path="/CreerStartup" scope="session" type="startup.creerStartupAction">
@@ -41,7 +41,6 @@
             
         </action>
         <action name="CreerInvestisseurForm" path="/AllInvestisseurs" scope="request" type="investisseur.AllInvestisseursAction"/>
-        
     </action-mappings>
  
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
