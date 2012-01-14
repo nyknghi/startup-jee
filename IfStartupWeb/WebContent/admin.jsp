@@ -9,6 +9,7 @@
         <title>ADMINISTRATION</title>
     </head>
     <body>
+    	<div class="entete"><h1>STARTUP - Business Master</h1></div>
     	<h1>PAGE D'ADMINISTRATION</h1>
         <table border="0" cellspacing="2">
             <thead>
@@ -23,7 +24,7 @@
                 </tr>
             </tbody>
         </table>
-        <hr/>
+        <br/>
         <table border="0" cellspacing="2">
             <thead>
                 <tr>

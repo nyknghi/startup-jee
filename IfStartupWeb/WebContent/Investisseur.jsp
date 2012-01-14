@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div class="entete"><h1>STARTUP - Business Master</h1></div>
+	<h1>Bienvenue INVESTISSEUR</h1>
 
 </body>
 </html>

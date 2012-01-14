@@ -3,11 +3,28 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Fondateur</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<link rel="stylesheet" type="text/css" href="myCss.css">
+	<title>Fondateur</title>
 </head>
 <body>
+		<div class="entete"><h1>STARTUP - Business Master</h1></div>
+		<h1>Bienvenue FONDATEUR</h1>
         <table>
+        	<thead>
+                <tr>
+                    <th><h2>Activit&eacute;s r&eacute;centes</h2></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Startups dont vous êtes fondateur</td>
+                </tr>
+                <tr>
+                    <td>Levees de fonds que vous avez particip&eacute;es</td>
+                </tr>
+            </tbody>
+            
             <tr>
                 <td>
                     <a href="creerstartup.jsp">Creer Startup</a>

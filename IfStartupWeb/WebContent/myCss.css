@@ -3,7 +3,9 @@ body {
    font-size: smaller;
    padding: 50px;
    color: #000000;
-   width: 650px;
+   width: 1000px;
+   margin-left: auto;
+   margin-right: auto;   
 }
 
 h1 {
@@ -19,12 +21,10 @@ h2 {
    font-size: 1.4em;
    color: #be7429;
    font-weight: normal;
-   width: 450px;
 }
 
 table {
-   width: 650px;
-   padding: 10px;
+   width: 700px;
    background-color: #cccccc;
    font-family: sans-serif;
 }
@@ -42,22 +42,9 @@ a:hover {
   text-decoration: underline;
 }
 
-.popupBox {
-  position: absolute;
-  top: 170px;
-  left: 140px;
-}
-
-.popupCell {
-   background-color: #fffafa;
-}
-
-.popupCell:hover {
-  background-color: #f5ebe9;
-}
-
-.popupItem {
-  color: #333;
-  text-decoration: none;
-  font-size: 1.2em;
+.entete{
+   letter-spacing: 6px;
+   font-size: 1.7em;
+   color: #be7429;
+   font-weight: bold;
 }

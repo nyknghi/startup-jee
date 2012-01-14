@@ -17,6 +17,8 @@
         <title>CONNECTION</title>
     </head>
     <body>
+    	<div class="entete"><h1>STARTUP - Business Master</h1></div>
+    	
         <h1>Authentification</h1>
         <html:form action="/Login">
     <table border="0">
