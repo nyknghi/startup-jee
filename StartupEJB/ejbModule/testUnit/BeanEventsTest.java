@@ -207,4 +207,11 @@ public class BeanEventsTest extends TestCase{
 		System.out.println("Capital de la startup " + s2.getNomStartup() + " est : " + capital);
 		System.out.println("-Fin test----------------------------------------\n");
 	}
+	
+	/*
+	@Test
+	public void testRechercheParCritere (){
+		List<Startup> res = remoteEvents.findStartupByCritere("AssetManagement", "Assurance");
+		
+	}*/
 }

@@ -85,13 +85,18 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 		query.setParameter("nom", nom);
 		return (ArrayList<Fondateur>) query.getResultList();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Fondateur> findFondateurByMail(String mail){
-		Query query = em.createNamedQuery("Select f from Fondateur as f where f.mail = :mail");
+	public Fondateur findFondateurByEmail(String mail) {
+		Query query = em.createNamedQuery("SELECT f FROM Fondateur as f where f.mail = :mail");
 		query.setParameter("mail", mail);
-		return (ArrayList<Fondateur>) query.getResultList();
+		if (query.getResultList().size() > 0){
+			return (Fondateur) query.getResultList().get(0);
+		} else {
+			System.out.println("Aucun fondateur n'est trouve !");
+			return null;
+		}
 	}
 	
 	@Override
@@ -307,18 +312,6 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 		groupe.getInvestisseurs().remove(inv);
 		inv.setGroupe(null);
 		return new Couple<GroupeInvestisseurs, Investisseur>(em.merge(groupe), em.merge(inv));	
-	}
-	
-	@Override
-	public AbstraitInvestisseur findByEmail(String email){
-		@SuppressWarnings("unchecked")
-		List<AbstraitInvestisseur> res = (List<AbstraitInvestisseur>) em.find(AbstraitInvestisseur.class, email);
-		if (res.size() != 0){
-			return res.get(0);
-		} else {
-			System.out.println("Aucun investisseur n'est trouve !");
-			return null;
-		}
 	}
 	
 	@Override

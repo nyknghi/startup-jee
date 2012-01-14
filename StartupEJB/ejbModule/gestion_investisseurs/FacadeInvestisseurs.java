@@ -21,7 +21,8 @@ public interface FacadeInvestisseurs {
 	public ArrayList<Fondateur> rechercherFondateur (String nom);
 	public Fondateur updateFondateur(Fondateur f, String nom, String mail, String mdp);
 	public Fondateur updateFondateur(Fondateur f);
-	public List<Fondateur> findFondateurByMail(String mail);
+	
+	public Fondateur findFondateurByEmail(String mail);	
 	public List<Fondateur> findAllFondateur();
 	
 	public Couple<Fondateur,Startup> ajouterFondateurStartup (Fondateur f, Startup s, boolean isMandataire);
@@ -72,7 +73,6 @@ public interface FacadeInvestisseurs {
 	public Couple<GroupeInvestisseurs, Investisseur> adhererGroupe (GroupeInvestisseurs groupe, Investisseur inv, boolean isLeader);
 	public Couple<GroupeInvestisseurs, Investisseur> quitterGroupe (GroupeInvestisseurs groupe, Investisseur inv);
 	
-	public AbstraitInvestisseur findByEmail(String email);
 	public List<AbstraitInvestisseur> findAllInvestisseurs();
 	
 	/*
