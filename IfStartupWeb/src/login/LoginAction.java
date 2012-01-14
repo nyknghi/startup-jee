@@ -1,5 +1,6 @@
-package com.vaannila;
+package login;
 
+import com.vaannila.BeanUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

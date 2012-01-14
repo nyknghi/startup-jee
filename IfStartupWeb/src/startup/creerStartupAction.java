@@ -1,4 +1,4 @@
-package com.vaannila;
+package startup;
 
 import gestion_events.EventsBeanRemote;
 import gestion_events.Startup;

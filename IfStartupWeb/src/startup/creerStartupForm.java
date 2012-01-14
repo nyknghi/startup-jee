@@ -1,4 +1,4 @@
-package com.vaannila;
+package startup;
 
 import javax.servlet.http.HttpServletRequest;
 

@@ -1,4 +1,4 @@
-package com.vaannila;
+package investisseur;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
