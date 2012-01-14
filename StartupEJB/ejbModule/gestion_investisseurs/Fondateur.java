@@ -4,12 +4,11 @@ import gestion_events.Startup;
 
 import javax.persistence.*;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name="Fondateur")
 @NamedQuery(name="findFondateurByName", query="SELECT f FROM Fondateur as f WHERE f.nom = :nom")
 public class Fondateur extends AbstraitInvestisseur{
-	private static final long serialVersionUID = 465047179273343739L;
-	
 	@ManyToOne
 	@JoinColumn(referencedColumnName="idStartup")
 	private Startup startup = null;

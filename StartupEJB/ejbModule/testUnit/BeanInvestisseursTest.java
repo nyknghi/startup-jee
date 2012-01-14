@@ -29,7 +29,7 @@ import junit.framework.TestCase;
 public class BeanInvestisseursTest extends TestCase{
 	private RemoteInvestisseurs remoteInv;
 	private EventsBeanRemote remoteEvents;
-	private Fondateur f1;
+	private Fondateur f1, f2;
 	private Startup s;
 	
 	public BeanInvestisseursTest() {}
@@ -49,8 +49,6 @@ public class BeanInvestisseursTest extends TestCase{
 			remoteInv = (RemoteInvestisseurs) ctx.lookup("BeanInvestisseurs/remote");
 			remoteEvents = (EventsBeanRemote) ctx.lookup("EventsBean/remote");
 	
-			prepareEntity();
-			//System.out.println(remoteInv.afficherText("Acces a distant connecte !"));
 		
 		} catch (NamingException e) {
 			e.printStackTrace();
@@ -60,9 +58,11 @@ public class BeanInvestisseursTest extends TestCase{
 	public void prepareEntity(){
 		// CREATION
 		f1 = remoteInv.creerFondateur("Dupont", "dupont@gmail.com", "12345");
+		f2 = remoteInv.creerFondateur("Tartempion","tartempion@gmail.com", "17079");
 		Couple<Startup, Fondateur> res = remoteEvents.startup("MStartup", "Informatique", f1);
 		s = res.getObjetA();
 		f1 = res.getObjetB();
+		f2 = remoteInv.ajouterFondateurStartup(f2, s, true).getObjetA();
 	}
 	
 	/*
@@ -72,17 +72,19 @@ public class BeanInvestisseursTest extends TestCase{
 	@Test
 	public void testCRUDFondateur(){
 		System.out.println("-Test CRUD fondateur");
+		prepareEntity();
 		// UPDATE
 		System.out.println("Fondateur avant update: " + f1);
-		Fondateur f2 = remoteInv.updateFondateur(f1, "Tartempion","dupont@gmail.com", "12345");
-		System.out.println("Fondateur apres update: " + f2);
-		assertFalse(f1.equals(f2));
+		Fondateur f3 = remoteInv.updateFondateur(f1, "Chichi","dupont@gmail.com", "12345");
+		System.out.println("Fondateur apres update: " + f3);
+		assertFalse(f1.equals(f3));
+		
 		// RECHERCHE
-		f2 = remoteInv.rechercherFondateurParId(f1.getIdInvestisseur());
-		if (f2 == null){
+		f3 = remoteInv.rechercherFondateurParId(f1.getIdInvestisseur());
+		if (f3 == null){
 			System.out.println("Fondateur non trouve !");
 		} else {
-			System.out.println(f2);
+			System.out.println(f3);
 		}
 		System.out.println("-Fin test----------------------------------------\n");
 	}
@@ -116,17 +118,28 @@ public class BeanInvestisseursTest extends TestCase{
 		 * puis y en supprimer un.
 		 */
 		System.out.println("-Test supprimer membre d'un club ami");
-		ClubAmi ca = remoteInv.rechercherClubParNom("Club BA Paris").get(0);
-		List<BusinessAngel> membres = remoteInv.listerMembres(ca);
-		for (int i=0; i<membres.size(); i++){
-			System.out.println(membres.get(i));
+		List<ClubAmi> cas = remoteInv.rechercherClubParNom("Club BA Paris");
+		ClubAmi ca = null;
+		if (cas.size() > 0){
+			ca = cas.get(0);
+		} else {
+			System.err.println("Aucun club trouve !");
 		}
-		Couple<ClubAmi, BusinessAngel> res = remoteInv.supprimerMembre(membres.get(0), ca);
-		ca = res.getObjetA();
-		System.out.println("Membre " + membres.get(0).getNom() + " a quitte son club");
-		membres = remoteInv.listerMembres(ca);
-		for (int i=0; i<membres.size(); i++){
-			System.out.println(membres.get(i));
+		
+		List<BusinessAngel> membres = remoteInv.listerMembres(ca);
+		if (membres.size() > 0){
+			for (int i=0; i<membres.size(); i++){
+				System.out.println(membres.get(i));
+			}
+			Couple<ClubAmi, BusinessAngel> res = remoteInv.supprimerMembre(membres.get(0), ca);
+			ca = res.getObjetA();
+			System.out.println("Membre " + membres.get(0).getNom() + " a quitte son club");
+			membres = remoteInv.listerMembres(ca);
+			for (int i=0; i<membres.size(); i++){
+				System.out.println(membres.get(i));
+			}
+		} else {
+			System.err.println("Le club ne contient aucun membre !");
 		}
 		
 		System.out.println("-Fin test----------------------------------------\n");
@@ -174,7 +187,21 @@ public class BeanInvestisseursTest extends TestCase{
 		 * Mettre en partenaire le club "Club BA Paris" et la startup "MaStartup"
 		 */
 		System.out.println("-Test relation entre startup et son club ami");
-		ClubAmi ca = remoteInv.rechercherClubParNom("Club BA Paris").get(0); 
+		List<Startup> starts = remoteEvents.findStartupByCritere("MStartup", "Informatique");
+		Startup s = null;
+		if (starts.size() > 0){
+			s = starts.get(0);
+		} else {
+			System.err.println("Aucune startup trouve !");
+		}
+		
+		ClubAmi ca = null;
+		List<ClubAmi> cas = remoteInv.rechercherClubParNom("Club BA Paris"); 
+		if (cas.size() > 0){
+			ca = cas.get(0);
+		} else {
+			System.err.println("Aucun club n'est trouve !");
+		}
 		Couple<ClubAmi, Startup> res = remoteInv.mettreEnPartenaire(ca, s);
 		ca = res.getObjetA(); s = res.getObjetB();
 		System.out.println(ca);

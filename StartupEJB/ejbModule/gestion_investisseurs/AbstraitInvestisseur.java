@@ -13,6 +13,7 @@ import javax.persistence.*;
 @SuppressWarnings("serial")
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@Table (uniqueConstraints=@UniqueConstraint(columnNames={"mail"}))
 public abstract class AbstraitInvestisseur implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

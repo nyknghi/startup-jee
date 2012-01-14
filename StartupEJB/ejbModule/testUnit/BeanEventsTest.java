@@ -44,10 +44,7 @@ public class BeanEventsTest extends TestCase{
 			
 			remoteInv = (RemoteInvestisseurs) ctx.lookup("BeanInvestisseurs/remote");
 			remoteEvents = (EventsBeanRemote) ctx.lookup("EventsBean/remote");
-	
-			//prepareEntity();
-			//System.out.println(remoteInv.afficherText("Acces a distant connecte !"));
-		
+			
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -70,12 +67,7 @@ public class BeanEventsTest extends TestCase{
 	public void testCRUDStartup(){
 		System.out.println("-Test creation startup");
 		// CREATION
-		f1 = remoteInv.creerFondateur("Tita", "tita@gmail.com", "1707");
-		f2 = remoteInv.creerFondateur("Jack", "jack@gmail.com", "2349");
-		Couple<Startup, Fondateur> res1 = remoteEvents.startup("MStartup", "Informatique", f1);
-		s1 = res1.getObjetA();
-		f1 = res1.getObjetB();
-		
+		prepareEntity();		
 		f2 = remoteInv.ajouterFondateurStartup(f2, s1, true).getObjetA();
 		System.out.println(s1);
 		System.out.println(f1);
@@ -115,10 +107,14 @@ public class BeanEventsTest extends TestCase{
 	public void testCRUDParticipation(){
 		System.out.println("-Test creation participation");
 		// CREATION
-		f3 = remoteInv.creerFondateur("Kendy", "kendy@gmail.com", "ken123");
-		Couple<Startup, Fondateur> res2 = remoteEvents.startup("AssetManagement", "Assurance", f3);
-		s2 = res2.getObjetA();
-		f3 = res2.getObjetB();
+		f3 = remoteInv.findFondateurByEmail("kendy@gmail.com");
+		List<Startup> starts = remoteEvents.findStartupByCritere("AssetManagement", "Assurance");
+		if (starts.size() > 0){
+			s2 = starts.get(0);
+		} else {
+			System.err.println("Aucune startup trouve !");
+		}
+		
 		Couple<Startup, Participation> res = remoteEvents.participation(s2, f3, 10000);
 		Participation p = res.getObjetB();
 		s2 = res.getObjetA();
@@ -142,7 +138,18 @@ public class BeanEventsTest extends TestCase{
 	@Test
 	public void testOrganiserLeveeFonds(){
 		System.out.println("-Test organiser une levee de fonds");
-		prepareEntity();
+		
+		f1 = remoteInv.findFondateurByEmail("tita@gmail.com");		
+		f2 = remoteInv.findFondateurByEmail("jack@gmail.com");
+		f3 = remoteInv.findFondateurByEmail("kendy@gmail.com");
+		
+		List<Startup> starts = remoteEvents.findStartupByCritere("MaStartup", "Informatique");
+		if (starts.size() > 0){
+			s1 = starts.get(0);
+		} else {
+			System.err.println("Aucune startup trouve !");
+		}
+		
 		Couple<AbstraitInvestisseur, LeveeDeFonds> org_levee = remoteInv.organiserLeveeFonds(s1, f1, 50000);
 		LeveeDeFonds levee = org_levee.getObjetB();
 		f1 = (Fondateur)org_levee.getObjetA();
@@ -187,7 +194,12 @@ public class BeanEventsTest extends TestCase{
 	@Test
 	public void testEvaluerStartup(){
 		System.out.println("-Test evaluation startup");
-		s2 = remoteEvents.findStartupByName("AssetManagement").get(0);
+		List<Startup> starts= remoteEvents.findStartupByName("AssetManagement");
+		if (starts.size() > 0){
+			s2 = starts.get(0);
+		} else {
+			System.err.println("Aucune startup trouve !");
+		}
 		
 		double capital = remoteEvents.calculCapital(s2);
 		System.out.println("Capital de la startup " + s2.getNomStartup() + " est : " + capital);
@@ -207,11 +219,4 @@ public class BeanEventsTest extends TestCase{
 		System.out.println("Capital de la startup " + s2.getNomStartup() + " est : " + capital);
 		System.out.println("-Fin test----------------------------------------\n");
 	}
-	
-	/*
-	@Test
-	public void testRechercheParCritere (){
-		List<Startup> res = remoteEvents.findStartupByCritere("AssetManagement", "Assurance");
-		
-	}*/
 }
