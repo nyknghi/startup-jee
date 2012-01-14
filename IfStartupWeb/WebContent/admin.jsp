@@ -9,18 +9,28 @@
         <title>ADMINISTRATION</title>
     </head>
     <body>
+    	<h1>PAGE D'ADMINISTRATION</h1>
         <table border="0" cellspacing="2">
             <thead>
                 <tr>
-                    <th>ADMINISTRATION</th>
-                    <th></th>
+                    <th><h2>Profils d'utilisateurs</h2></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>Nouvel Investisseur</td>
-                    <td><a href="CreerInvestisseur.jsp">Nouvel Investisseur</a></td>
+                    <td><a href="CreerInvestisseur.jsp">Nouveau profil</a></td>
                 </tr>
+            </tbody>
+        </table>
+        <hr/>
+        <table border="0" cellspacing="2">
+            <thead>
+                <tr>
+                    <th><h2>Startups</h2></th>
+                </tr>
+            </thead>
+            <tbody>
                 <tr>
                     <td>Nouvelle Startup</td>
                     <td><a href="creerstartup.jsp">Nouvelle Startup</a></td>
