@@ -59,9 +59,9 @@ public class CreerInvestisseurForm extends org.apache.struts.action.ActionForm{
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = new ActionErrors();
         if(nom==null || nom.isEmpty()){
-            errors.add("nom", new ActionMessage("Spécifiez le nom de l'investisseur"));
+            errors.add("nom", new ActionMessage("Specifiez le nom de l'investisseur"));
         }else if(email==null || email.isEmpty()){
-            errors.add("email", new ActionMessage("Spécifiez l'adresse mail"));
+            errors.add("email", new ActionMessage("Specifiez l'adresse mail"));
         }else if(password==null || password.isEmpty()){
             errors.add("email", new ActionMessage("Le mot de passe est obligatoire"));
         }
