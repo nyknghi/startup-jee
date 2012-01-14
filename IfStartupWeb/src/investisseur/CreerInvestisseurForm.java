@@ -13,14 +13,7 @@ public class CreerInvestisseurForm extends org.apache.struts.action.ActionForm{
     private String email;
     private String password;
     private String type;
-    
-    public CreerInvestisseurForm(String n, String e, String p){
-    	nom = n;
-    	email = e;
-    	password = p;
-    }
-    
-    public CreerInvestisseurForm(){}
+    private ArrayList<InvestisseurBean> list;
     
     public String getType() {
 		return type;
@@ -52,6 +45,14 @@ public class CreerInvestisseurForm extends org.apache.struts.action.ActionForm{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setList(ArrayList<InvestisseurBean> list) {
+        this.list = list;
+    }
+
+    public ArrayList<InvestisseurBean> getList() {
+        return list;
     }
     
     @Override

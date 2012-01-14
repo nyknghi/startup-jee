@@ -24,23 +24,23 @@
             <forward name="investisseur" path="/Investisseur.jsp"/>
         </action>
         
-        <action input="/creerstartup.jsp" name="creerStartupForm" path="/CreerStartup" scope="session" type="startup.creerStartupAction">
+        <action input="/creerstartup.jsp" name="creerStartupForm" path="/CreerStartup" scope="request" type="startup.creerStartupAction">
             <forward name="success" path="/BA.jsp"></forward>
         </action>
         
-        <action input="/OrganiserLevee.jsp" name="OrganiserLeveeForm" path="/OrganiserLevee" scope="session" type="levees.OrganiserLeveeAction">
+        <action input="/OrganiserLevee.jsp" name="OrganiserLeveeForm" path="/OrganiserLevee" scope="request" type="levees.OrganiserLeveeAction">
         </action>
         
-        <action input="/ParticiperLevee.jsp" name="ParticiperLeveeForm" path="/ParticiperLevee" scope="session" type="levees.ParticiperLeveeAction">
+        <action input="/ParticiperLevee.jsp" name="ParticiperLeveeForm" path="/ParticiperLevee" scope="request" type="levees.ParticiperLeveeAction">
         </action>
         
-        <action input="/CreerInvestisseur.jsp" name="CreerInvestisseurForm" path="/CreerInvestisseur" scope="session" type="investisseur.CreerInvestisseurAction">
+        <action input="/CreerInvestisseur.jsp" name="CreerInvestisseurForm" path="/CreerInvestisseur" scope="request" type="investisseur.CreerInvestisseurAction">
             <forward name="success-creerInvestisseur" path="/AllInvestisseurs.jsp"/>
             <forward name="errors-creerInvestiseur" path="/failure.jsp"/>
             
         </action>
 		
-		<action path="/AllInvestisseurs" scope="session" type="investisseur.AllInvestisseursAction">
+	<action name="CreerInvestisseurForm" path="/AllInvestisseurs" scope="request" type="investisseur.AllInvestisseursAction">
             <forward name="success-creerInvestisseur" path="/AllInvestisseurs.jsp"/>
         </action>
     </action-mappings>

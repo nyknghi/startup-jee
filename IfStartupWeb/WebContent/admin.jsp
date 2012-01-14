@@ -20,7 +20,7 @@
             <tbody>
                 <tr>
                     <td>Gestion des investisseurs</td>
-                    <td><a href="AllInvestisseurs.jsp">Nouveau profil</a></td>
+                    <td><a href="AllInvestisseurs.do">Nouveau profil</a></td>
                 </tr>
             </tbody>
         </table>

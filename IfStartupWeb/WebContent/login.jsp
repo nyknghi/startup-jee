@@ -24,7 +24,7 @@
     <table border="0">
         <tbody>
             <tr>
-                <td>Entrer votre email:</td>
+                <td>Entrer votre login:</td>
                 <td><html:text name="LoginForm" property="email" /></td>
             </tr>
             <tr>

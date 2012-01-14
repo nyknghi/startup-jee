@@ -41,7 +41,8 @@ public class AllInvestisseursAction extends org.apache.struts.action.Action {
             AbstraitInvestisseur a = (AbstraitInvestisseur)it.next();
             l.add(new InvestisseurBean(a.getNom(),a.getMail(),a.getMdp()));
         }
-        request.setAttribute("listUsers", l);
+        CreerInvestisseurForm f = (CreerInvestisseurForm)form;
+        f.setList(l);
         return mapping.findForward("success-creerInvestisseur");
     }
 }

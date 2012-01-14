@@ -4,12 +4,6 @@
  */
 package investisseur;
 
-import java.util.ArrayList;
-
-/**
- *
- * @author UTILISATEUR
- */
 public class InvestisseurBean{
     String nom;
     String email;
