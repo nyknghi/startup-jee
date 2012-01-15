@@ -34,9 +34,9 @@ public class AllInvestisseursAction extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        ArrayList<AbstraitInvestisseur> list = (ArrayList<AbstraitInvestisseur>) BeanUtil.getInvestisseurs().findAllInvestisseurs();
+        ArrayList<AbstraitInvestisseur> investisseurs = (ArrayList<AbstraitInvestisseur>) BeanUtil.getInvestisseurs().findAllInvestisseurs();
     
-        request.setAttribute("investisseurs", list);
+        request.setAttribute("investisseurs", investisseurs);
         return mapping.findForward("success");
     }
 }

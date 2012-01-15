@@ -4,11 +4,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html:html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Accréditer investisseur</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<link rel="stylesheet" type="text/css" href="myCss.css">
+	<title>Nouveau profil</title>
 </head>
 <body>
-        <b>Accréditer investisseur</b>
+        <div class="entete"><h1>STARTUP - Business Master</h1></div>
+    	<h1>Cr&eacute;ation d'un nouveau profil d'investisseur</h1>
         <hr>
         <html:form action="/CreerInvestisseur">
             <table>
@@ -49,7 +51,7 @@
                         Mot de passe :
                     </td>
                     <td>
-                        <html:text name="CreerInvestisseurForm" property="password" />
+                        <html:password name="CreerInvestisseurForm" property="password" />
                     </td>
                 </tr>
                 <tr>

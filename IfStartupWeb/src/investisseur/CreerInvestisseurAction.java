@@ -37,7 +37,6 @@ public class CreerInvestisseurAction extends org.apache.struts.action.Action {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         CreerInvestisseurForm f = (CreerInvestisseurForm) form;
-        ArrayList<InvestisseurBean> list = new ArrayList<InvestisseurBean>();
         try{
             if(f.getType().equals("Fondateur")){
                 BeanUtil.getInvestisseurs().creerFondateur(f.getNom(), f.getEmail(), f.getPassword());
@@ -45,17 +44,10 @@ public class CreerInvestisseurAction extends org.apache.struts.action.Action {
                 BeanUtil.getInvestisseurs().creerBA(f.getNom(), f.getEmail(), f.getPassword());
             }else{
                 BeanUtil.getInvestisseurs().creerInvestisseur(f.getNom(), f.getEmail(), f.getPassword());
-            }
-            ArrayList<AbstraitInvestisseur> fo = (ArrayList<AbstraitInvestisseur>) BeanUtil.getInvestisseurs().findAllInvestisseurs();
-            Iterator it = fo.iterator();
-            while(it.hasNext()){
-                Fondateur fond = (Fondateur)it.next();
-                list.add(new InvestisseurBean(fond.getNom(), fond.getMail(), fond.getMdp()));
-            }
-            f.setList(list);
-            return mapping.findForward("success-creerInvestisseur");
+            }    
+            return mapping.findForward("success");
         }catch(Exception e){
-            return mapping.findForward("errors-creerInvestisseur"); 
+            return mapping.findForward("errors"); 
         }
     }
 }

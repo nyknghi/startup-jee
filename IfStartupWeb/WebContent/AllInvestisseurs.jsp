@@ -23,9 +23,6 @@
             <table border="0" cellspacing="1" cellpadding="1">
                 <tbody>
                     <tr>
-                        <td><a href="CreerInvestisseur.jsp">Nouvel Investisseur</a></td>
-                    </tr>
-                    <tr>
                         <td>
                             <table border="0" cellspacing="1" cellpadding="1">
                                 <thead>
