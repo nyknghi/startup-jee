@@ -165,8 +165,8 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ClubAmi> rechercherClubParNom (String nom){
-		Query query = em.createQuery("SELECT ca FROM ClubAmi as ca WHERE ca.nomClub = :nom");
-		query.setParameter("nom", nom);
+		Query query = em.createQuery("SELECT ca FROM ClubAmi as ca WHERE ca.nomClub LIKE :nom");
+		query.setParameter("nom", "%"+nom+"%");
 		return (List<ClubAmi>) query.getResultList();
 	}
 	

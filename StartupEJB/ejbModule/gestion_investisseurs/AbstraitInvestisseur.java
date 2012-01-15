@@ -26,13 +26,13 @@ public abstract class AbstraitInvestisseur implements Serializable{
 	protected String mdp;
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="investisseur")
-	private Set<Participation> participations = new HashSet<Participation>();
+	protected Set<Participation> participations = new HashSet<Participation>();
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="investisseur")
-	private Set<Inscription> inscriptions = new HashSet<Inscription>();
+	protected Set<Inscription> inscriptions = new HashSet<Inscription>();
 	
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="organisateur")
-	private Set<LeveeDeFonds> leveeDeFonds = new HashSet<LeveeDeFonds>();
+	protected Set<LeveeDeFonds> leveeDeFonds = new HashSet<LeveeDeFonds>();
 	
 	public long getIdInvestisseur() {
 		return idInvestisseur;
