@@ -17,7 +17,7 @@ public class LoginAction extends org.apache.struts.action.Action {
             throws Exception {
         LoginForm loginForm = (LoginForm) form;
         if (loginForm.getEmail().equals("root") && loginForm.getPassword().equals("admin")){
-            HttpSession se = request.getSession();
+        	HttpSession se = request.getSession();
             se.setAttribute("login", "root");
             se.setAttribute("password", "admin");
             return mapping.findForward("success");

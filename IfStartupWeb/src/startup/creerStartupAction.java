@@ -15,43 +15,23 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionForward;
 
+import com.vaannila.BeanUtil;
+
 import util.Couple;
 
 public class creerStartupAction extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-    	creerStartupForm creerForm = (creerStartupForm) form;
-    	
-    	
-		try{
-			Context ctx = new InitialContext();
-			ctx.addToEnvironment(InitialContext.INITIAL_CONTEXT_FACTORY,
-					"org.jnp.interfaces.NamingContextFactory");
-			ctx.addToEnvironment(InitialContext.URL_PKG_PREFIXES,
-					"org.jboss.naming:org.jnp.interfaces");
-			ctx.addToEnvironment(InitialContext.PROVIDER_URL,
-					"jnp://localhost:1099");
+    		creerStartupForm creerForm = (creerStartupForm) form;  	
+    		RemoteInvestisseurs remoteInv = BeanUtil.getInvestisseurs();
+    		EventsBeanRemote remoteEvents = BeanUtil.getEvents();
 			
-			RemoteInvestisseurs remoteInv = (RemoteInvestisseurs) ctx.lookup("BeanInvestisseurs/remote");
-			EventsBeanRemote remoteEvents = (EventsBeanRemote) ctx.lookup("EventsBean/remote");
-			
-			
-			Fondateur f = remoteInv.creerFondateur("Dupont", "dupont@gmail.com", "12345");
+    		//Fondateur f = remoteInv.creerFondateur("Dupont", "dupont@gmail.com", "12345");
+    		Fondateur f = (Fondateur)BeanUtil.getInvestisseurs().findFondateurByEmail((String)request.getSession().getAttribute("login"));
 			Couple<Startup, Fondateur> res = remoteEvents.startup(creerForm.getNom(), creerForm.getActivite(), f);
 			Startup s = res.getObjetA();
 			f = res.getObjetB();
-			//f.setStartup(s);
-			
-			//System.out.println(s);
-//			System.out.println(f);
-			
-			//remote.closeEM();
-			
-		}catch (NamingException e){
-			e.printStackTrace();
-		}    	
-    	
     	return mapping.findForward("success");
     }
 }

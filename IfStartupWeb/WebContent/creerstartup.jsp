@@ -12,6 +12,9 @@
 		<div class="entete"><h1>STARTUP - Business Master</h1></div>
         <h1>Cr&eacute;ation Startup</h1>
         <br/>
+        <div style="color:red">
+            <html:errors />
+        </div>        
         <html:form action="/CreerStartup">
             <table>
                 <tr>

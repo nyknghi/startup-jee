@@ -17,7 +17,7 @@ public class OrganiserLeveeAction extends org.apache.struts.action.Action{
         OrganiserLeveeForm f = (OrganiserLeveeForm) form;
         double cible = Double.valueOf(f.getCible());
         try{
-            BeanUtil.getInvestisseurs().organiserLeveeFonds(BeanUtil.getEvents().findStartupByName(f.getStartup()).get(0), BeanUtil.getInvestisseurs().findByEmail((String)request.getAttribute("login")), cible);
+            BeanUtil.getInvestisseurs().organiserLeveeFonds(BeanUtil.getEvents().findStartupByName(f.getStartup()).get(0), BeanUtil.getInvestisseurs().findFondateurByEmail((String)request.getAttribute("login")), cible);
             return mapping.findForward("success-organiser_levee");
         }catch(Exception e){
             return mapping.findForward("error-organiser_levee");

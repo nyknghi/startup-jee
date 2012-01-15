@@ -6,6 +6,10 @@
     <form-beans>
         <form-bean name="LoginForm" type="login.LoginForm"/>
         <form-bean name="creerStartupForm" type="startup.creerStartupForm"/>
+        <form-bean name="AfficherStartupForm" type="startup.AfficherStartupForm"/>
+        <form-bean name="RechercherStartupForm" type="startup.RechercherStartupForm"/>
+        <form-bean name="RechercherClubAmiForm" type="startup.RechercherClubAmiForm"/>
+        <form-bean name="MettrePartenaireForm" type="startup.MettrePartenaire"/>
         <form-bean name="OrganiserLeveeForm" type="levees.OrganiserLeveeForm"/>
         <form-bean name="CreerInvestisseurForm" type="investisseur.CreerInvestisseurForm"/>
         <form-bean name="ParticiperLeveeForm" type="levees.ParticiperLeveeForm"></form-bean>
@@ -25,24 +29,39 @@
         </action>
         
         <action input="/creerstartup.jsp" name="creerStartupForm" path="/CreerStartup" scope="request" type="startup.creerStartupAction">
-            <forward name="success" path="/BA.jsp"></forward>
+            <forward name="success" path="/AfficherStartup.do"></forward>
         </action>
         
-        <action input="/OrganiserLevee.jsp" name="OrganiserLeveeForm" path="/OrganiserLevee" scope="request" type="levees.OrganiserLeveeAction">
+        <action input="/AfficherStartup.jsp" name="AfficherStartupForm" path="/AfficherStartup" scope="session" type="startup.AfficherStartupAction">
+            <forward name="success" path="/AfficherStartup.jsp"></forward>
+        </action>       
+        
+        <action input="/RechercherStartup.jsp" name="RechercherStartupForm" path="/RechercherStartup" scope="session" type="startup.RechercherStartupAction">
+            <forward name="success" path="/RechercherStartup.jsp"></forward>
         </action>
         
-        <action input="/ParticiperLevee.jsp" name="ParticiperLeveeForm" path="/ParticiperLevee" scope="request" type="levees.ParticiperLeveeAction">
+        <action input="/RechercherClubAmi.jsp" name="RechercherClubAmiForm" path="/MettrePartenaire" scope="session" type="startup.MettrePartenaire">
+            <forward name="success" path="/MettrePartenaire.jsp"></forward>
         </action>
         
-        <action input="/CreerInvestisseur.jsp" name="CreerInvestisseurForm" path="/CreerInvestisseur" scope="request" type="investisseur.CreerInvestisseurAction">
+        <action input="/RechercherClubAmi.jsp" name="RechercherClubAmiForm" path="/RechercherClubAmi" scope="session" type="startup.RechercherClubAmiAction">
+            <forward name="success" path="/RechercherClubAmi.jsp"></forward>
+        </action>                                  
+                
+        <action input="/OrganiserLevee.jsp" name="OrganiserLeveeForm" path="/OrganiserLevee" scope="session" type="levees.OrganiserLeveeAction">
+        </action>
+        
+        <action input="/ParticiperLevee.jsp" name="ParticiperLeveeForm" path="/ParticiperLevee" scope="session" type="levees.ParticiperLeveeAction">
+        </action>
+        
+        <action input="/CreerInvestisseur.jsp" name="CreerInvestisseurForm" path="/CreerInvestisseur" scope="session" type="investisseur.CreerInvestisseurAction">
             <forward name="success-creerInvestisseur" path="/AllInvestisseurs.jsp"/>
             <forward name="errors-creerInvestiseur" path="/failure.jsp"/>
             
         </action>
-		
 	<action name="CreerInvestisseurForm" path="/AllInvestisseurs" scope="request" type="investisseur.AllInvestisseursAction">
             <forward name="success-creerInvestisseur" path="/AllInvestisseurs.jsp"/>
-        </action>
+        </action>        
     </action-mappings>
  
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

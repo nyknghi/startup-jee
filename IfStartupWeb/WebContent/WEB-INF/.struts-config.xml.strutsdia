@@ -2,13 +2,6 @@
 <PROCESS model-entity="StrutsProcess">
  <PROCESS-ITEM ID="welcome" NAME="forward0" PATH="/Welcome.do"
   SHAPE="32,17,0,0" TARGET="action1" TITLE="welcome" TYPE="forward" model-entity="StrutsProcessItem"/>
- <PROCESS-ITEM ID="#Welcome" NAME="action1" PATH="/Welcome"
-  SHAPE="240,33,0,0" SUBTYPE="forward" TYPE="action" model-entity="StrutsProcessItem">
-  <PROCESS-ITEM-OUTPUT NAME="action1" PATH="/welcomeStruts.jsp"
-   TARGET="page2" TITLE="forward" TYPE="forward" model-entity="StrutsProcessItemOutput"/>
- </PROCESS-ITEM>
- <PROCESS-ITEM NAME="page2" PATH="/welcomeStruts.jsp" SHAPE="448,18,0,0"
-  SUBTYPE="jsp" TITLE="welcomeStruts.jsp" TYPE="page" model-entity="StrutsProcessItem"/>
  <PROCESS-ITEM NAME="page3" PATH="/admin.jsp" SHAPE="240,353,0,0"
   SUBTYPE="jsp" TITLE="admin.jsp" TYPE="page" model-entity="StrutsProcessItem"/>
  <PROCESS-ITEM ID="#Login" NAME="action0" PATH="/Login"
@@ -21,15 +14,17 @@
    PATH="/fondateur.jsp" TARGET="page1" TITLE="fondateur" TYPE="forward" model-entity="StrutsProcessItemOutput"/>
   <PROCESS-ITEM-OUTPUT ID="ba" NAME="forward3" PATH="/BA.jsp"
    TARGET="page5" TITLE="ba" TYPE="forward" model-entity="StrutsProcessItemOutput"/>
+  <PROCESS-ITEM-OUTPUT ID="investisseur" NAME="forward4"
+   PATH="/Investisseur.jsp" TARGET="page7" TITLE="investisseur"
+   TYPE="forward" model-entity="StrutsProcessItemOutput"/>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="page0" PATH="/failure.jsp" SHAPE="256,514,0,0"
   SUBTYPE="jsp" TITLE="failure.jsp" TYPE="page" model-entity="StrutsProcessItem"/>
- <PROCESS-ITEM ID="#creerstartup" NAME="action2" PATH="/creerstartup"
-  SHAPE="56,216,137,25" TITLE="creerStartupForm" TYPE="action" model-entity="StrutsProcessItem"/>
  <PROCESS-ITEM ID="#CreerStartup" NAME="action3" PATH="/CreerStartup"
   SHAPE="32,609,0,0" TITLE="creerStartupForm" TYPE="action" model-entity="StrutsProcessItem">
-  <PROCESS-ITEM-OUTPUT ID="success" NAME="forward0" PATH="/BA.jsp"
-   TARGET="page5" TITLE="success" TYPE="forward" model-entity="StrutsProcessItemOutput"/>
+  <PROCESS-ITEM-OUTPUT ID="success" NAME="forward0"
+   PATH="/AfficherStartup.do" TARGET="action2" TITLE="success"
+   TYPE="forward" model-entity="StrutsProcessItemOutput"/>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="page1" PATH="/fondateur.jsp" SHAPE="448,353,0,0"
   SUBTYPE="jsp" TITLE="fondateur.jsp" TYPE="page" model-entity="StrutsProcessItem"/>
@@ -38,7 +33,14 @@
   TYPE="action" model-entity="StrutsProcessItem"/>
  <PROCESS-ITEM ID="#CreerInvestisseur" NAME="action5"
   PATH="/CreerInvestisseur" SHAPE="448,641,0,0"
-  TITLE="CreerInvestisseurForm" TYPE="action" model-entity="StrutsProcessItem"/>
+  TITLE="CreerInvestisseurForm" TYPE="action" model-entity="StrutsProcessItem">
+  <PROCESS-ITEM-OUTPUT ID="errors-creerInvestiseur" NAME="forward0"
+   PATH="/failure.jsp" TARGET="page0" TITLE="errors-creerInvestiseur"
+   TYPE="forward" model-entity="StrutsProcessItemOutput"/>
+  <PROCESS-ITEM-OUTPUT ID="success-creerInvestisseur" NAME="forward1"
+   PATH="/AllInvestisseurs.jsp" TARGET="page8"
+   TITLE="success-creerInvestisseur" TYPE="forward" model-entity="StrutsProcessItemOutput"/>
+ </PROCESS-ITEM>
  <PROCESS-ITEM NAME="page4" PATH="/ba.jsp" SHAPE="240,577,0,0"
   SUBTYPE="jsp" TITLE="ba.jsp" TYPE="page" model-entity="StrutsProcessItem"/>
  <PROCESS-ITEM NAME="page5" PATH="/BA.jsp" SHAPE="448,465,0,0"
@@ -46,4 +48,74 @@
  <PROCESS-ITEM ID="#ParticiperLevee" NAME="action6"
   PATH="/ParticiperLevee" SHAPE="656,689,0,0"
   TITLE="ParticiperLeveeForm" TYPE="action" model-entity="StrutsProcessItem"/>
+ <PROCESS-ITEM NAME="page6" PATH="/creerstartup.jsp" SHAPE="240,721,0,0"
+  SUBTYPE="jsp" TITLE="creerstartup.jsp" TYPE="page" model-entity="StrutsProcessItem">
+  <PROCESS-ITEM-OUTPUT NAME="link0" PATH="/CreerStartup.do"
+   SUBTYPE="confirmed" TARGET="action3" TITLE="/CreerStartup.do"
+   TYPE="link" model-entity="StrutsProcessItemOutput"/>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="page7" PATH="/Investisseur.jsp" SHAPE="656,353,0,0"
+  SUBTYPE="jsp" TITLE="Investisseur.jsp" TYPE="page" model-entity="StrutsProcessItem"/>
+ <PROCESS-ITEM NAME="page8" PATH="/AllInvestisseurs.jsp"
+  SHAPE="656,753,0,0" SUBTYPE="jsp" TITLE="AllInvestisseurs.jsp"
+  TYPE="page" model-entity="StrutsProcessItem"/>
+ <PROCESS-ITEM ID="#Welcome" NAME="action1" PATH="/Welcome"
+  SHAPE="240,33,0,0" SUBTYPE="unknown" TYPE="action" model-entity="StrutsProcessItem">
+  <PROCESS-ITEM-OUTPUT NAME="action1" PATH="/welcomeStruts.jsp"
+   TARGET="page2" TITLE="forward" TYPE="forward" model-entity="StrutsProcessItemOutput"/>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="page2" PATH="/welcomeStruts.jsp" SHAPE="448,18,0,0"
+  SUBTYPE="jsp" TITLE="welcomeStruts.jsp" TYPE="page" model-entity="StrutsProcessItem"/>
+ <PROCESS-ITEM NAME="page9" PATH="/AfficherStartup.jsp"
+  SHAPE="240,833,0,0" SUBTYPE="jsp" TITLE="AfficherStartup.jsp"
+  TYPE="page" model-entity="StrutsProcessItem">
+  <PROCESS-ITEM-OUTPUT NAME="link0" PATH="/AfficherStartup.do"
+   SUBTYPE="confirmed" TARGET="action2" TITLE="/AfficherStartup.do"
+   TYPE="link" model-entity="StrutsProcessItemOutput"/>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM ID="#AfficherStartup" NAME="action2"
+  PATH="/AfficherStartup" SHAPE="448,833,0,0"
+  TITLE="AfficherStartupForm" TYPE="action" model-entity="StrutsProcessItem">
+  <PROCESS-ITEM-OUTPUT ID="success" NAME="forward0"
+   PATH="/AfficherStartup.jsp" TARGET="page9" TITLE="success"
+   TYPE="forward" model-entity="StrutsProcessItemOutput"/>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM ID="#RechercherStartup" NAME="action7"
+  PATH="/RechercherStartup" SHAPE="32,961,0,0"
+  TITLE="RechercherStartupForm" TYPE="action" model-entity="StrutsProcessItem">
+  <PROCESS-ITEM-OUTPUT ID="success" NAME="forward0"
+   PATH="/RechercherStartup.jsp" TARGET="page10" TITLE="success"
+   TYPE="forward" model-entity="StrutsProcessItemOutput"/>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="page10" PATH="/RechercherStartup.jsp"
+  SHAPE="240,1073,0,0" SUBTYPE="jsp" TITLE="RechercherStartup.jsp"
+  TYPE="page" model-entity="StrutsProcessItem">
+  <PROCESS-ITEM-OUTPUT NAME="link0" PATH="/RechercherStartup.do"
+   SUBTYPE="confirmed" TARGET="action7" TITLE="/RechercherStartup.do"
+   TYPE="link" model-entity="StrutsProcessItemOutput"/>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM ID="#RechercherClubAmi" NAME="action8"
+  PATH="/RechercherClubAmi" SHAPE="240,1313,0,0"
+  TITLE="RechercherClubAmiForm" TYPE="action" model-entity="StrutsProcessItem">
+  <PROCESS-ITEM-OUTPUT ID="success" NAME="forward0"
+   PATH="/RechercherClubAmi.jsp" TARGET="page11" TITLE="success"
+   TYPE="forward" model-entity="StrutsProcessItemOutput"/>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="page11" PATH="/RechercherClubAmi.jsp"
+  SHAPE="32,1298,0,0" SUBTYPE="jsp" TITLE="RechercherClubAmi.jsp"
+  TYPE="page" model-entity="StrutsProcessItem">
+  <PROCESS-ITEM-OUTPUT NAME="link0" PATH="/RechercherClubAmi.do"
+   SUBTYPE="confirmed" TARGET="action8" TITLE="/RechercherClubAmi.do"
+   TYPE="link" model-entity="StrutsProcessItemOutput"/>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM ID="#MettrePartenaire" NAME="action9"
+  PATH="/MettrePartenaire" SHAPE="32,1521,0,0"
+  TITLE="RechercherClubAmiForm" TYPE="action" model-entity="StrutsProcessItem">
+  <PROCESS-ITEM-OUTPUT ID="success" NAME="forward0"
+   PATH="/MettrePartenaire.jsp" TARGET="page12" TITLE="success"
+   TYPE="forward" model-entity="StrutsProcessItemOutput"/>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="page12" PATH="/MettrePartenaire.jsp"
+  SHAPE="240,1538,0,0" SUBTYPE="jsp" TITLE="MettrePartenaire.jsp"
+  TYPE="page" model-entity="StrutsProcessItem"/>
 </PROCESS>

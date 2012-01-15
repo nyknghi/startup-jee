@@ -10,6 +10,25 @@ public class creerStartupForm extends org.apache.struts.action.ActionForm {
 	private String nom;
 	private String capital;
 	private String activite;
+	
+	public creerStartupForm() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+    public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+        ActionErrors errors = new ActionErrors();
+        if (nom == null || nom.length() < 1) {
+            errors.add("nom", new ActionMessage("error.userName.required"));
+            // TODO: add 'error.name.required' key to your resources
+        }
+        if (activite == null || activite.length() < 1) {
+            errors.add("activite", new ActionMessage("error.password.required"));
+            // TODO: add 'error.name.required' key to your resources
+        }
+        return errors;
+    }
+    
 	public String getNom() {
 		return nom;
 	}
