@@ -170,6 +170,13 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 		return (List<ClubAmi>) query.getResultList();
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ClubAmi> findAllClub(){
+		Query query = em.createQuery("SELECT ca FROM ClubAmi as ca");
+		return (List<ClubAmi>) query.getResultList();
+	}
+	
 	@Override
 	public Couple<ClubAmi, Startup> mettreEnPartenaire (ClubAmi ca, Startup s){
 		ca = this.rechercherClubParId(ca.getIdClub());

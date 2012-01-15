@@ -43,6 +43,7 @@ public interface FacadeInvestisseurs {
 	public ClubAmi updateClubAmi (ClubAmi ca);
 	public ClubAmi rechercherClubParId (long id);
 	public List<ClubAmi> rechercherClubParNom (String nom);
+	public List<ClubAmi> findAllClub();
 	
 	public Couple<ClubAmi, Startup> mettreEnPartenaire (ClubAmi ca, Startup s);
 	
