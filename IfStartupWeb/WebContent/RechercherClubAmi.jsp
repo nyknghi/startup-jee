@@ -7,12 +7,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<link rel="stylesheet" type="text/css" href="myCss.css">
+	<title>Rechercher Club Ami</title>
 </head>
 <body>
+	<div class="entete"><h1>STARTUP - Business Master</h1></div>
+	<h1>Recherche des Clubs amis</h1>
 	<html:form action="/RechercherClubAmi">
 	    <table border="0">
+	       <thead>
+	                <tr>
+	                    <th><h2>Recherche par critères</h2></th>
+	                </tr>
+	        </thead>
 	        <tbody>
 	            <tr>
 	                <td>Entrer le nom du Club Ami</td>
@@ -24,12 +32,17 @@
 	            </tr>
 	        </tbody>
 	    </table>
-		<TABLE border="1">
+	    <br/>	    
+		<TABLE border="0">
+		   <thead>
+	                <tr>
+	                    <th><h2>R&eacute;sultat de recherche</h2></th>
+	                </tr>
+			</thead>
+			<tbody>
 		    <tr>
 		      <td>
 		        Nom du Club Ami
-		      </td>
-		      <td>
 		      </td>
 		    </tr>
 		    <c:forEach items="${requestScope.clubamis}" var="clubami">
@@ -45,6 +58,7 @@
 	          </td>              	        
 		    </tr>
 		    </c:forEach> 
+		    </tbody>
 		</TABLE>  	    
 	</html:form>
 </body>

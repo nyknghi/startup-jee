@@ -27,6 +27,11 @@
 	                    <a href="PaticiperLevee.jsp">Participer à une levée de fonds</a>
 	                </td>                
 	            </tr>  
+	            <tr>
+	                <td>
+	                    <a href="RechercherClubAmi.jsp">Rechercher clubs amis</a>
+	                </td>                
+	            </tr>
             </tbody>          
         </table>
 </body>

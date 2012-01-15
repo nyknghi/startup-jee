@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<%@ taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,6 +14,7 @@
 <body>
 		<div class="entete"><h1>STARTUP - Business Master</h1></div>
 		<h1>Bienvenue FONDATEUR</h1>
+      	<html:form action="/Fondateur">
         <table>
         	<thead>
                 <tr>
@@ -18,13 +23,14 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Startups dont vous êtes fondateur</td>
+                    <td>Startups dont vous êtes fondateur: ${requestScope.startup}</td>
                 </tr>
                 <tr>
                     <td>Levees de fonds que vous avez particip&eacute;es</td>
                 </tr>
             </tbody>
          </table>
+        </html:form>
          <br/>
          <table>
             <thead>
@@ -55,7 +61,7 @@
 	            </tr>
 	            <tr>
 	                <td>
-	                    <a href=".jsp">Rechercher clubs amis</a>
+	                    <a href="RechercherClubAmi.jsp">Rechercher clubs amis</a>
 	                </td>                
 	            </tr>
 	         </tbody>            

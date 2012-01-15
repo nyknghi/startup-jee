@@ -11,9 +11,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <link rel="stylesheet" type="text/css" href="myCss.css">
+        <title>Erreur Page</title>
     </head>
     <body>
+	    <div class="entete"><h1>STARTUP - Business Master</h1></div>
         <div style="color:red">
             <h1>ERREUR D'AUTHENTIFICATION</h1>
             <a href="login.jsp">Retour à la page de connection</a>

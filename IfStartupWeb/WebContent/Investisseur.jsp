@@ -11,4 +11,18 @@
 		<div class="entete"><h1>STARTUP - Business Master</h1></div>
 		<h1>Bienvenue INVESTISSEUR</h1>
 </body>
+	<table>
+		<thead>
+			<tr>
+                 <th><h2>Actions</h2></th>
+			</tr>
+		</thead>
+		<tbody>
+	            <tr>
+	                <td>
+	                    <a href="MonterGroupe.jsp">Monter un groupe d'investisseurs</a>
+	                </td>              
+	            </tr>
+		</tbody>
+	</table>
 </html>
