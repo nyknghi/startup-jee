@@ -5,6 +5,7 @@
 package gestion_events;
 
 import gestion_investisseurs.*;
+
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -191,6 +192,12 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
     
     public LeveeDeFonds findLeveeDeFonds(long id) {
         return em.find(LeveeDeFonds.class, id);
+    }
+    
+    @SuppressWarnings("unchecked")
+	public List<LeveeDeFonds> findAllLevees(){
+    	Query query = em.createQuery("SELECT l FROM LeveeDeFonds as l");
+		return (List<LeveeDeFonds>) query.getResultList();
     }
     
     //Business methods

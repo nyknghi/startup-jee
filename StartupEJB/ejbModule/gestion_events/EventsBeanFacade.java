@@ -42,6 +42,7 @@ public interface EventsBeanFacade {
     public LeveeDeFonds updateLeveeDeFonds(long id, Date date, Etape e);
     public LeveeDeFonds updateLeveeDeFonds(LeveeDeFonds levee);
     public LeveeDeFonds findLeveeDeFonds(long id);
+    public List<LeveeDeFonds> findAllLevees();
     
     public double totalParticipations(LeveeDeFonds l);
     
