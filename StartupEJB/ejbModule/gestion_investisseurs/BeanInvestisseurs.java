@@ -293,6 +293,13 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 		return (List<GroupeInvestisseurs>) query.getResultList();
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<GroupeInvestisseurs> findAllGroupe() {
+		Query query = em.createQuery("SELECT g FROM GroupeInvestisseurs as g");
+		return (List<GroupeInvestisseurs>) query.getResultList();
+	}
+	
 	@Override
 	public Couple<GroupeInvestisseurs, Investisseur> adhererGroupe(GroupeInvestisseurs groupe, 
 			Investisseur inv, boolean isLeader) {

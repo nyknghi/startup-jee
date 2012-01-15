@@ -72,6 +72,7 @@ public interface FacadeInvestisseurs {
 	public GroupeInvestisseurs updateGroupeInvestisseurs (GroupeInvestisseurs groupe);
 	public GroupeInvestisseurs rechercherGroupeParId (long id);
 	public List<GroupeInvestisseurs> rechercherGroupeParNom (String nomGroupe);
+	public List<GroupeInvestisseurs> findAllGroupe();
 	
 	public Couple<GroupeInvestisseurs, Investisseur> adhererGroupe (GroupeInvestisseurs groupe, Investisseur inv, boolean isLeader);
 	public Couple<GroupeInvestisseurs, Investisseur> quitterGroupe (GroupeInvestisseurs groupe, Investisseur inv);
