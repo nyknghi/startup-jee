@@ -35,6 +35,7 @@ public interface FacadeInvestisseurs {
 	public BusinessAngel updateBA(BusinessAngel ba);
 	public BusinessAngel rechercherBAParId (long id);
 	public List<BusinessAngel> rechercherBAParNom (String nom);
+	public BusinessAngel rechercherBAParMail(String mail);
 	public List<BusinessAngel> findAllBusinessAngel();
 	
 	public ClubAmi monterClubAmi (BusinessAngel ba, String nomClub);
@@ -58,6 +59,7 @@ public interface FacadeInvestisseurs {
 	public Investisseur updateInvestisseur (Investisseur inv);
 	public Investisseur rechercherInvestisseurParId (long id);
 	public List<Investisseur> rechercherInvestisseurParNom (String nom);
+	public Investisseur rechercherInvestisseurParMail (String mail);
 	public List<Investisseur> findAllInvestisseur();
 	//public List<Investisseur> rechercherInvestisseurParGroupe (GroupeInvestisseurs groupe);
 	

@@ -445,4 +445,32 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 		ainvs.addAll(findAllInvestisseur());
 		return ainvs;
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public BusinessAngel rechercherBAParMail(String mail) {
+		Query query = em.createQuery("SELECT ba FROM BusinessAngel as ba WHERE ba.mail = :mail");
+		query.setParameter("mail", mail);
+		List<BusinessAngel> res = query.getResultList();
+		if (res.size() > 0){
+			return (BusinessAngel) res.get(0);
+		} else {
+			System.out.println("Aucun business angel n'est trouve !");
+			return null;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Investisseur rechercherInvestisseurParMail(String mail) {
+		Query query = em.createQuery("SELECT i FROM Investisseur as i WHERE i.mail = :mail");
+		query.setParameter("mail", mail);
+		List<Investisseur> res = query.getResultList();
+		if (res.size() > 0){
+			return (Investisseur) res.get(0);
+		} else {
+			System.out.println("Aucun investisseur n'est trouve !");
+			return null;
+		}
+	}
 }
