@@ -57,7 +57,7 @@ public class ParticiperGroupeAction extends DispatchAction {
 		String sId = request.getParameter("id");
 		GroupeInvestisseurs groupe = BeanUtil.getInvestisseurs().rechercherGroupeParId(Long.parseLong(sId));
 		Investisseur inv = BeanUtil.getInvestisseurs().rechercherInvestisseurParMail((String)request.getSession().getAttribute("login"));
-//		Boolean isLeader = participerGroupeForm.getCheckboxValue();
+		Boolean isLeader = participerGroupeForm.getCheckboxValue();
 		Couple<GroupeInvestisseurs, Investisseur> res = remoteInv.adhererGroupe(groupe, inv, false);
     	return mapping.findForward("success");
     }
