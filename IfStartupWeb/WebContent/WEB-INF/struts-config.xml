@@ -55,13 +55,13 @@
         </action>
         
         <action input="/CreerInvestisseur.jsp" name="CreerInvestisseurForm" path="/CreerInvestisseur" scope="session" type="investisseur.CreerInvestisseurAction">
-            <forward name="success-creerInvestisseur" path="/AllInvestisseurs.jsp"/>
-            <forward name="errors-creerInvestiseur" path="/failure.jsp"/>
+            <forward name="success" path="/AllInvestisseurs.do"/>
+            <forward name="errors" path="/failure.jsp"/>
             
         </action>
-	<action name="CreerInvestisseurForm" path="/AllInvestisseurs" scope="request" type="investisseur.AllInvestisseursAction">
-            <forward name="success-creerInvestisseur" path="/AllInvestisseurs.jsp"/>
-        </action>        
+		<action input="/AllInvestisseurs.jsp" name="AllInvestisseursForm" path="/AllInvestisseurs" scope="request" type="investisseur.AllInvestisseursAction">
+				<forward name="success" path="/AllInvestisseurs.jsp"/>
+		</action>        
     </action-mappings>
  
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

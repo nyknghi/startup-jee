@@ -35,14 +35,8 @@ public class AllInvestisseursAction extends org.apache.struts.action.Action {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         ArrayList<AbstraitInvestisseur> list = (ArrayList<AbstraitInvestisseur>) BeanUtil.getInvestisseurs().findAllInvestisseurs();
-        ArrayList<InvestisseurBean> l = new ArrayList<InvestisseurBean>();
-        Iterator it = list.iterator();
-        while(it.hasNext()){
-            AbstraitInvestisseur a = (AbstraitInvestisseur)it.next();
-            l.add(new InvestisseurBean(a.getNom(),a.getMail(),a.getMdp()));
-        }
-        CreerInvestisseurForm f = (CreerInvestisseurForm)form;
-        f.setList(l);
-        return mapping.findForward("success-creerInvestisseur");
+    
+        request.setAttribute("investisseurs", list);
+        return mapping.findForward("success");
     }
 }

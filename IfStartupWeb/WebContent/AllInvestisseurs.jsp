@@ -8,6 +8,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>   
 <!DOCTYPE html>
 <html:html>
     <head>
@@ -16,7 +17,9 @@
         <title>GESTION INVESTISSEURS</title>
     </head>
     <body>
-        <h1>GERER LES INVESTISSEURS</h1>
+	    <div class="entete"><h1>STARTUP - Business Master</h1></div>
+	    <h1>Liste des Investisseurs</h1>
+	    <br/>
             <table border="0" cellspacing="1" cellpadding="1">
                 <tbody>
                     <tr>
@@ -33,12 +36,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <logic:iterate id="investisseurs" name="CreerInvestisseurForm" property="list"/>
-                                    <tr>
-                                        <td><bean:write name="list" property="nom"/></td>
-                                        <td><bean:write name="list" property="email"/></td>
-                                        <td><bean:write name="list" property="password"/></td>
-                                    </tr>
+                                <c:forEach items="${requestScope.investisseurs}" var="investisseurs">
+								   <tr>
+								     <td>
+								       ${investisseurs.nom}
+								     </td>
+								     <td>
+								       ${investisseurs.mail}
+								     </td>
+								     <td>
+								       ${investisseurs.mdp}
+								     </td>		        
+								   </tr>
+								  </c:forEach> 
                                 </tbody>
                             </table>
                         </td>

@@ -19,7 +19,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><a href="AllInvestisseurs.jsp">Cr&eacute;er un nouveau profil</a></td>
+                    <td><a href="CreerInvestisseur.jsp">Cr&eacute;er un nouveau profil</a></td>
                 </tr>
             </tbody>
         </table>
