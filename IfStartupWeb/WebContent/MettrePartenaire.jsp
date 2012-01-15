@@ -8,7 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-	<bean:write name="MettrePartenaireForm" property="message" />
+	<html:form action="/MettrePartenaire">
+		<bean:write name="MettrePartenaireForm" property="message" />
+	</html:form>
 </body>
 </html>

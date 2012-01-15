@@ -39,7 +39,7 @@
 		      </td>
 	          <td>
 		          <c:url value="/MettrePartenaire.do" var="MettrePartenaireUrl">
-		          <c:param name="id">${clubami.nomClub}</c:param>
+		          <c:param name="id">${clubami.idClub}</c:param>
 		          </c:url>
 		          <A href="${MettrePartenaireUrl}">Mettre en partenaire</A>
 	          </td>              	        
