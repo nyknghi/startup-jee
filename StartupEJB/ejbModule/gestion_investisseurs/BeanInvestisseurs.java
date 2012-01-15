@@ -303,6 +303,8 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	@Override
 	public Couple<GroupeInvestisseurs, Investisseur> adhererGroupe(GroupeInvestisseurs groupe, 
 			Investisseur inv, boolean isLeader) {
+		groupe = this.rechercherGroupeParId(groupe.getIdInvestisseur());
+		inv = this.rechercherInvestisseurParId(inv.getIdInvestisseur());
 		groupe.getInvestisseurs().add(inv);
 		inv.setGroupe(groupe);
 		inv.setLeader(isLeader);
