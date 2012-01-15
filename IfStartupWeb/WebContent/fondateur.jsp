@@ -24,17 +24,41 @@
                     <td>Levees de fonds que vous avez particip&eacute;es</td>
                 </tr>
             </tbody>
-            
-            <tr>
-                <td>
-                    <a href="creerstartup.jsp">Creer Startup</a>
-                </td>              
-            </tr>
-            <tr>
-                <td>
-                    <a href="OrganiserLevee.jsp">Organiser une levée de fonds</a>
-                </td>                
-            </tr>            
+         </table>
+         <br/>
+         <table>
+            <thead>
+                <tr>
+                    <th><h2>Actions</h2></th>
+                </tr>
+            </thead>
+            <tbody>
+	            <tr>
+	                <td>
+	                    <a href="creerstartup.jsp">Monter une startup</a>
+	                </td>              
+	            </tr>
+	            <tr>
+	                <td>
+	                    <a href="RechercherStartup.jsp">Rechercher des startups</a>
+	                </td>                
+	            </tr>
+	            <tr>
+	                <td>
+	                    <a href="OrganiserLevee.jsp">Organiser une levée de fonds</a>
+	                </td>                
+	            </tr>
+	            <tr>
+	                <td>
+	                    <a href=".jsp">Investir dans une startup</a>
+	                </td>                
+	            </tr>
+	            <tr>
+	                <td>
+	                    <a href=".jsp">Rechercher clubs amis</a>
+	                </td>                
+	            </tr>
+	         </tbody>            
         </table>
 </body>
 </html>

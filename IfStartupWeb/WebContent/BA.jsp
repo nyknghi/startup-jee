@@ -11,16 +11,23 @@
 	<div class="entete"><h1>STARTUP - Business Master</h1></div>
 	<h1>Bienvenue Business Angel</h1>
         <table>
-            <tr>
-                <td>
-                    <a href="OrganiserLevee.jsp">Organiser une levée de fonds</a>
-                </td>              
-            </tr>
-            <tr>
-                <td>
-                    <a href="PaticiperLevee.jsp">Participer à une levée de fonds</a>
-                </td>                
-            </tr>            
+          <thead>
+                <tr>
+                    <th><h2>Actions</h2></th>
+                </tr>
+            </thead>
+            <tbody>
+	            <tr>
+	                <td>
+	                    <a href="OrganiserLevee.jsp">Organiser une levée de fonds</a>
+	                </td>              
+	            </tr>
+	            <tr>
+	                <td>
+	                    <a href="PaticiperLevee.jsp">Participer à une levée de fonds</a>
+	                </td>                
+	            </tr>  
+            </tbody>          
         </table>
 </body>
 </html>

@@ -2,16 +2,17 @@ body {
    font-family: Verdana, Arial, sans-serif;
    font-size: smaller;
    padding: 50px;
-   color: #000000;
+   color: #ffffff;
    width: 1000px;
    margin-left: auto;
-   margin-right: auto;   
+   margin-right: auto;
+   background-color: #cccccc   
 }
 
 h1 {
    letter-spacing: 6px;
    font-size: 1.6em;
-   color: #be7429;
+   color: #660000;
    font-weight: bold;
 }
 
@@ -19,14 +20,15 @@ h2 {
    text-align: left;
    letter-spacing: 6px;
    font-size: 1.4em;
-   color: #be7429;
+   color: #ffffff;
    font-weight: normal;
 }
 
 table {
    width: 700px;
-   background-color: #cccccc;
+   background-color: #003333;
    font-family: sans-serif;
+   margin-top: 20px;
 }
 
 td {
@@ -34,17 +36,18 @@ td {
 }
 
 a {
-  color: #be7429;
+  color: #ffffff;
   text-decoration: none;
 }
 
 a:hover {
   text-decoration: underline;
+  font-size: 1.2em;
 }
 
 .entete{
    letter-spacing: 6px;
    font-size: 1.7em;
-   color: #be7429;
+   color: #660000;
    font-weight: bold;
 }

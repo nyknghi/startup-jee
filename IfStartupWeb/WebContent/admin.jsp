@@ -14,13 +14,12 @@
         <table border="0" cellspacing="2">
             <thead>
                 <tr>
-                    <th><h2>Profils d'utilisateurs</h2></th>
+                    <th><h2>Gestion des profils d'utilisateurs</h2></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Gestion des investisseurs</td>
-                    <td><a href="AllInvestisseurs.do">Nouveau profil</a></td>
+                    <td><a href="AllInvestisseurs.jsp">Cr&eacute;er un nouveau profil</a></td>
                 </tr>
             </tbody>
         </table>
@@ -28,13 +27,12 @@
         <table border="0" cellspacing="2">
             <thead>
                 <tr>
-                    <th><h2>Startups</h2></th>
+                    <th><h2>Gestion des startups</h2></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Nouvelle Startup</td>
-                    <td><a href="creerstartup.jsp">Nouvelle Startup</a></td>
+                    <td><a href="creerstartup.jsp">Cr&eacute;er une nouvelle startup</a></td>
                 </tr>
             </tbody>
         </table>
