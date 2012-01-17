@@ -20,6 +20,8 @@
         <form-bean name="ParticiperGroupeForm" type="investisseur.ParticiperGroupeForm"/>
         <form-bean name="ParticiperLeveeForm" type="levees.ParticiperLeveeForm"/>
 		<form-bean name="MonterClubForm" type="ba.MonterClubForm" /> 
+		<form-bean name="InscriptionForm" type="levees.InscriptionForm"/>
+		<form-bean name="LeveeForm" type="levees.LeveeForm"/>
     </form-beans>
     <global-exceptions/>
     <global-forwards>
@@ -90,6 +92,18 @@
 		<action input="/MonterClub.jsp" name="MonterClubForm" path="/MonterClub" scope="request" type="ba.MonterClubAction">
 		  <forward name="success" path="/ba.jsp" /> 
 	  </action>
+		
+		<action input="/OrganiserLevee.jsp" name="LeveeForm" path="/OrganiserLevee" scope="session" type="levees.OrganiserLeveeAction">
+            <forward name="success" path="/OrganiserLevee.jsp"/>
+            <forward name="success-fondateur" path="/fondateur.jsp"/>
+            <forward name="success-BA" path="/BA.jsp"/>
+            <forward name="error" path="/error.jsp"/>
+        </action>
+		
+		<action input="/ParticiperLevee.jsp" name="InscriptionForm" path="/ParticiperLevee" scope="request" type="levees.InscriptionAction">
+            <forward name="success-all" path="/PaticiperLevee.jsp"/>
+            <forward name="error" path="/error.jsp"/>
+		</action>
 
     </action-mappings>
  
