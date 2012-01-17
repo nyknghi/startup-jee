@@ -5,7 +5,7 @@
     <data-sources/>
     <form-beans>
         <form-bean name="LoginForm" type="login.LoginForm"/>
-		<form-bean name="FondateurForm" type="investisseur.FondateurForm"/>
+		<form-bean name="FondateurForm" type="investisseur.FondateurForm" /> 
         <form-bean name="creerStartupForm" type="startup.creerStartupForm"/>
         <form-bean name="AfficherStartupForm" type="startup.AfficherStartupForm"/>
         <form-bean name="RechercherStartupForm" type="startup.RechercherStartupForm"/>
@@ -17,6 +17,9 @@
 		<form-bean name="RechercherClubAmiForm" type="startup.RechercherClubAmiForm"/>
         <form-bean name="MettrePartenaireForm" type="startup.MettrePartenaireForm"/>
         <form-bean name="MonterGroupeForm" type="investisseur.MonterGroupeForm"/>
+        <form-bean name="ParticiperGroupeForm" type="investisseur.ParticiperGroupeForm"/>
+        <form-bean name="ParticiperLeveeForm" type="levees.ParticiperLeveeForm"/>
+		<form-bean name="MonterClubForm" type="ba.MonterClubForm" /> 
     </form-beans>
     <global-exceptions/>
     <global-forwards>
@@ -33,8 +36,9 @@
         </action>
         
 		<action input="/fondateur.jsp" name="FondateurForm" path="/Fondateur" scope="request" type="investisseur.FondateurAction">
-            <forward name="success" path="/fondateur.jsp"></forward>
-        </action>
+			<forward name="success" path="/fondateur.jsp" /> 
+		</action>
+
 		
         <action input="/creerstartup.jsp" name="creerStartupForm" path="/CreerStartup" scope="request" type="startup.creerStartupAction">
             <forward name="success" path="/AfficherStartup.do"></forward>
@@ -79,6 +83,14 @@
 		<action input="/MonterGroupe.jsp" name="MonterGroupeForm" path="/MonterGroupe" scope="request" type="investisseur.MonterGroupeAction">
 			<forward name="success" path="/Investisseur.jsp" /> 
 		</action>
+		
+		<action input="/ParticiperGroupe.jsp" parameter="method" name="ParticiperGroupeForm" path="/ParticiperGroupe" scope="request" type="investisseur.ParticiperGroupeAction">
+            <forward name="success" path="/ParticiperGroupe.jsp"></forward>
+        </action> 
+		<action input="/MonterClub.jsp" name="MonterClubForm" path="/MonterClub" scope="request" type="ba.MonterClubAction">
+		  <forward name="success" path="/ba.jsp" /> 
+	  </action>
+
     </action-mappings>
  
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
