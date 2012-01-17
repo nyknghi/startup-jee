@@ -1,42 +1,30 @@
 package levees;
 
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 
-import java.util.List;
-
-
-public class OrganiserLeveeForm extends org.apache.struts.action.ActionForm{
-    private String date;
+public class LeveeForm extends org.apache.struts.action.ActionForm{
     private String cible;
     private String startup;
-    private List startupList;
+    private ArrayList startupList;
 
-    public List getStartupList() {
-		return startupList;
-	}
-
-	public void setStartupList(List startupList) {
-		this.startupList = startupList;
-	}
-
-	public String getCible() {
-        return cible;
+    public ArrayList getStartupList() {
+        return startupList;
     }
 
-    public String getDate() {
-        return date;
+    public void setStartupList(ArrayList startupList) {
+        this.startupList = startupList;
+    }
+
+    public String getCible() {
+        return cible;
     }
 
     public void setCible(String cible) {
         this.cible = cible;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     public String getStartup() {

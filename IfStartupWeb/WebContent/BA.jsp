@@ -19,14 +19,19 @@
             <tbody>
 	            <tr>
 	                <td>
-	                    <a href="OrganiserLevee.jsp">Organiser une levée de fonds</a>
+	                    <a href="OrganiserLevee.do?method=load">Organiser une levée de fonds</a>
 	                </td>              
 	            </tr>
 	            <tr>
 	                <td>
-	                    <a href="PaticiperLevee.jsp">Participer à une levée de fonds</a>
+	                    <a href="ParticiperLevee.do?method=load">Participer à une levée de fonds</a>
 	                </td>                
-	            </tr>  
+	            </tr>
+                    <tr>
+	                <td>
+	                    <a href="Investir.do?method=load">Claquer vos sous</a>
+	                </td>                
+	            </tr> 
 	            <tr>
 	                <td>
 	                    <a href="RechercherClubAmi.jsp">Rechercher clubs amis</a>

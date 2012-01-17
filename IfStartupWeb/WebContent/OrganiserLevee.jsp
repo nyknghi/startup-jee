@@ -19,24 +19,16 @@
                     <td>
                         <html:select property="startup" >
                             <html:option value="0">Select Startup</html:option>
-                            <html:optionsCollection name="OrganiserLeveeForm" property="startupList" label="label" value="value" />
+                            <html:optionsCollection name="LeveeForm" property="startupList" label="label" value="value" />
                         </html:select>                        
                     </td>
                 </tr>            
                 <tr>
                     <td>
-                        Date :
-                    </td>
-                    <td>
-                        <html:text name="OrganiserLeveeForm" property="date" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
                         Le fonds ciblé :
                     </td>
                     <td>
-                        <html:text name="OrganiserLeveeForm" property="cible" />
+                        <html:text name="LeveeForm" property="cible" />
                     </td>
                 </tr>
                 <tr>

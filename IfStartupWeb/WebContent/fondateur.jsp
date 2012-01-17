@@ -51,7 +51,7 @@
 	            </tr>
 	            <tr>
 	                <td>
-	                    <a href="OrganiserLevee.jsp">Organiser une levée de fonds</a>
+	                    <a href="OrganiserLevee.do?method=load">Organiser une levée de fonds</a>
 	                </td>                
 	            </tr>
 	            <tr>

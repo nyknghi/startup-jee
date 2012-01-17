@@ -10,6 +10,8 @@
 <body>
 		<div class="entete"><h1>STARTUP - Business Master</h1></div>
 		<h1>Bienvenue INVESTISSEUR</h1>
+                <a href="ParticiperLevee.do?method=load">Participer à une levée de fonds</a><br/>
+                <a href="Investir.do?method=load">Je soulage mon portefeuille</a>
 </body>
 	<table>
 		<thead>
