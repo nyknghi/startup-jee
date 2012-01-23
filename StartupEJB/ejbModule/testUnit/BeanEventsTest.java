@@ -1,7 +1,6 @@
 package testUnit;
 
 import java.util.List;
-import gestion_events.Etape;
 import gestion_events.EventsBeanRemote;
 import gestion_events.Inscription;
 import gestion_events.LeveeDeFonds;
