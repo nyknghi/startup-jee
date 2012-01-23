@@ -2,9 +2,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package levees;
+package inscription;
 
-import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts.action.ActionErrors;
@@ -17,7 +16,7 @@ import org.apache.struts.action.ActionMessage;
  */
 public class InscriptionForm extends org.apache.struts.action.ActionForm {
     
-    private String idLevee;
+    private String idLevee="0";
 
     public String getIdLevee() {
         return idLevee;
@@ -27,7 +26,7 @@ public class InscriptionForm extends org.apache.struts.action.ActionForm {
         this.idLevee = idLevee;
     }
     
-    @Override
+    /*@Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = new ActionErrors();
         if (idLevee == null || idLevee.length() < 1) {
@@ -35,5 +34,5 @@ public class InscriptionForm extends org.apache.struts.action.ActionForm {
             // TODO: add 'error.name.required' key to your resources
         }
         return errors;
-    }
+    }*/
 }

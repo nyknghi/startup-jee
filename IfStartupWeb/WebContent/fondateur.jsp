@@ -14,6 +14,7 @@
 <body>
 		<div class="entete"><h1>STARTUP - Business Master</h1></div>
 		<h1>Bienvenue FONDATEUR</h1>
+		<a href="Deconnexion.do">Déconnection</a>
       	<html:form action="/Fondateur">
         <table>
         	<thead>
@@ -56,7 +57,12 @@
 	            </tr>
 	            <tr>
 	                <td>
-	                    <a href=".jsp">Investir dans une startup</a>
+	                    <a href="EtapeLevee.do">Gérer vos levées de fonds</a>
+	                </td>                
+	            </tr>
+	            <tr>
+	                <td>
+	                    <a href="InvestirFondateur.jsp">Investir dans une startup</a>
 	                </td>                
 	            </tr>
 	            <tr>

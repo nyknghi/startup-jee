@@ -16,25 +16,23 @@ public class LoginAction extends org.apache.struts.action.Action {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         LoginForm loginForm = (LoginForm) form;
+        HttpSession se = request.getSession(true);
         if (loginForm.getEmail().equals("root") && loginForm.getPassword().equals("admin")){
-        	HttpSession se = request.getSession();
             se.setAttribute("login", "root");
             se.setAttribute("password", "admin");
+            se.setAttribute("User", "root");
             return mapping.findForward("success");
         }else if (BeanUtil.getInvestisseurs().listeAccountsInvestisseurs().containsKey(loginForm.getEmail()) && BeanUtil.getInvestisseurs().listeAccountsInvestisseurs().containsValue(loginForm.getPassword())){
-            HttpSession se = request.getSession();
             se.setAttribute("login", loginForm.getEmail());
             se.setAttribute("password", loginForm.getPassword());
             se.setAttribute("User", "investisseur");
             return mapping.findForward("investisseur");
         }else if(BeanUtil.getInvestisseurs().listeAccountsFondateurs().containsKey(loginForm.getEmail()) && BeanUtil.getInvestisseurs().listeAccountsFondateurs().containsValue(loginForm.getPassword())){
-            HttpSession se = request.getSession();
             se.setAttribute("login", loginForm.getEmail());
             se.setAttribute("password", loginForm.getPassword());
             se.setAttribute("User", "fondateur");
             return mapping.findForward("fondateur");
         }else if(BeanUtil.getInvestisseurs().listeAccountsBA().containsKey(loginForm.getEmail()) && BeanUtil.getInvestisseurs().listeAccountsBA().containsValue(loginForm.getPassword())){
-            HttpSession se = request.getSession();
             se.setAttribute("login", loginForm.getEmail());
             se.setAttribute("password", loginForm.getPassword());
             se.setAttribute("User", "BA");

@@ -26,12 +26,14 @@ public class creerStartupAction extends org.apache.struts.action.Action {
     		creerStartupForm creerForm = (creerStartupForm) form;  	
     		RemoteInvestisseurs remoteInv = BeanUtil.getInvestisseurs();
     		EventsBeanRemote remoteEvents = BeanUtil.getEvents();
-			
-    		//Fondateur f = remoteInv.creerFondateur("Dupont", "dupont@gmail.com", "12345");
-    		Fondateur f = (Fondateur)BeanUtil.getInvestisseurs().findFondateurByEmail((String)request.getSession().getAttribute("login"));
-			Couple<Startup, Fondateur> res = remoteEvents.startup(creerForm.getNom(), creerForm.getActivite(), f);
-			Startup s = res.getObjetA();
-			f = res.getObjetB();
+    		if(request.getSession().getAttribute("User").equals("fondateur")){
+	    		Fondateur f = (Fondateur)BeanUtil.getInvestisseurs().findFondateurByEmail((String)request.getSession().getAttribute("login"));
+				Couple<Startup, Fondateur> res = remoteEvents.startup(creerForm.getNom(), creerForm.getActivite(), f);
+				Startup s = res.getObjetA();
+				f = res.getObjetB();
+    		}else{
+    			remoteEvents.Startup(creerForm.getNom(), creerForm.getActivite());
+    		}
     	return mapping.findForward("success");
     }
 }

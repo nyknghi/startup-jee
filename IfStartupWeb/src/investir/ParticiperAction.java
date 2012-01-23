@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package levees;
+package investir;
 
 import com.vaannila.BeanUtil;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +21,7 @@ public class ParticiperAction extends org.apache.struts.action.Action{
         public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        ParticipationForm f = (ParticipationForm)form;
+        InvestirForm f = (InvestirForm)form;
         String login = (String)request.getSession().getAttribute("login");
         try{
             if(request.getSession().getAttribute("User").equals("investisseur")){

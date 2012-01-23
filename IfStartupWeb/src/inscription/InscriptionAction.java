@@ -2,14 +2,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package levees;
+package inscription;
 
 import com.vaannila.BeanUtil;
 import gestion_events.Inscription;
 import gestion_events.LeveeDeFonds;
+import gestion_investisseurs.AbstraitInvestisseur;
 import gestion_investisseurs.BusinessAngel;
 import gestion_investisseurs.Investisseur;
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -27,33 +30,37 @@ public class InscriptionAction extends org.apache.struts.actions.DispatchAction{
         public ActionForward load(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        ArrayList list_levees = new ArrayList();
+        ArrayList<InscriptionBean> list_levees = new ArrayList<InscriptionBean>();
         String login = (String)request.getSession().getAttribute("login");
+        AbstraitInvestisseur inv;
         try{
+        	if(request.getSession().getAttribute("User").equals("BA")){
+            	inv = (BusinessAngel)BeanUtil.getInvestisseurs().rechercherBAParMail(login);
+            }else{
+            	inv = (Investisseur)BeanUtil.getInvestisseurs().rechercherInvestisseurParMail(login);
+            }
             ArrayList<LeveeDeFonds> levees = (ArrayList<LeveeDeFonds>)BeanUtil.getEvents().findAllLevees();
-            for(LeveeDeFonds l:levees){
-                ArrayList<Inscription> inscriptions = (ArrayList<Inscription>)l.getInscriptions();
-                for(Inscription i: inscriptions){
-                    if(request.getSession().getAttribute("User").equals("BA")){
-                        if(!((BusinessAngel)i.getInvestisseur()).getMail().equals(login)){
-                            list_levees.add(new LeveeBean(Long.toString(l.getIdLevee()), l.getDate_levee().toString(), l.getStartup().getNomStartup()));
-                        }
-                    }else if(request.getSession().getAttribute("User").equals("BA")){
-                        if(!((Investisseur)i.getInvestisseur()).getMail().equals(login)){
-                            list_levees.add(new LeveeBean(Long.toString(l.getIdLevee()), l.getDate_levee().toString(), l.getStartup().getNomStartup()));
-                        }
-                    }
-                }
+            boolean flag;
+            for(LeveeDeFonds l: levees){
+            	flag = false;
+            	for(Inscription i: l.getInscriptions()){
+            		if(i.getInvestisseur().getIdInvestisseur()==inv.getIdInvestisseur()){
+            			flag = true;
+            			break;
+            		}
+            	}
+            	if(flag==false){
+            		list_levees.add(new InscriptionBean(Long.toString(l.getIdLevee()), l.getDate_levee().toString(), l.getStartup().getNomStartup()));
+            	}
             }
             request.setAttribute("list_levees",list_levees);
-            return mapping.findForward("success-all");
+            return mapping.findForward("success");
         }catch(Exception e){
             return mapping.findForward("error");
         }
     }
         
-    @Override
-    public ActionForward execute(ActionMapping mapping, ActionForm form,
+    public ActionForward Participer(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         InscriptionForm f = (InscriptionForm)form;

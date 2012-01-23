@@ -50,6 +50,9 @@
                             </table>
                         </td>
                     </tr>
+                    <tr>
+                    	<a href="admin.jsp">Retour à la page administrateur</a>
+                    </tr>
                 </tbody>
             </table>
     </body>

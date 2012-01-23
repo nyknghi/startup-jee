@@ -9,7 +9,7 @@ import org.apache.struts.action.ActionMessage;
 public class LeveeForm extends org.apache.struts.action.ActionForm{
     private String cible;
     private String startup;
-    private ArrayList startupList;
+    private ArrayList startupList = new ArrayList();
 
     public ArrayList getStartupList() {
         return startupList;
@@ -35,7 +35,7 @@ public class LeveeForm extends org.apache.struts.action.ActionForm{
         this.startup = startup;
     }
     
-    @Override
+    /*@Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = new ActionErrors();
         if(getStartup()==null || getStartup().isEmpty()){
@@ -50,5 +50,5 @@ public class LeveeForm extends org.apache.struts.action.ActionForm{
             }
         }
         return errors;
-    }
+    }*/
 }

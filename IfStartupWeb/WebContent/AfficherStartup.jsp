@@ -19,7 +19,7 @@
 		<TABLE border="2">
 		    <tr>
 		      <th>
-		        Nom du Startup
+		        Startup
 		      </th>
 		      <th>
 		        Activité
@@ -36,6 +36,7 @@
 		    </tr>
 		    </c:forEach> 
 		</TABLE>  
-	</html:form>              		
+	</html:form>
+	<a href="admin.jsp">Retour à la page administrateur</a>              		
 </body>
 </html>

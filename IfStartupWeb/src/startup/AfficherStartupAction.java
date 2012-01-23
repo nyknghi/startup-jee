@@ -24,6 +24,10 @@ public class AfficherStartupAction extends org.apache.struts.action.Action {
 		EventsBeanRemote remoteEvents = BeanUtil.getEvents();		
 		startups = remoteEvents.findAllStartup();
 		request.setAttribute("startups", startups);
-		return mapping.findForward("success");
+		if(request.getSession().getAttribute("User").equals("root")){
+			return mapping.findForward("success-root");
+		}else{
+			return mapping.findForward("success");
+		}
 	}
 }

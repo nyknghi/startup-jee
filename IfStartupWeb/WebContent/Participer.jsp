@@ -14,23 +14,13 @@
         <title>Participer</title>
     </head>
     <body>
-        <html:form action="/Participer">
-        <table border="0" width="1" cellspacing="1" cellpadding="1">
-            <thead>
-                <tr>
-                    <th>Entrer le montant de la participation</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><html:hidden name="ParticipationForm" property="idLevee" value="${request.investir_levee}"/>
-                        <html:text name="ParticipationForm" property="montant"/></td>
-                </tr>
-                <tr>
-                    <td><html:submit value="Participer"/></td>
-                </tr>
-            </tbody>
-        </table>
-        </html:form>>
+        <html:form action="/Investir">
+        	<label>Entrer le montant de la participation: </label>
+        	<html:hidden name="InvestirForm" property="idLevee" value="${requestScope['idlevee']}"/>
+        	<html:hidden name="InvestirForm" property="investisseur" value="${requestScope['idinv']}"/>
+        	<html:hidden name="InvestirForm" property="startup" value="${requestScope['idstart']}"/>
+            <html:text name="InvestirForm" property="montant"/>
+			<html:submit property="method" value="Participer"/>
+        </html:form>
     </body>
 </html:html>

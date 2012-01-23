@@ -14,6 +14,7 @@
           <thead>
                 <tr>
                     <th><h2>Actions</h2></th>
+                    <th><a href="Deconnexion.do">Déconnection</a></th>
                 </tr>
             </thead>
             <tbody>
@@ -24,12 +25,22 @@
 	            </tr>
 	            <tr>
 	                <td>
+	                    <a href="EtapeLevee.do">Gérer vos levées de fonds</a>
+	                </td>              
+	            </tr>
+	            <tr>
+	                <td>
 	                    <a href="ParticiperLevee.do?method=load">Participer à une levée de fonds</a>
 	                </td>                
 	            </tr>
                     <tr>
 	                <td>
-	                    <a href="Investir.do?method=load">Claquer vos sous</a>
+	                    <a href="ChoisirLevee.do">Claquer vos sous</a>
+	                </td>                
+	            </tr>
+	            <tr>
+	                <td>
+	                    <a href="MonterClub.jsp">Créer un club d'amis</a>
 	                </td>                
 	            </tr> 
 	            <tr>

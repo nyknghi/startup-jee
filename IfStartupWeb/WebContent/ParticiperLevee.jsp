@@ -10,27 +10,27 @@
 <title>Participer à une levée de fonds</title>
 </head>
 <body>
-        <b>Participer à une levée de fonds</b>
+        <b>Levées de fonds auxquelles vous n'êtes pas encore inscrits</b>
         <hr>
         <html:form action="/ParticiperLevee">
-            <table border="0" width="1" cellspacing="1" cellpadding="1">
+            <table border="1" width="1" cellspacing="1" cellpadding="1">
                 <thead>
                     <tr>
                         <th>DATE</th>
                         <th>ORGANISATEUR</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${request.list_levees}" var="levee"/>
+                    <c:forEach items="${requestScope['list_levees']}" var="levee">
                     <tr>
                         <td><c:out value="${levee.date}"/></td>
                         <td><c:out value="${levee.startup}"/></td>
                         <td><html:radio name="InscriptionForm" property="idLevee" value="${levee.idLevee}" /></td>
                     </tr>
+                    </c:forEach>
                 </tbody>
-            </table>
-           <html:submit value="S'inscrire"/>
+            </table><br/>
+           <html:submit property="method" value="Participer"/>
         </html:form>
 </body>
 </html:html>

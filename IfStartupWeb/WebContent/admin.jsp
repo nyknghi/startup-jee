@@ -15,6 +15,7 @@
             <thead>
                 <tr>
                     <th><h2>Gestion des profils d'utilisateurs</h2></th>
+                    <th><a href="Deconnexion.do">Déconnection</a></th>
                 </tr>
             </thead>
             <tbody>

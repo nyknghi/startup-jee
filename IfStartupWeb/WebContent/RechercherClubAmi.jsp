@@ -61,5 +61,9 @@
 		    </tbody>
 		</TABLE>  	    
 	</html:form>
+	<c:choose>
+		<c:when test="${sessionScope.User=='BA' }"><a href="BA.jsp">Retour au menu principal</a></c:when>
+		<c:when test="${sessionScope.User=='fondateur' }"><a href=fondateur.jsp"">Retour au menu principal</a></c:when>
+	</c:choose>
 </body>
 </html>

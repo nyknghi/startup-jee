@@ -10,19 +10,28 @@
 <body>
 		<div class="entete"><h1>STARTUP - Business Master</h1></div>
 		<h1>Bienvenue INVESTISSEUR</h1>
-                <a href="ParticiperLevee.do?method=load">Participer à une levée de fonds</a><br/>
-                <a href="Investir.do?method=load">Je soulage mon portefeuille</a>
 </body>
 	<table>
 		<thead>
 			<tr>
                  <th><h2>Actions</h2></th>
+                 <th><a href="Deconnexion.do">Déconnection</a></th>
 			</tr>
 		</thead>
 		<tbody>
 	            <tr>
 	                <td>
 	                    <a href="MonterGroupe.jsp">Monter un groupe d'investisseurs</a>
+	                </td>              
+	            </tr>
+	            <tr>
+	                <td>
+	                   <a href="ParticiperLevee.do?method=load">Participer à une levée de fonds</a> 
+	                </td>              
+	            </tr>
+	            <tr>
+	                <td>
+	                    <a href="ChoisirLevee.do">Je soulage mon portefeuille</a>
 	                </td>              
 	            </tr>
 		</tbody>
