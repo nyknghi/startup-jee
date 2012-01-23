@@ -173,8 +173,13 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ClubAmi> findAllClub(){
-		Query query = em.createQuery("SELECT ca FROM ClubAmi as ca");
+		Query query = em.createQuery("SELECT ca FROM ClubAmi ca left join fetch ca.startup");
 		return (List<ClubAmi>) query.getResultList();
+	}
+	
+	public List<Membre> findAllMembers(){
+		Query query = em.createQuery("SELECT m from Membre m");
+		return (List<Membre>) query.getResultList();
 	}
 	
 	@Override
@@ -341,15 +346,27 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	}
 
 	@Override
-	public LeveeDeFonds modifierEtape(LeveeDeFonds levee, Etape etape) {
-		levee = eventLocal.updateLeveeDeFonds(levee.getIdLevee(), new Date(), etape);
+	public LeveeDeFonds modifierEtape(LeveeDeFonds levee) {
+		if(levee.getEtape()==Etape.CANDIDATURE){
+			levee.setEtape(Etape.SOUMISSION);
+		}else if(levee.getEtape()==Etape.SOUMISSION){
+			levee.setEtape(Etape.EXPOSE);
+		}else if(levee.getEtape()==Etape.EXPOSE){
+			levee.setEtape(Etape.AUDIT);
+		}else if(levee.getEtape()==Etape.AUDIT){
+			levee.setEtape(Etape.NEGOCIATION);
+		}else if(levee.getEtape()==Etape.NEGOCIATION){
+			levee.setEtape(Etape.ENGAGEMENT);
+		}else if(levee.getEtape()==Etape.ENGAGEMENT){
+			levee.setEtape(Etape.FIN);
+		}
 		return em.merge(levee);
 	}
 
 	@Override
 	public LeveeDeFonds annulerLeveeFonds(LeveeDeFonds levee) {
 		levee = eventLocal.findLeveeDeFonds(levee.getIdLevee());
-		levee.setEtape(Etape.ANNULLATION);
+		levee.setEtape(Etape.ANNULE);
 		return em.merge(levee);
 	}
 	
@@ -465,7 +482,7 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	@SuppressWarnings("unchecked")
 	@Override
 	public BusinessAngel rechercherBAParMail(String mail) {
-		Query query = em.createQuery("SELECT ba FROM BusinessAngel as ba WHERE ba.mail = :mail");
+		Query query = em.createQuery("SELECT ba FROM BusinessAngel ba WHERE ba.mail = :mail");
 		query.setParameter("mail", mail);
 		List<BusinessAngel> res = query.getResultList();
 		if (res.size() > 0){

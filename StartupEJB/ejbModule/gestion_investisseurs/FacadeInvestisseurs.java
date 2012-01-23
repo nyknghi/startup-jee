@@ -44,6 +44,7 @@ public interface FacadeInvestisseurs {
 	public ClubAmi rechercherClubParId (long id);
 	public List<ClubAmi> rechercherClubParNom (String nom);
 	public List<ClubAmi> findAllClub();
+	public List<Membre> findAllMembers();
 	
 	public Couple<ClubAmi, Startup> mettreEnPartenaire (ClubAmi ca, Startup s);
 	
@@ -83,7 +84,7 @@ public interface FacadeInvestisseurs {
 	 * Gestion des levees de fonds
 	 */
 	public Couple<AbstraitInvestisseur,LeveeDeFonds> organiserLeveeFonds (Startup s, AbstraitInvestisseur ainv, double cible); 
-	public LeveeDeFonds modifierEtape (LeveeDeFonds levee, Etape etape);
+	public LeveeDeFonds modifierEtape (LeveeDeFonds levee);
 	public LeveeDeFonds annulerLeveeFonds (LeveeDeFonds levee);
 	public Couple<LeveeDeFonds, Inscription> inscrireLevee (AbstraitInvestisseur ainv, LeveeDeFonds levee);
 	

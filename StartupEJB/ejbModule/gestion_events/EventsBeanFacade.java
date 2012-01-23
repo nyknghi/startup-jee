@@ -18,7 +18,7 @@ import util.Couple;
  */
 public interface EventsBeanFacade {
     //CRUD participations
-    public Couple<Startup, Participation> participation(Startup s, AbstraitInvestisseur i, double m);
+    public Couple<Startup, Participation> participation(Startup s, Fondateur i, double m);
     public Couple<LeveeDeFonds, Participation> participation(LeveeDeFonds levee, AbstraitInvestisseur i, double m);
     public Participation updateParticipation(long idStartup, long idInv, double m);
     public Participation updateParticipation(Participation p);
@@ -27,6 +27,7 @@ public interface EventsBeanFacade {
     
     //CRUD startup
     public Couple<Startup, Fondateur> startup(String nom, String activite, Fondateur f);
+    public void Startup(String nom, String activite);
     public Startup updateStartup(Startup s, String nom, String a);
     public Startup updateStartup(Startup s);
     public List<Startup> findStartupByName(String n);
@@ -43,6 +44,9 @@ public interface EventsBeanFacade {
     public LeveeDeFonds updateLeveeDeFonds(LeveeDeFonds levee);
     public LeveeDeFonds findLeveeDeFonds(long id);
     public List<LeveeDeFonds> findAllLevees();
+    
+    //Inscriptions
+    public List<Inscription> findAllInscriptions();
     
     public double totalParticipations(LeveeDeFonds l);
     

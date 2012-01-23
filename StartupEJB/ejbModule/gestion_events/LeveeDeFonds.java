@@ -38,7 +38,7 @@ public class LeveeDeFonds implements Serializable{
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="leveeDeFonds")
 	private Set<Inscription> inscriptions;
 	
-    @ManyToOne (fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn (referencedColumnName="idInvestisseur", nullable=false)
     private AbstraitInvestisseur organisateur;
     

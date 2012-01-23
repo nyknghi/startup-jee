@@ -44,14 +44,13 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
 	}
     
     //CRUD participations
-    public Couple<Startup, Participation> participation(Startup s, AbstraitInvestisseur i, double m) {
+    public Couple<Startup, Participation> participation(Startup s, Fondateur i, double m) {
         Participation p = new Participation(s, i, m);
-        if(i instanceof Fondateur){
-            s.addFondateur((Fondateur)i);
-        }
+        s.addFondateur(i);
         em.persist(p);
         s.addParticipation(p);
         i.addParticipation(p);
+        i.setStartup(s);
         em.merge(i);
         return new Couple<Startup, Participation>(em.merge(s), em.merge(p));
     }
@@ -114,6 +113,13 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
         em.persist(s);
         f.setStartup(s);
         return new Couple<Startup, Fondateur>(em.merge(s), em.merge(f));
+    }
+    
+    public void Startup(String nom, String activite){
+    	Startup s = new Startup();
+    	s.setActivite(activite);
+    	s.setNomStartup(nom);
+    	em.persist(s);
     }
     
     public Startup updateStartup(Startup s, String nom, String a) {
@@ -196,8 +202,15 @@ public class EventsBean implements EventsBeanLocal, EventsBeanRemote {
     
     @SuppressWarnings("unchecked")
 	public List<LeveeDeFonds> findAllLevees(){
-    	Query query = em.createQuery("SELECT l FROM LeveeDeFonds as l");
-		return (List<LeveeDeFonds>) query.getResultList();
+    	Query query = em.createQuery("SELECT l FROM LeveeDeFonds l left join fetch l.startup ");
+    	return (List<LeveeDeFonds>) query.getResultList();
+    }
+    
+    
+    //Inscriptions
+    public List<Inscription> findAllInscriptions(){
+    	Query query = em.createQuery("SELECT i FROM Inscription i");
+    	return (List<Inscription>) query.getResultList();
     }
     
     //Business methods

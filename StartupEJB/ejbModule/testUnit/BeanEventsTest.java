@@ -175,7 +175,7 @@ public class BeanEventsTest extends TestCase{
 			} else {
 				System.out.println("Err_Etape_LeveeFonds: La levee de fonds ne prend encore des participations");
 			}
-			levee = remoteInv.modifierEtape(levee, Etape.ENGAGEMENT);
+			levee = remoteInv.modifierEtape(levee);
 			System.out.println(levee);
 		}
 			

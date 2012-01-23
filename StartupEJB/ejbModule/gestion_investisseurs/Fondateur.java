@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name="Fondateur")
 @NamedQuery(name="findFondateurByName", query="SELECT f FROM Fondateur as f WHERE f.nom = :nom")
 public class Fondateur extends AbstraitInvestisseur{
-	@ManyToOne
+	@ManyToOne (fetch=FetchType.EAGER)
 	@JoinColumn(referencedColumnName="idStartup")
 	private Startup startup = null;
 	

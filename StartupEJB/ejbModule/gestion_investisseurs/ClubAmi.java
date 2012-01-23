@@ -26,7 +26,7 @@ public class ClubAmi implements Serializable {
 	@JoinColumn(referencedColumnName="idInvestisseur")
 	private BusinessAngel mandataire;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(referencedColumnName="idStartup")
 	private Startup startup = null;
 	
