@@ -50,7 +50,7 @@ public class InscriptionAction extends org.apache.struts.actions.DispatchAction{
             		}
             	}
             	if(flag==false){
-            		list_levees.add(new InscriptionBean(Long.toString(l.getIdLevee()), l.getDate_levee().toString(), l.getStartup().getNomStartup()));
+            		list_levees.add(new InscriptionBean(Long.toString(l.getIdLevee()), l.getDate_levee().toString(), l.getStartup().getNomStartup(), l.getEtape().toString(),l.getMontantCible(), BeanUtil.getEvents().totalParticipations(l)));
             	}
             }
             request.setAttribute("list_levees",list_levees);

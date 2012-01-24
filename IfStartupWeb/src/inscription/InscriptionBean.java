@@ -8,38 +8,9 @@ package inscription;
  *
  * @author UTILISATEUR
  */
-public class InscriptionBean {
-    String idLevee;
-    String date;
-    String startup;
+public class InscriptionBean extends levees.EtapeLeveeBean{
 
-    public String getDate() {
-        return date;
-    }
-
-    public String getIdLevee() {
-        return idLevee;
-    }
-
-    public String getStartup() {
-        return startup;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public void setIdLevee(String idLevee) {
-        this.idLevee = idLevee;
-    }
-
-    public void setStartup(String startup) {
-        this.startup = startup;
-    }
-
-    public InscriptionBean(String idLevee, String date, String startup) {
-        this.idLevee = idLevee;
-        this.date = date;
-        this.startup = startup;
-    }
+	public InscriptionBean(String i, String d, String s, String e, double c, double t){
+		super(i,d,s,e,c,t);
+	}
 }

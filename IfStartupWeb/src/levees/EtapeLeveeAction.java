@@ -34,7 +34,7 @@ public class EtapeLeveeAction extends org.apache.struts.action.Action{
 		ArrayList list = new ArrayList();
 		for(LeveeDeFonds l: levees){
 			if(l.getOrganisateur().getIdInvestisseur()==inv.getIdInvestisseur()){
-				list.add(new EtapeLeveeBean((Long.valueOf(l.getIdLevee())).toString(), l.getDate_levee().toString(), l.getStartup().getNomStartup(), l.getEtape().toString()));
+				list.add(new EtapeLeveeBean((Long.valueOf(l.getIdLevee())).toString(), l.getDate_levee().toString(), l.getStartup().getNomStartup(), l.getEtape().toString(), l.getMontantCible(), BeanUtil.getEvents().totalParticipations(l)));
 			}
 		}
 		request.setAttribute("list_levees_etape", list);

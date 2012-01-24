@@ -44,7 +44,7 @@ public class ChoisirLeveeAction extends org.apache.struts.action.Action{
             		}
             	}
             	if(flag==true){
-            		list_levees.add(new InscriptionBean(Long.toString(l.getIdLevee()), l.getDate_levee().toString(), l.getStartup().getNomStartup()));
+            		list_levees.add(new InscriptionBean(Long.toString(l.getIdLevee()), l.getDate_levee().toString(), l.getStartup().getNomStartup(), l.getEtape().toString(), l.getMontantCible(), BeanUtil.getEvents().totalParticipations(l)));
             	}
             }
             request.setAttribute("levees_inscr",list_levees);

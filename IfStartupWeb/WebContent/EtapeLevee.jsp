@@ -19,6 +19,8 @@
                         <th>DATE</th>
                         <th>STARTUP</th>
                         <th>ETAPE</th>
+                        <th>CIBLE</th>
+                        <th>MONTANT DES PARTICIPATIONS</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,6 +29,8 @@
                         <td><c:out value="${levee.date}"/></td>
                         <td><c:out value="${levee.startup}"/></td>
                         <td><c:out value="${levee.etape}"/></td>
+                        <td><c:out value="${levee.cible}"/></td>
+                        <td><c:out value="${levee.total}"/></td>
                         <td><html:radio name="EtapeLeveeForm" property="idLevee" value="${levee.idLevee}" /></td>
                     </tr>
                     </c:forEach>
