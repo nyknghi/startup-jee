@@ -20,14 +20,14 @@
                         <th>ORGANISATEUR</th>
                         <th>ETAPE</th>
                         <th>CIBLE</th>
-                        <th>MONTANT DES PARTICIPATIONS</th>
+                        <th nowrap="nowrap">MONTANT DES PARTICIPATIONS</th>
                     </tr>
                 </thead>
                 <tbody>
                     <c:forEach items="${requestScope['list_levees']}" var="levee">
                     <tr>
-                        <td><c:out value="${levee.date}"/></td>
-                        <td><c:out value="${levee.startup}"/></td>
+                        <td nowrap="nowrap"><c:out value="${levee.date}"/></td>
+                        <td nowrap="nowrap"><c:out value="${levee.startup}"/></td>
                         <td><c:out value="${levee.etape}"/></td>
                         <td><c:out value="${levee.cible}"/></td>
                         <td><c:out value="${levee.total}"/></td>
