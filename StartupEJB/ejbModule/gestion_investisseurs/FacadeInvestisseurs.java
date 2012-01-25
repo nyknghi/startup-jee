@@ -52,6 +52,7 @@ public interface FacadeInvestisseurs {
 	public Couple<ClubAmi, BusinessAngel> supprimerMembre (BusinessAngel ba, ClubAmi ca);
 	public Membre rechercherMembreParId (long idBA, long idClub);
 	public List<BusinessAngel> listerMembres (ClubAmi ca);
+	public boolean isMembreClub(ClubAmi ca, BusinessAngel ba);
 	
 	/*
 	 * Gestion des investisseurs
@@ -74,6 +75,9 @@ public interface FacadeInvestisseurs {
 	public GroupeInvestisseurs rechercherGroupeParId (long id);
 	public List<GroupeInvestisseurs> rechercherGroupeParNom (String nomGroupe);
 	public List<GroupeInvestisseurs> findAllGroupe();
+	
+	public List<Investisseur> listerMembresGroupe(GroupeInvestisseurs groupe);
+	public boolean isMembreGroup(GroupeInvestisseurs groupe, Investisseur inv);
 	
 	public Couple<GroupeInvestisseurs, Investisseur> adhererGroupe (GroupeInvestisseurs groupe, Investisseur inv, boolean isLeader);
 	public Couple<GroupeInvestisseurs, Investisseur> quitterGroupe (GroupeInvestisseurs groupe, Investisseur inv);

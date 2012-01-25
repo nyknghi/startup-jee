@@ -230,7 +230,12 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 		query.setParameter("idClub", ca.getIdClub());
 		return query.getResultList();
 	}
-
+	
+	@Override
+	public boolean isMembreClub(ClubAmi ca, BusinessAngel ba){
+		List<BusinessAngel> res = this.listerMembres(ca);
+		return res.contains(ba);
+	}
 
 	@Override
 	public Investisseur creerInvestisseur(String nom, String mail, String mdp) {
@@ -303,6 +308,21 @@ public class BeanInvestisseurs implements RemoteInvestisseurs, LocalInvestisseur
 	public List<GroupeInvestisseurs> findAllGroupe() {
 		Query query = em.createQuery("SELECT g FROM GroupeInvestisseurs as g");
 		return (List<GroupeInvestisseurs>) query.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Investisseur> listerMembresGroupe(GroupeInvestisseurs groupe){
+		groupe = this.rechercherGroupeParId(groupe.getIdInvestisseur());
+		Query query = em.createQuery("SELECT i FROM Investisseur i WHERE i.groupe= :groupe");
+		query.setParameter("groupe", groupe.getIdInvestisseur());
+		return query.getResultList();
+	}
+	
+	@Override
+	public boolean isMembreGroup(GroupeInvestisseurs groupe, Investisseur inv){
+		List<Investisseur> res = this.listerMembresGroupe(groupe);
+		return res.contains(inv);
 	}
 	
 	@Override
