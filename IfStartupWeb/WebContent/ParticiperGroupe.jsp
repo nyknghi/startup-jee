@@ -28,13 +28,17 @@
 		        ${groupe.nom}
 		      </td>
 		      <td>
-	              <html:checkbox name="ParticiperGroupeForm" property="checkboxValue"/>      	
-	          <td>
 		          <c:url value="/ParticiperGroupe.do?method=participer" var="ParticiperGroupeUrl">
 		          <c:param name="id">${groupe.idInvestisseur}</c:param>
 		          </c:url>
 		          <A href="${ParticiperGroupeUrl}">Participer au groupe</A>
-	          </td>	        
+	          </td>
+	          <td>
+		          <c:url value="/ParticiperGroupe.do?method=quitter" var="QuitterGroupeUrl">
+		          <c:param name="id">${groupe.idInvestisseur}</c:param>
+		          </c:url>
+		          <A href="${QuitterGroupeUrl}">Quitter le groupe</A>
+	          </td>	          	        
 		    </tr>
 		    </c:forEach> 
 		</TABLE>

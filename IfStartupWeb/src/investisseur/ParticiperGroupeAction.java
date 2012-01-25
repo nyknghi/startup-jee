@@ -59,6 +59,21 @@ public class ParticiperGroupeAction extends DispatchAction {
 		Investisseur inv = BeanUtil.getInvestisseurs().rechercherInvestisseurParMail((String)request.getSession().getAttribute("login"));
 		Boolean isLeader = participerGroupeForm.getCheckboxValue();
 		Couple<GroupeInvestisseurs, Investisseur> res = remoteInv.adhererGroupe(groupe, inv, false);
-    	return mapping.findForward("success");
+    	return mapping.findForward("return");
     }
+    
+    public ActionForward quitter(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+    	ParticiperGroupeForm participerGroupeForm = (ParticiperGroupeForm) form;
+		RemoteInvestisseurs remoteInv = BeanUtil.getInvestisseurs();
+		EventsBeanRemote remoteEvents = BeanUtil.getEvents();    
+		
+		String sId = request.getParameter("id");
+		GroupeInvestisseurs groupe = BeanUtil.getInvestisseurs().rechercherGroupeParId(Long.parseLong(sId));
+		Investisseur inv = BeanUtil.getInvestisseurs().rechercherInvestisseurParMail((String)request.getSession().getAttribute("login"));
+		Boolean isLeader = participerGroupeForm.getCheckboxValue();
+		Couple<GroupeInvestisseurs, Investisseur> res = remoteInv.quitterGroupe(groupe, inv);
+    	return mapping.findForward("return");
+    }    
 }
