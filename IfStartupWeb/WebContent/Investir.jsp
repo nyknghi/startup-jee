@@ -11,10 +11,12 @@
 <html:html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="myCss.css">
         <title>INVESTIR</title>
     </head>
     <body>
-        <h3>Les levées de fonds auxquelles vous participez</h3>
+    	<div class="entete"><h1>STARTUP - Business Master</h1></div>
+        <h1>Les levées de fonds auxquelles vous participez</h1>
         <html:form action="/Investir">
             <table border="1" width="1" cellspacing="1" cellpadding="1">
                 <thead>

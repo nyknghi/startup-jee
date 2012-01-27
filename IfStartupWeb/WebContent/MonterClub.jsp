@@ -5,9 +5,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="myCss.css">
 <title>Monter Club Ami</title>
 </head>
 <body>
+	<div class="entete"><h1>STARTUP - Business Master</h1></div>
+	<h1>Monter un club ami</h1>
 	<html:form action="/MonterClub">
 	    <table>
 	        <tr>

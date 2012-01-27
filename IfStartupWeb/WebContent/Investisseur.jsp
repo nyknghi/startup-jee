@@ -31,7 +31,7 @@
 	            </tr>
 	            <tr>
 	                <td>
-	                    <a href="ChoisirLevee.do">Je soulage mon portefeuille</a>
+	                    <a href="ChoisirLevee.do">Soulager le portefeuille</a>
 	                </td>              
 	            </tr>
 		</tbody>

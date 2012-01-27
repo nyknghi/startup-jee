@@ -20,7 +20,7 @@
 	    <div class="entete"><h1>STARTUP - Business Master</h1></div>
 	    <h1>Liste des Investisseurs</h1>
 	    <br/>
-            <table border="0" cellspacing="1" cellpadding="1">
+            <table border="2" cellspacing="1" cellpadding="1">
                 <tbody>
                     <tr>
                         <td>
@@ -51,9 +51,12 @@
                         </td>
                     </tr>
                     <tr>
-                    	<a href="admin.jsp">Retour à la page administrateur</a>
+                    	
                     </tr>
                 </tbody>
             </table>
+            <div class="text">
+            	<a href="admin.jsp">Retour à la page administrateur</a>
+            </div>
     </body>
 </html:html>

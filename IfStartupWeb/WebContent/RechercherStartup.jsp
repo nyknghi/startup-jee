@@ -38,7 +38,7 @@
 	    </table>
 	    <br/>
 	    
-		<TABLE border="1">
+		<TABLE border="0">
 			<thead>
                 <tr>
                     <th><h2>R&eacute;sultat de la recherche</h2></th>
@@ -66,5 +66,12 @@
 			</tbody>
 		</TABLE>  	    
 	</html:form>
+		<br/>
+	<div class="text">
+	<c:choose>
+		<c:when test="${sessionScope.User=='BA' }"><a href="BA.jsp">Retour au menu principal</a></c:when>
+		<c:when test="${sessionScope.User=='fondateur' }"><a href="fondateur.jsp">Retour au menu principal</a></c:when>
+	</c:choose>
+	</div>
 </body>
 </html>

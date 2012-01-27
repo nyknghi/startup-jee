@@ -7,10 +7,12 @@
 <html:html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="myCss.css">
 <title>MODIFICATION DES LEVEES DE FONDS</title>
 </head>
 <body>
-        <b>Levées de fonds que vous avez organisées</b>
+	<div class="entete"><h1>STARTUP - Business Master</h1></div>
+        <h1>Levées de fonds que vous avez organisées</h1>
         <hr>
         <html:form action="/ModifierEtape">
             <table border="1" width="1" cellspacing="1" cellpadding="1">
@@ -40,3 +42,4 @@
         </html:form>
 </body>
 </html:html>
+

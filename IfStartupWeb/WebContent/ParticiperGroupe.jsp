@@ -8,10 +8,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="myCss.css">
 <title>Participer à un groupe</title>
 </head>
 <body>
-	<html:form action="/ParticiperGroupe">
+ 	<div class="entete"><h1>STARTUP - Business Master</h1></div>
+	<h1>Participer à un groupe</h1>
+		<html:form action="/ParticiperGroupe">
 		<TABLE border="1">
 		    <tr>
 		      <td>

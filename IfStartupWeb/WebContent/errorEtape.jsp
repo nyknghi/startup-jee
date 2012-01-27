@@ -6,9 +6,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="myCss.css">
 <title>ERROR</title>
 </head>
 <body>
+	<div class="entete"><h1>STARTUP - Business Master</h1></div>
 	<h1>La levée de fonds ne prend pas encore de participations!</h1>
 	<c:choose>
 		<c:when test="${sessionScope.User=='BA' }"><a href="BA.jsp">Retour au menu</a></c:when>

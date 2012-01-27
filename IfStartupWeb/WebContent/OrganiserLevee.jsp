@@ -6,11 +6,12 @@
 <html:html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="myCss.css">
 <title>Organiser une levée de fonds</title>
 </head>
 <body>
-        <b>Organiser une levée de fonds</b>
-        <hr>
+	<div class="entete"><h1>STARTUP - Business Master</h1></div>
+    <h1>Organiser une levée de fonds</h1>
         <html:form action="/OrganiserLevee">
             <table>
                 <tr>

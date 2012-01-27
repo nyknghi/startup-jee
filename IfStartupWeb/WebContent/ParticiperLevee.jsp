@@ -7,12 +7,14 @@
 <html:html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="myCss.css">
 <title>Participer à une levée de fonds</title>
 </head>
 <body>
-        <b>Levées de fonds auxquelles vous n'êtes pas encore inscrits</b>
-        <hr>
-        <html:form action="/ParticiperLevee">
+ 		<div class="entete"><h1>STARTUP - Business Master</h1></div>
+		<h1>Inscription levée de fonds</h1>
+        
+             <html:form action="/ParticiperLevee">
             <table border="1" width="1" cellspacing="1" cellpadding="1">
                 <thead>
                     <tr>

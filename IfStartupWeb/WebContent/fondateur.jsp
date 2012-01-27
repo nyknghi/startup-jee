@@ -14,29 +14,12 @@
 <body>
 		<div class="entete"><h1>STARTUP - Business Master</h1></div>
 		<h1>Bienvenue FONDATEUR</h1>
-		<a href="Deconnexion.do">Déconnection</a>
-      	<html:form action="/Fondateur">
-        <table>
-        	<thead>
-                <tr>
-                    <th><h2>Activit&eacute;s r&eacute;centes</h2></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Startups dont vous êtes fondateur: ${requestScope.startup}</td>
-                </tr>
-                <tr>
-                    <td>Levees de fonds que vous avez particip&eacute;es</td>
-                </tr>
-            </tbody>
-         </table>
-        </html:form>
          <br/>
          <table>
             <thead>
                 <tr>
                     <th><h2>Actions</h2></th>
+                    <th><a href="Deconnexion.do">Déconnection</a></th>
                 </tr>
             </thead>
             <tbody>

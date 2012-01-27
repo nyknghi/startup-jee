@@ -11,9 +11,12 @@
 <html:html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="myCss.css">
         <title>Participer</title>
     </head>
     <body>
+	    <div class="entete"><h1>STARTUP - Business Master</h1></div>
+		<h1>Participer à une levée de fonds</h1>
         <html:form action="/Investir">
         	<label>Entrer le montant de la participation: </label>
         	<html:hidden name="InvestirForm" property="idLevee" value="${requestScope['idlevee']}"/>

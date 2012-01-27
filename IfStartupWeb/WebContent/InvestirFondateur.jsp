@@ -6,17 +6,30 @@
 <html:html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="myCss.css">
 <title>INVESTIR</title>
 </head>
 <body>
-	<h1>Investir dans une startup en tant que membre fondateur</h1>
+	<div class="entete"><h1>STARTUP - Business Master</h1></div>
+	<h1>Investir dans une startup</h1> 
+	<h1>en tant que membre fondateur</h1>
 	<html:form action="/InvestirFondateur">
-		<label>Entrer le nom de la startup de votre copain (case sensitive)</label>
-		<a href="RechercherStartup.jsp">Si vous ne le connaissez pas, vous pouvez faire une petite recherche par là</a><br/>
-		<html:text name="InvestirFondateurForm" property="startup"></html:text><br/>
-		<label>Entrer le montant</label><br/>
-		<html:text name="InvestirFondateurForm" property="montant"></html:text><br/>
-		<br/><html:submit value="Investir"></html:submit>
+		<table border="0">
+			<tbody>
+				<tr>
+					<td>Nom startup: </td>
+					<td><html:text name="InvestirFondateurForm" property="startup"></html:text></td>
+					<td><a href="RechercherStartup.jsp">Rechercher startup</a></td>
+				</tr>
+				<tr>
+					<td>Montant: </td>
+					<td><html:text name="InvestirFondateurForm" property="montant"></html:text></td>
+				</tr>
+				<tr>
+					<td><html:submit value="Investir"></html:submit></td>		
+				</tr>
+			</tbody>
+		</table>
 	</html:form>
 </body>
 </html:html>

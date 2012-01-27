@@ -37,6 +37,8 @@
 		    </c:forEach> 
 		</TABLE>  
 	</html:form>
-	<a href="admin.jsp">Retour à la page administrateur</a>              		
+	<div class="text">
+		<a href="admin.jsp">Retour à la page administrateur</a>
+	</div>              		
 </body>
 </html>
