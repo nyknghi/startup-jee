@@ -1,0 +1,10 @@
+# US03 : gérer les levés de fonds #
+
+Les levés de fond sont composés de participation, représentés à une date précise par des étapes.
+
+
+TS05 : Construction des levé de fond cohérents, vérifier les organisateurs (l’existence du club ami ou fondateur).
+
+TS06 : Vérification des étapes de levé de fond.
+
+TS07 : Vérifier qu'on peut pas prendre de participation que pendant l'engagement.
